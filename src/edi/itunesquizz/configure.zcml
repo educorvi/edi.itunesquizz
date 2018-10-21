@@ -52,6 +52,13 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    for=".kursordner.IKursordner"
+    name="edit"
+    class=".kursordner.EditForm"
+    permission="cmf.ModifyPortalContent"
+    />
+
   <adapter
     for="Products.CMFCore.interfaces.IFolderish
          zope.publisher.interfaces.browser.IDefaultBrowserLayer
@@ -61,6 +68,21 @@
     name="Aufgabe"
     />
   <class class=".aufgabe.AddView">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
+        />
+  </class>
+
+  <adapter
+    for="Products.CMFCore.interfaces.IFolderish
+         zope.publisher.interfaces.browser.IDefaultBrowserLayer
+         plone.dexterity.interfaces.IDexterityFTI"
+    provides="zope.publisher.interfaces.browser.IBrowserPage"
+    factory=".kursordner.AddView"
+    name="Kursordner"
+    />
+  <class class=".kursordner.AddView">
     <require
         permission="cmf.AddPortalContent"
         interface="zope.publisher.interfaces.browser.IBrowserPage"

@@ -11,6 +11,7 @@ from zope import component
 from zope import schema
 from plone.dexterity.browser import edit
 from plone.dexterity.browser import add
+from plone.supermodel import model
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.interface import invariant, Invalid
 

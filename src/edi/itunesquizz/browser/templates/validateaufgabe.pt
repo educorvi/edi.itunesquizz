@@ -1,0 +1,49 @@
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="context/title"></title>
+
+    <link href="" tal:attributes="href string:${view/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="signin.css" tal:attributes="href string${view/statics}/signin.css rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div tal:condition="view/outputfields" class="container">
+      <h2 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h2>
+      <div class="resultlist">
+         <p tal:repeat="outputfield view/outputfields">
+           <span class="" style="" tal:attributes="class outputfield/class; style outputfield/style"></span>
+           <span class="" tal:attributes="class outputfield/checkbox"></span>
+           <span tal:content="outputfield/label"></span>
+         </p>
+      </div>
+      <div tal:condition="context/erklaerung" class="hint">
+        <p><strong>Erklärung/Lerntipp:</strong> <span tal:replace="context/erklaerung"/></p>
+      </div>
+      <form tal:condition="view/again" class="form-signin" tal:attributes="action view/questionurl"> 
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Nochmal versuchen</button>
+      </form>
+    </div> <!-- /container -->
+
+
+    <div tal:condition="not:view/outputfields" class="container">
+      <h2 class="form-signin-heading">Danke für Deine Antwort</h2>
+      <p><strong>In Deinem E-Mailpostfach findest Du eine Mail mit einem Link. Mit Klick auf den Link verschickst Du Deine Antwort
+                 an Deinen Dozenten</strong></p>
+    </div> <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${view/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

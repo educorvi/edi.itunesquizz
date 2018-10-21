@@ -1,0 +1,54 @@
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="context/title"></title>
+
+    <link href="" tal:attributes="href string:${view/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="signin.css" tal:attributes="href string${view/statics}/signin.css rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" tal:attributes="action view/validationurl">
+        <h2 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h2>
+        <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
+        <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
+           mit der richtigen Antwort.</strong></p>
+        <div tal:condition="not:view/inputfields" class="form-group">
+          <input tal:condition="not:view/inputfields" type="text" tal:attributes="name view/fieldname" class="form-control" 
+            placeholder="Bitte schreibe hier eine Antwort auf die Frage">
+        </div>
+        <div tal:condition="view/inputfields" class="form-group">
+          <div tal:repeat="inputfield view/inputfields" class="checkbox">
+            <label>
+              <input type="checkbox" tal:attributes="name view/fieldname; value inputfield/value">
+              
+              <span tal:replace="inputfield/label"/>
+            </label>
+          </div> <-- /chekboxfield -->
+        </div> <!-- /form-group -->
+        <div tal:condition="context/hinweis" class="hint">
+         <p><strong>Hinweis:</strong> <span tal:replace="context/hinweis"/></p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Absenden</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${view/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

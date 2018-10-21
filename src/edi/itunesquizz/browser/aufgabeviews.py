@@ -5,6 +5,7 @@ from edi.itunesquizz.aufgabe import IAufgabe
 
 api.templatedir('templates')
 
+
 class AufgabeITunes(api.View):
     api.context(IAufgabe)
 
@@ -27,9 +28,9 @@ class AufgabeITunes(api.View):
         self.inputfields = self.formatinputs()
         return
 
+
 class ValidateAufgabe(api.View):
     api.context(IAufgabe)
-
 
     def formatoutputs(self):
         results = []
@@ -71,4 +72,17 @@ class ValidateAufgabe(api.View):
         self.outputfields = []
         if self.context.art == u'selbsttest':
             self.outputfields = self.formatoutputs()
+
+
+class AufgabeView(api.Page):
+    api.context(IAufgabe)
+
+    def update(self):
+        portal = ploneapi.portal.get().absolute_url()
+        self.statics = portal + '/++resource++edi.itunesquizz'
+        if self.context.webcode:
+            self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
+        else:
+            self.ituneslink = self.context.absolute_url + '/@@aufgabeitunes'
+
        

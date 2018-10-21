@@ -1,0 +1,46 @@
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>iTunes U View</title>
+
+    <link href="" tal:attributes="href string:${view/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${view/statics}/css/signin.css rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" tal:attributes="action view/setterurl">
+        <h2 class="form-signin-heading">Deine E-Mail-Adresse</h2>
+        <p><strong></strong></p>
+        <div class="form-group">
+          <input type="hidden" name="webcode" tal:attributes="value view/webcode">
+          <input type="email" class="form-control" name="email" placeholder="student@musterschule.de" required>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" required name="erklaerung">
+            Ich werde die Aufgabe allein und ohne fremde Hilfe beantworten.
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Absenden</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${view/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<div class="row">
+  <h1 tal:content="context/title"/>
+  <p class="documentDescription" tal:content="context/description"/>
+
+  <ul>
+   <li>Art der Aufgabenstellung: <span tal:replace="context/art"/></li>
+   <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
+  </ul>
+
+
+  <h2>Frage bzw. Aufgabenstellung</h2>
+  <p tal:content="context/aufgabe"/>
+
+  <h2>Antwortoptionen</h2>
+  <p tal:condition="not:context/antworten">Für diese Aufgabenstellung wurden keine Antwortoptionen angegeben. Der Schüler wird diese Frage bzw.
+    Aufgabenstellung in Form eines Textes beantworten.</p>
+
+  <table tal:condition="context/antworten" class="table">
+    <thead>
+      <th>Antwortoption</th>
+      <th>Bewertung</th>
+    <thead>
+    <tbody>
+      <tr tal:repeat="option context/antworten">
+        <td tal:content="option/antwort"/>
+        <td tal:content="option/bewertung"/>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Lösungshinweis</h2>
+   <p tal:content="context/hinweis"/>
+
+  <h2>Erklärung/Lernempfehlung</h2>
+   <p tal:content="context/erklaerung"/>
+
+  <h2>Link für iTunes U</h2>
+   <p>Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</p>
+   <pre><code id="ituneslink" tal:content="view/ituneslink"/></pre>
+
+</div>

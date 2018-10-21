@@ -12,7 +12,7 @@
   <property name="add_view_expr">string:${folder_url}/++add++Aufgabe</property>
 
   <property name="link_target"></property>
-  <property name="immediate_view">view</property>
+  <property name="immediate_view">aufgabeview</property>
 
   <property name="global_allow">False</property>
 
@@ -22,9 +22,9 @@
 
   <property name="allow_discussion">False</property>
 
-  <property name="default_view">view</property>
+  <property name="default_view">aufgabeview</property>
   <property name="view_methods">
-    <element value="view"/>
+    <element value="aufgabeview"/>
   </property>
   <property name="default_view_fallback">False</property>
 

@@ -1,0 +1,3 @@
+<h1 tal:content="context/description"/>
+<h3 tal:content="context/title"/>
+

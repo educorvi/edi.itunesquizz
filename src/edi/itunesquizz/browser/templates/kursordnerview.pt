@@ -1,3 +1,115 @@
-<h1 tal:content="context/description"/>
-<h3 tal:content="context/title"/>
+<div class="row">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 style="margin-left:5px" class="panel-title" tal:content="context/description">Panel title</h2>
+  </div>
+  <div style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+    <div class="row">
 
+
+  <div class="col-xs-2 col-sm-1">
+
+    <div style="margin-left:5px" class="btn-group">
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-plus">
+      </button>
+      <ul style="width:200px" class="dropdown-menu">
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="col-xs-5 col-sm-6"><h4><a href="#" tal:attributes="href view/meinordner">Zurück</a></h4></div>
+  <div class="col-xs-5 col-sm-5">
+    <h4 style="text-align:right;margin-right:5px">
+      <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'">Bearbeiten</a>
+    </h4>
+  </div>
+
+
+  </div>
+</div>
+<hr>
+</div>
+
+<div tal:condition="view/inhalte" class="row">
+
+  <div tal:condition="view/uebungen" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3 style="margin-top:1px">
+        <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/compose.png"> 
+          <span style="margin-left:10px">Übungen</span>
+      </h3>
+    </div>
+  </div>
+  <div class="row" tal:repeat="uebung view/uebungen">
+    <div class="col-xs-2 col-sm-1">
+      <a tal:attributes="href string:${uebung/url}/delete_confirmation" title="Übung löschen">
+        <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+      </a>
+    </div>
+    <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href uebung/url" tal:content="uebung/title"></a></h4></div>
+  </div>
+
+  <hr style="margin-right:10px; margin-left:10px;">
+ 
+  <div style="margin-top:20px;" tal:condition="view/bilder" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3 style="margin-top:1px">
+        <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/photos.png"> 
+          <span style="margin-left:10px">Bilder</span>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row" tal:repeat="meinbild view/bilder">
+    <div class="row">
+      <div class="col-xs-2 col-sm-1">
+        <a tal:attributes="href string:${meinbild/url}/delete_confirmation" title="Bild löschen">
+          <span style="font-size:130%;color:red;margin-left:38px;margin-top:50%;position:absolute;" class="glyphicon glyphicon-minus-sign"/>
+        </a>
+      </div>
+      <div class="col-xs-10 col-sm-11"><img tal:attributes="src meinbild/image" style="max-width:100%"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-sm-1"></div>
+      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href meinbild/url" tal:content="meinbild/title"></a></h4></div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div tal:condition="not:view/inhalte" class="row">
+ <div class="col-xs-2 col-sm-1"></div>
+ <div class="col-xs-9 col-sm-9">
+
+   <h4>Dein Kursordner ist noch leer!</h4>
+   <p>Mit Klick auf <img style="width:16px;height:16px;margin-left:3px;margin-right:3px" title="add-2.png" 
+      tal:attributes="src string:${view/statics}/images/add-2.png"> kannst Du neue Übungen hinzufügen.</p>
+
+   <div style="margin-top:16px;" class="row">
+     <div class="col-xs-1 col-sm-1">
+       <img style="width:32px;height:32px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/compose.png">
+     </div>
+     <div class="col-xs-9 col-sm-9">
+       <p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Selbsttests oder benoteten Fragen.</p>
+     </div>
+     <div class="col-xs-2 col-sm-2"></div>
+   </div>
+
+   <div style="margin-top:10px;" class="row">
+     <div class="col-xs-1 col-sm-1">
+       <img style="width:32px;height:32px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/photos.png">
+     </div>
+     <div class="col-xs-9 col-sm-9">
+       <p>Du kannst <strong>Bilder</strong> hochladen, um sie in Übungen zu verwenden.</p>
+     </div>
+     <div class="col-xs-2 col-sm-2"></div>
+   </div>
+
+ </div>
+ <div class="col-xs-1 col-sm-2"></div>
+</div>

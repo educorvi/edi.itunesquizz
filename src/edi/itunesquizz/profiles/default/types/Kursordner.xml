@@ -12,20 +12,22 @@
   <property name="add_view_expr">string:${folder_url}/++add++Kursordner</property>
 
   <property name="link_target"></property>
-  <property name="immediate_view">view</property>
+  <property name="immediate_view">kursordnerview</property>
 
   <property name="global_allow">True</property>
 
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
     <element value="Aufgabe"/>
+    <element value="Document"/>
+    <element value="Image"/>
   </property>
 
   <property name="allow_discussion">False</property>
 
-  <property name="default_view">view</property>
+  <property name="default_view">kursordnerview</property>
   <property name="view_methods">
-    <element value="view"/>
+    <element value="kursordnerview"/>
   </property>
   <property name="default_view_fallback">False</property>
 

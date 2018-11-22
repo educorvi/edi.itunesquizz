@@ -1,0 +1,8 @@
+<div class="row" tal:condition="viewlet/available">
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $('div#edit-zone').hide();
+          $('.plone-toolbar-left-expanded').css('padding-left', '0px');
+        });
+        </script>
+</div>

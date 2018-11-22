@@ -45,6 +45,7 @@ setup(
         'setuptools',
         'z3c.jbot',
         'collective.z3cform.datagridfield',
+        'plone.formwidget.contenttree',
     ],
     extras_require={
         'test': [

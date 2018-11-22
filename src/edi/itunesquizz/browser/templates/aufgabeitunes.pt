@@ -18,23 +18,43 @@
 
     <div class="container">
 
-      <form class="form-signin" tal:attributes="action view/validationurl">
-        <h2 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h2>
+      <form class="form-horizontal" tal:attributes="action view/validationurl">
+
         <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
         <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
            mit der richtigen Antwort.</strong></p>
+        <h2 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h2>
+
+        <div tal:define="image nocall:context/image"
+             tal:condition="nocall:image">
+           <img class="img-rounded img-responsive" tal:attributes="src python:context.absolute_url()+'/@@images/image'" />
+        </div>
+
+
         <div tal:condition="not:view/inputfields" class="form-group">
           <input tal:condition="not:view/inputfields" type="text" tal:attributes="name view/fieldname" class="form-control" 
             placeholder="Bitte schreibe hier eine Antwort auf die Frage">
         </div>
-        <div tal:condition="view/inputfields" class="form-group">
-          <div tal:repeat="inputfield view/inputfields" class="checkbox">
+        <div tal:condition="view/inputfields" class="form-group-lg">
+          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield view/inputfields">
+
+          <div tal:condition="inputfield/image" class="col-xs-5 col-sm-3 col-md-3">
+            <div tal:define="image nocall:inputfield/image"
+               tal:condition="nocall:image">
+            <img class="img-rounded img-responsive" tal:attributes="src inputfield/image" />
+            </div>
+          </div>
+
+          <div class="col-xs-7 col-sm-9 col-md-9">
+          <div class="checkbox">
             <label>
               <input type="checkbox" tal:attributes="name view/fieldname; value inputfield/value">
               
               <span tal:replace="inputfield/label"/>
             </label>
           </div> <-- /chekboxfield -->
+          </div>
+          </div>
         </div> <!-- /form-group -->
         <div tal:condition="context/hinweis" class="hint">
          <p><strong>Hinweis:</strong> <span tal:replace="context/hinweis"/></p>

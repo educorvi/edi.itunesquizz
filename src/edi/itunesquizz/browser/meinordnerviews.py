@@ -8,7 +8,7 @@ from plone import api as ploneapi
 
 api.templatedir('templates')
 
-class KursordnerView(api.Page):
+class MeinOrdnerView(api.Page):
     api.context(Interface)
 
     @property
@@ -29,20 +29,14 @@ class KursordnerView(api.Page):
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.meinordner = self.context.aq_parent.absolute_url()
-        self.uebungen = []
-        self.bilder = []
+        self.kursordner = []
         self.inhalte = False
         brains = self.query
         for i in brains:
             self.inhalte = True
-            if i.portal_type == 'Aufgabe':
+            if i.portal_type == 'Kursordner':
                 entry = {}
                 entry['url'] = i.getURL()
                 entry['title'] = i.Title
-                self.uebungen.append(entry)
-            elif i.portal_type == 'Image':
-                entry = {}
-                entry['url'] = i.getURL()
-                entry['image'] = '%s/@@images/image/mini' % i.getURL()
-                entry['title'] = i.Title
-                self.bilder.append(entry)
+                entry['description'] = i.Description
+                self.kursordner.append(entry)

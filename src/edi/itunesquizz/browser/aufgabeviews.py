@@ -2,6 +2,7 @@ from zope.interface import Interface
 from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.aufgabe import IAufgabe
+from edi.itunesquizz.aufgabe import aufgabenart
 
 api.templatedir('templates')
 
@@ -15,6 +16,10 @@ class AufgabeITunes(api.View):
             for i in self.context.antworten:
                 option = {}
                 if i.get('antwort'):
+                    option['image'] = ''
+                    if i.get('image'):
+                        parenturl = self.context.aq_parent.absolute_url()
+                        option['image'] = '%s/%s/@@images/image' %(parenturl, i.get('image').id)
                     option['value'] = 'option_%s' %self.context.antworten.index(i)
                     option['label'] = i.get('antwort')
                     options.append(option)
@@ -78,11 +83,24 @@ class AufgabeView(api.Page):
     api.context(IAufgabe)
 
     def update(self):
+        self.kursordner = self.context.aq_parent.absolute_url()
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
+        self.aufgabenart = aufgabenart.getTerm(self.context.art).title
+        self.images = False
         if self.context.webcode:
             self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
         else:
             self.ituneslink = self.context.absolute_url + '/@@aufgabeitunes'
-
-       
+        self.antworten = []
+        if self.context.antworten:
+            for i in self.context.antworten:
+                entry = {}
+                entry['antwort'] = i.get('antwort')
+                entry['bewertung'] = i.get('bewertung')
+                entry['image'] = ''
+                if i.get('image'):
+                    self.images = True
+                    image = ploneapi.content.find(UID = i.get('image'))[0].getObject()
+                    entry['image'] = '%s/@@images/image/thumb' % image.absolute_url()
+                self.antworten.append(entry)

@@ -1,4 +1,5 @@
 <object name="portal_types" meta_type="Plone Types Tool">
   <object name="Aufgabe" meta_type="Dexterity FTI"/>
+  <object name="Experiment" meta_type="Dexterity FTI"/>
   <object name="Kursordner" meta_type="Dexterity FTI"/>
 </object>

@@ -67,4 +67,27 @@
         />
   </class>
 
+  <browser:page
+    for=".experiment.IExperiment"
+    name="edit"
+    class=".experiment.EditForm"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <adapter
+    for="Products.CMFCore.interfaces.IFolderish
+         zope.publisher.interfaces.browser.IDefaultBrowserLayer
+         plone.dexterity.interfaces.IDexterityFTI"
+    provides="zope.publisher.interfaces.browser.IBrowserPage"
+    factory=".experiment.AddView"
+    name="Experiment"
+    />
+  <class class=".experiment.AddView">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
+        />
+  </class>
+
+
 </configure>

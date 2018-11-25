@@ -1,33 +1,29 @@
 from zope.interface import Interface
 from uvc.api import api
 from plone import api as ploneapi
-from edi.itunesquizz.aufgabe import IAufgabe
-from edi.itunesquizz.aufgabe import aufgabenart
+from edi.itunesquizz.experiment import IExperiment
+from edi.itunesquizz.experiment import ergebnisart
 
 api.templatedir('templates')
 
 
-class AufgabeITunes(api.View):
-    api.context(IAufgabe)
+class ExperimentITunes(api.View):
+    api.context(IExperiment)
 
     def formatinputs(self):
-        options = []
-        if self.context.antworten:
-            for i in self.context.antworten:
-                option = {}
+        reihen = []
+        if self.context.versuchsreihen:
+            for i in self.context.versuchsreihen:
+                reihe = {}
                 if i.get('antwort'):
-                    option['image'] = ''
-                    if i.get('image'):
-                        parenturl = self.context.aq_parent.absolute_url()
-                        option['image'] = '%s/%s/@@images/image' %(parenturl, i.get('image').id)
-                    option['value'] = 'option_%s' %self.context.antworten.index(i)
-                    option['label'] = i.get('antwort')
-                    options.append(option)
-        return options
+                    reihe['label'] = i.get('antwort')
+                    reihe['value'] = 'reihe_%s' %self.context.antworten.index(i)
+                    reihen.append(reihe)
+        return reihen
                
     def update(self):
         portal = ploneapi.portal.get().absolute_url()
-        self.validationurl = self.context.absolute_url() + '/@@validateaufgabe'
+        self.validationurl = self.context.absolute_url() + '/@@validateexperiment'
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.illustration = ''
         if self.context.image:
@@ -39,8 +35,8 @@ class AufgabeITunes(api.View):
         return
 
 
-class ValidateAufgabe(api.View):
-    api.context(IAufgabe)
+class ValidateExperiment(api.View):
+    api.context(IExperiment)
 
     def formatoutputs(self):
         results = []
@@ -67,7 +63,7 @@ class ValidateAufgabe(api.View):
         return results
 
     def update(self):
-        self.questionurl = self.context.absolute_url() + '/@@aufgabeitunes'
+        self.questionurl = self.context.absolute_url() + '/@@experimentitunes'
         if not self.request.form.get(self.context.id):
             return self.response.redirect(self.questionurl)
         portal = ploneapi.portal.get().absolute_url()
@@ -82,8 +78,8 @@ class ValidateAufgabe(api.View):
             self.outputfields = self.formatoutputs()
 
 
-class AufgabeView(api.Page):
-    api.context(IAufgabe)
+class ExperimentView(api.Page):
+    api.context(IExperiment)
 
     def update(self):
         self.kursordner = self.context.aq_parent.absolute_url()
@@ -94,16 +90,12 @@ class AufgabeView(api.Page):
         if self.context.webcode:
             self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
         else:
-            self.ituneslink = self.context.absolute_url + '/@@aufgabeitunes'
-        self.antworten = []
-        if self.context.antworten:
-            for i in self.context.antworten:
+            self.ituneslink = self.context.absolute_url + '/@@experimentitunes'
+        self.versuchsreihen = []
+        if self.context.versuchsreihen:
+            for i in self.context.versuchsreihen:
                 entry = {}
                 entry['antwort'] = i.get('antwort')
-                entry['bewertung'] = i.get('bewertung')
-                entry['image'] = ''
-                if i.get('image'):
-                    self.images = True
-                    image = ploneapi.content.find(UID = i.get('image'))[0].getObject()
-                    entry['image'] = '%s/@@images/image/thumb' % image.absolute_url()
-                self.antworten.append(entry)
+                entry['erwartung'] = ergebnisart.getTerm(i.get('erwartung')).title
+                entry['ergebnis'] = i.get('ergebnis')
+                self.versuchsreihen.append(entry)

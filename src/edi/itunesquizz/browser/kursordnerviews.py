@@ -31,6 +31,7 @@ class KursordnerView(api.Page):
         self.meinordner = self.context.aq_parent.absolute_url()
         self.uebungen = []
         self.bilder = []
+        self.experimente = []
         self.inhalte = False
         brains = self.query
         for i in brains:
@@ -40,6 +41,11 @@ class KursordnerView(api.Page):
                 entry['url'] = i.getURL()
                 entry['title'] = i.Title
                 self.uebungen.append(entry)
+            if i.portal_type == 'Experiment':
+                entry = {}
+                entry['url'] = i.getURL()
+                entry['title'] = i.Title
+                self.experimente.append(entry)
             elif i.portal_type == 'Image':
                 entry = {}
                 entry['url'] = i.getURL()

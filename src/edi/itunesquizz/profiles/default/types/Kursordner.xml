@@ -19,7 +19,7 @@
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
     <element value="Aufgabe"/>
-    <element value="Document"/>
+    <element value="Experiment"/>
     <element value="Image"/>
   </property>
 

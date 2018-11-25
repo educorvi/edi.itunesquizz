@@ -103,6 +103,9 @@ class IAufgabe(Interface):
     punkte = schema.Int(title=u"Punkte", description=u"Bei Selbsttestaufgaben hier bitte 0 eintragen.", default=0)
     aufgabe = schema.Text(title=u"Aufgabe", description=u"Formuliere hier Deine Fragestellung oder Aufgabe.")
     image = NamedBlobImage(title=u"Bild zur Frage oder Aufgabe", required=False)
+    video = schema.Text(title=u"Alternativ: Video zur Frage oder Aufgabe",
+                        description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
+                        required=False,)
     antworten = schema.List(title=u"Antwortoptionen",
                             description=u"Hier kannst Du Antwortoptionen für eine Multiple-Choice-Frage eingeben.\
                                           Du musst hier nichts eintragen wenn Du eine Textantwort erwartest.", 
@@ -117,6 +120,10 @@ class IAufgabe(Interface):
                              required=False,
                              description=u"Hier kannst Du Deinen Schülern eine Erklärung zur Lösung oder einen Empfehlung\
                                            zum Weiterlernen geben. Der Text wird mit dem Ergebnis eingeblendet.")
+    solutionimage = NamedBlobImage(title=u"Bild zur Lösung der Aufgabe", required=False)
+    solutionvideo = schema.Text(title=u"Alternativ: Video zur Lösung der Frage oder Aufgabe",
+                        description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
+                        required=False,)
 
 
     @invariant

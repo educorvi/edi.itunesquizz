@@ -29,8 +29,8 @@ from z3c.form.browser.radio import RadioWidget
 ergebnisart = SimpleVocabulary(
     [SimpleTerm(value=u'integer', token=u'integer', title=u'Ganzzahl'),
      SimpleTerm(value=u'intrange', token=u'intrange', title=u'Ganzzahl von|bis'),
-     SimpleTerm(value=u'float', token=u'float', title=u'Gleitkommazahl')
-     SimpleTerm(value=u'floatrange', token=u'floatrange', title=u'Gleitkommazahl von|bis']
+     SimpleTerm(value=u'float', token=u'float', title=u'Gleitkommazahl'),
+     SimpleTerm(value=u'floatrange', token=u'floatrange', title=u'Gleitkommazahl von|bis')]
     )
 
 aufgabenart = SimpleVocabulary(
@@ -45,7 +45,6 @@ class IVersuche(form.Schema):
                           vocabulary=ergebnisart)
 
     ergebnis = schema.TextLine(title=u"Ergebnis",
-                              vocabulary=wertvalues,
                               required=True)
 
 
@@ -63,8 +62,8 @@ class IExperiment(Interface):
                             description=u"Hier kannst Du angeben, welche Ergebnisse Du in den einzelnen Versuchsreihen erwartest.", 
                             required=True,
                             value_type=DictRow(title=u"Optionen", schema=IVersuche))
-    fazit = schema.Bool(title="Fazit",
-                        description="Sollen Deine Schüler ein selbständiges Fazit aus dem Experiment ableiten?. Wenn ja, bitte hier klicken.")
+    fazit = schema.Bool(title=u"Fazit",
+                        description=u"Sollen Deine Schüler ein selbständiges Fazit aus dem Experiment ableiten?. Wenn ja, bitte hier klicken.")
     erklaerung = schema.Text(title=u"Erklärung/Lernempfehlung",
                              required=False,
                              description=u"Hier kannst Du Deinen Schülern eine Erklärung zu den Messergebnissen geben oder einen Empfehlung\

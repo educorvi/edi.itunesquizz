@@ -15,6 +15,7 @@
       </button>
       <ul style="width:200px" class="dropdown-menu">
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
       </ul>
     </div>
@@ -50,10 +51,27 @@
       </a>
     </div>
     <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href uebung/url" tal:content="uebung/title"></a></h4></div>
+  <hr style="margin-right:10px; margin-left:10px;">
   </div>
 
+  <div tal:condition="view/experimente" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3 style="margin-top:1px">
+        <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/idea.png"> 
+          <span style="margin-left:10px">Experimente</span>
+      </h3>
+    </div>
+  </div>
+  <div class="row" tal:repeat="experiment view/experimente">
+    <div class="col-xs-2 col-sm-1">
+      <a tal:attributes="href string:${experiment/url}/delete_confirmation" title="Experiment löschen">
+        <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+      </a>
+    </div>
+    <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href experiment/url" tal:content="experiment/title"></a></h4></div>
   <hr style="margin-right:10px; margin-left:10px;">
- 
+  </div>
+
   <div style="margin-top:20px;" tal:condition="view/bilder" class="row">
     <div class="col-xs-12 col-sm-12">
       <h3 style="margin-top:1px">
@@ -96,6 +114,16 @@
      </div>
      <div class="col-xs-9 col-sm-9">
        <p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Selbsttests oder benoteten Fragen.</p>
+     </div>
+     <div class="col-xs-2 col-sm-2"></div>
+   </div>
+
+   <div style="margin-top:10px;" class="row">
+     <div class="col-xs-1 col-sm-1">
+       <img style="width:36px;height:36px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/idea.png">
+     </div>
+     <div class="col-xs-9 col-sm-9">
+       <p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler auf einfache Weise überprüfen.</p>
      </div>
      <div class="col-xs-2 col-sm-2"></div>
    </div>

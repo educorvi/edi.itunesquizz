@@ -20,9 +20,10 @@
 
       <form class="form-horizontal" tal:attributes="action view/validationurl">
 
-        <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
-        <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
-           mit der richtigen Antwort.</strong></p>
+        <p tal:condition="python:context.art=='selbsttest'"><strong>Das Experiment als Selbsttest</strong></p>
+        <p tal:condition="python:context.art=='benotet'"><strong>Dieses Experiment wird benotet. Du bekommst 
+          <span tal:replace="context/punkte"/> Punkte mit der richtigen Antwort.</strong></p>
+
         <h4 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h4>
 
         <div tal:define="image nocall:context/image"
@@ -36,43 +37,15 @@
           </div>
         </div>
 
-        <div tal:condition="context/hinweis" class="row">
-         <blockquote><p tal:content="context/hinweis"/></blockquote>
-        </div>
-
-        <div tal:condition="not:view/inputfields" class="form-group">
-          <input tal:condition="not:view/inputfields" type="text" tal:attributes="name view/fieldname" class="form-control" 
-            placeholder="Bitte schreibe hier eine Antwort auf die Frage">
-        </div>
-
         <div tal:condition="view/inputfields" class="form-group-lg">
           <div class="row" style="margin-bottom:3px" tal:repeat="inputfield view/inputfields">
 
-          <div tal:condition="inputfield/image" class="col-xs-5 col-sm-3 col-md-3">
-            <div tal:define="image nocall:inputfield/image"
-               tal:condition="nocall:image">
-            <img class="img-rounded img-responsive" tal:attributes="src inputfield/image" />
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+             <label for="" tal:attributes="for inputfield/value" tal:content="inputfield/label">Messreihe</label>
+             <input type="text" class="form-control" tal:attributes="id inputfield/value" placeholder="1,5">
+             <span tal:condition="inputfield/einheit" tal:content="inputfield/einheit"/>
             </div>
-          </div>
-
-          <div tal:condition="inputfield/image" class="col-xs-7 col-sm-9 col-md-9">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" tal:attributes="name view/fieldname; value inputfield/value">
-              
-              <span tal:replace="inputfield/label"/>
-            </label>
-          </div> <-- /chekboxfield -->
-          </div>
-
-          <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" tal:attributes="name view/fieldname; value inputfield/value">
-              
-              <span tal:replace="inputfield/label"/>
-            </label>
-          </div> <-- /chekboxfield -->
           </div>
 
           </div>
@@ -87,7 +60,6 @@
       </form>
 
     </div> <!-- /container -->
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

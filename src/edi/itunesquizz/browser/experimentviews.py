@@ -18,6 +18,7 @@ class ExperimentITunes(api.View):
                 if i.get('antwort'):
                     reihe['label'] = i.get('antwort')
                     reihe['value'] = 'reihe_%s' %self.context.antworten.index(i)
+                    reihe['einheit'] = i.get('einheit')
                     reihen.append(reihe)
         return reihen
                
@@ -98,4 +99,5 @@ class ExperimentView(api.Page):
                 entry['antwort'] = i.get('antwort')
                 entry['erwartung'] = ergebnisart.getTerm(i.get('erwartung')).title
                 entry['ergebnis'] = i.get('ergebnis')
+                entry['einheit'] = i.get('einheit')
                 self.versuchsreihen.append(entry)

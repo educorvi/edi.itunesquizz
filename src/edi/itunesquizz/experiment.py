@@ -38,6 +38,17 @@ aufgabenart = SimpleVocabulary(
      SimpleTerm(value=u'benotet', token=u'benotet', title=u'Benotet')]
     )
 
+einheiten = SimpleVocabulary(
+    [SimpleTerm(value=u's', token=u's', title=u's'),
+     SimpleTerm(value=u'm', token=u'm', title=u'm'),
+     SimpleTerm(value=u'kg', token=u'kg', title=u'kg'),
+     SimpleTerm(value=u'A', token=u'A', title=u'A'),
+     SimpleTerm(value=u'V', token=u'V', title=u'V'),
+     SimpleTerm(value=u'K', token=u'K', title=u'K'),
+     SimpleTerm(value=u'mol', token=u'mol', title=u'mol')]
+    )
+     
+
 class IVersuche(form.Schema):
     antwort = schema.TextLine(title=u"Aufgabe oder Messreihe")
 
@@ -46,6 +57,9 @@ class IVersuche(form.Schema):
 
     ergebnis = schema.TextLine(title=u"Ergebnis",
                               required=True)
+    einheit = schema.Choice(title=u"Einheit",
+                          vocabulary=einheiten,
+                          required=False)
 
 
 class Punkte(Invalid):

@@ -17,13 +17,14 @@
   <body>
 
     <div tal:condition="view/outputfields" class="container">
+    <h2 tal:content="context/title"/>
       <h4 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h4>
       <div class="resultlist">
-         <p tal:repeat="outputfield view/outputfields">
-           <!--<span class="" style="" tal:attributes="class outputfield/class; style outputfield/style"></span>-->
-           <span class="" tal:attributes="class outputfield/checkbox"></span>
-           <span tal:content="outputfield/label"></span>
-         </p>
+         <div class="row" tal:repeat="outputfield view/outputfields">
+           <div class="col-xs-6 col-sm-6 col-md-6"><span tal:content="outputfield/label"/></div>
+           <div class="col-xs-4 col-sm-4 col-md-4"><span tal:content="outputfield/experiment"/></div>
+           <div class="col-xs-2 col-sm-2 col-md-2"><span tal:content="outputfield/einheit"/></div>
+         </div>
       </div>
 
       <div tal:condition="view/result" class="row">

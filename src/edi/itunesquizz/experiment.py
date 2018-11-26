@@ -72,6 +72,9 @@ class IExperiment(Interface):
     punkte = schema.Int(title=u"Punkte", description=u"Bei Selbsttestaufgaben hier bitte 0 eintragen.", default=0)
     aufgabe = schema.Text(title=u"Versuchsaufbau", description=u"Formuliere hier Deinen Versuchsaufbau und die Aufgabenstellung für das Experiment.")
     image = NamedBlobImage(title=u"Bild zum Versuchsaufbau.", required=False)
+    video = schema.Text(title=u"Alternativ: Video zum Versuchsaufbau.",
+                        description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
+                        required=False,)
     versuchsreihen = schema.List(title=u"Versuchsreihen",
                             description=u"Hier kannst Du angeben, welche Ergebnisse Du in den einzelnen Versuchsreihen erwartest.", 
                             required=True,

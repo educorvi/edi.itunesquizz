@@ -15,13 +15,17 @@ class iTunesView(api.View):
         if self.webcode:
             brains = ploneapi.content.find(Webcode=self.webcode)
             obj = brains[0].getObject()
+            if obj.portal_type == 'Aufgabe':
+                viewextension = u'/@@aufgabeitunes'
+            elif obj.portal_type == 'Experiment':
+                viewextension = u'/@@experimentitunes'
             if obj.art == 'selbsttest':
-                return self.redirect(obj.absolute_url() + '/@@aufgabeitunes')
+                return self.redirect(obj.absolute_url() + viewextension)
             else:
                 sdm = self.context.session_data_manager
                 session = sdm.getSessionData(create=True)
                 if session.has_key('usermail'):
-                    return self.redirect(obj.absolute_url() + '/@@aufgabeitunes')
+                    return self.redirect(obj.absolute_url() + viewextension)
         else:
             print 'return to error-site'
 

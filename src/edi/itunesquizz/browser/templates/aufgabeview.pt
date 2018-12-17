@@ -88,12 +88,20 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Link für iTunes U</h3>
-      <p>Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</p>
-      <pre><code id="ituneslink" tal:content="view/ituneslink"/></pre>
-    </div>
+  <h3>Link für iTunes U</h3>
+  <div class="form-group">
+    <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
+    <input type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
+    <button onclick="myFunction()">Link kopieren</button>
   </div>
+
+  <script>
+    function myFunction() {
+      var copyText = document.getElementById("myInput");
+      copyText.select();
+      document.execCommand("copy");
+      alert("Link kopiert: " + copyText.value);
+    }
+  </script>
 
 </div>

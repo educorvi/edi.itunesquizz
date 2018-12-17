@@ -46,6 +46,10 @@ setup(
         'z3c.jbot',
         'collective.z3cform.datagridfield',
         'plone.formwidget.contenttree',
+        'Pillow',
+        'qrcode',
+        'numpy',
+        'requests',
     ],
     extras_require={
         'test': [

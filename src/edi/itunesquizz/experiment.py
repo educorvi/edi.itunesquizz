@@ -65,10 +65,16 @@ class IVersuche(form.Schema):
 class Punkte(Invalid):
     __doc__ = u"Fehler bei der Vergabe von Punkten für diese Aufgabe."
 
+class Fazit(Invalid):
+    __doc__ = u"Fehler bei der Anforderung eines Fazits für diese Aufgabe."
+
 
 class IExperiment(Interface):
     title = schema.TextLine(title=u"Überschrift", description=u"Gib dem Experiment einen Namen.")
-    art = schema.Choice(title=u"Art der Aufgabenstellung", vocabulary=aufgabenart)
+    art = schema.Choice(title=u"Art des Experiments", description=u"Bei benoteten Experimenten wird ein Barcode generiert.\
+                                                                    Dein Schüler muss diesen Barcode mit Dir teilen. Mit diesem Barcode\
+                                                                    kannst Du die Experimentdurchführung Deines Schülers überprüfen", 
+                        vocabulary=aufgabenart)
     punkte = schema.Int(title=u"Punkte", description=u"Bei Selbsttestaufgaben hier bitte 0 eintragen.", default=0)
     aufgabe = schema.Text(title=u"Versuchsaufbau", description=u"Formuliere hier Deinen Versuchsaufbau und die Aufgabenstellung für das Experiment.")
     image = NamedBlobImage(title=u"Bild zum Versuchsaufbau.", required=False)
@@ -85,14 +91,23 @@ class IExperiment(Interface):
                              required=False,
                              description=u"Hier kannst Du Deinen Schülern eine Erklärung zu den Messergebnissen geben oder einen Empfehlung\
                                            zum Weiterlernen geben. Der Text wird mit dem Ergebnis eingeblendet.")
+    bonus = NamedBlobImage(title=u"Bonusbild zum Experiment", description=u"Das Bild wird mit einem Barcode kombiniert und angezeigt.\
+                                                                            Dein Schüler kann sich das Bilde herunterladen und mit Dir teilen.\
+                                                                            Das gilt aktuell nur für benotete Aufgabenstellungen.",
+                           required=False)
 
 
     @invariant
     def validatePunkte(data):
         if data.art == 'selbsttest' and data.punkte > 0:
-            raise Punkte(u"Für Selbsttestaufgaben kannst Du keine Punkte vergeben.")
+            raise Punkte(u"Für Selbsttest-Experimente kannst Du keine Punkte vergeben.")
         if data.art == 'benotet' and data.punkte == 0:
-            raise Punkte(u"Für benotete Aufgaben musst Du angeben wieviel Punkte mit der richtigen Lösung erreicht werden können.")
+            raise Punkte(u"Für benotete Experimente musst Du angeben wieviel Punkte mit der richtigen Lösung erreicht werden können.")
+
+    @invariant
+    def validateFazit(data):
+        if data.art == 'selbsttest' and data.fazit == True:
+            raise Fazit(u"Für Selbsttest-Experimente darfst Du Deinen Schüler kein Fazit ableiten lassen.")
 
 
 class Experiment(Item):

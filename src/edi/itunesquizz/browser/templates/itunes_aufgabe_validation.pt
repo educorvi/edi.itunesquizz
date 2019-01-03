@@ -1,0 +1,43 @@
+<html lang="de" tal:define="viewdata view/update;
+                            outputs viewdata/outputs">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="viewdata/title"></title>
+
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div tal:condition="outputs/results" class="container">
+      <h1>Lösung des Schülers</h1>
+      <h2 tal:content="viewdata/title"/>
+      <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
+      <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'">
+         <p tal:repeat="outputfield outputs/results">
+           <!--<span class="" style="" tal:attributes="class outputfield/class; style outputfield/style"></span>-->
+           <span class="" tal:attributes="class outputfield/checkbox"></span>
+           <span tal:content="outputfield/label"></span>
+         </p>
+      </div>
+      <div class="row" tal:condition="python: outputs.get('result') == 'text'">
+        <div class="col-xs-12 col-sm-12"><p tal:content="structure outputs/results"/></div>
+      </div>
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

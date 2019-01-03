@@ -99,7 +99,10 @@ class Punkte(Invalid):
 
 class IAufgabe(Interface):
     title = schema.TextLine(title=u"Überschrift", description=u"Gib der Aufgabe eine kurze Überschrift.")
-    art = schema.Choice(title=u"Art der Aufgabenstellung", vocabulary=aufgabenart)
+    art = schema.Choice(title=u"Art der Aufgabenstellung", description=u"Bei benoteten Aufgabenstellungen wird ein Barcode generiert.\
+                                                                         Dein Schüler muss diesen Barcode mit Dir teilen. Mit diesem Barcode\
+                                                                         kannst Du die Lösung Deines Schülers überprüfen",
+                        vocabulary=aufgabenart)
     punkte = schema.Int(title=u"Punkte", description=u"Bei Selbsttestaufgaben hier bitte 0 eintragen.", default=0)
     aufgabe = schema.Text(title=u"Aufgabe", description=u"Formuliere hier Deine Fragestellung oder Aufgabe.")
     image = NamedBlobImage(title=u"Bild zur Frage oder Aufgabe", required=False)
@@ -124,6 +127,10 @@ class IAufgabe(Interface):
     solutionvideo = schema.Text(title=u"Alternativ: Video zur Lösung der Frage oder Aufgabe",
                         description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
                         required=False,)
+    bonus = NamedBlobImage(title=u"Bonusbild zur Aufgabe", description=u"Das Bild wird mit einem Barcode kombiniert und angezeigt.\
+                                                                         Dein Schüler kann sich das Bilder herunterladen und mit Dir teilen.\
+                                                                         Das gilt nur für benotete Aufgabenstellungen.",
+                           required=False)
 
 
     @invariant

@@ -50,6 +50,7 @@ setup(
         'qrcode',
         'numpy',
         'requests',
+        'pymongo',
     ],
     extras_require={
         'test': [

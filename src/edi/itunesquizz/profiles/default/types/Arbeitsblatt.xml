@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object name="Session" meta_type="Dexterity FTI" i18n:domain="edi.itunesquizz"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Kursordner</property>
+  <property name="title" i18n:translate="">Arbeitsblatt</property>
   <property name="description"
-    i18n:translate="">Kursordner</property>
+    i18n:translate="">Arbeitsblatt</property>
 
-  <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
+  <property name="icon_expr">string:${portal_url}/document_icon.png</property>
 
-  <property name="factory">Kursordner</property>
+  <property name="factory">Arbeitsblatt</property>
 
-  <property name="add_view_expr">string:${folder_url}/++add++Kursordner</property>
+  <property name="add_view_expr">string:${folder_url}/++add++Arbeitsblatt</property>
 
   <property name="link_target"></property>
-  <property name="immediate_view">kursordnerview</property>
+  <property name="immediate_view">arbeitsblattview</property>
 
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
 
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="Aufgabe"/>
-    <element value="Experiment"/>
-    <element value="Arbeitsblatt"/>
-    <element value="Image"/>
   </property>
 
   <property name="allow_discussion">False</property>
 
-  <property name="default_view">kursordnerview</property>
+  <property name="default_view">arbeitsblattview</property>
   <property name="view_methods">
-    <element value="kursordnerview"/>
+    <element value="arbeitsblattview"/>
   </property>
   <property name="default_view_fallback">False</property>
 
   <property name="add_permission">cmf.AddPortalContent</property>
 
-  <property name="klass">edi.itunesquizz.kursordner.Kursordner</property>
+  <property name="klass">edi.itunesquizz.arbeitsblatt.Arbeitsblatt</property>
 
   <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle"/>
   </property>
 
-  <property name="schema">edi.itunesquizz.kursordner.IKursordner</property>
+  <property name="schema">edi.itunesquizz.arbeitsblatt.IArbeitsblatt</property>
 
   <alias from="(Default)" to="(dynamic view)"/>
   <alias from="edit" to="@@edit"/>

@@ -1,4 +1,5 @@
-<html lang="de">
+<html lang="de"
+      tal:define="viewdata view/update">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +10,8 @@
 
     <title tal:content="context/title"></title>
 
-    <link href="" tal:attributes="href string:${view/statics}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="" tal:attributes="href string:${view/statics}/css/signin.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
 
   </head>
 
@@ -18,35 +19,36 @@
 
     <div class="container">
 
-      <form class="form-horizontal" tal:attributes="action view/validationurl">
+      <form class="form-horizontal" tal:attributes="action viewdata/validationurl">
+ 
+        <h1 tal:content="viewdata/title"/>
 
         <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
         <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
            mit der richtigen Antwort.</strong></p>
-        <h4 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h4>
+        <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
 
-        <div tal:define="image nocall:context/image"
-             tal:condition="python: view.illustration=='bild'">
-           <img class="img-rounded img-responsive" tal:attributes="src python:context.absolute_url()+'/@@images/image'" />
+        <div tal:condition="python: viewdata.get('illustration')=='bild'">
+           <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
         </div>
 
-        <div class="row" tal:condition="python: view.illustration=='film'">
+        <div class="row" tal:condition="python: viewdata.get('illustration')=='film'">
           <div class="embed-responsive embed-responsive-4by3">
-            <span tal:replace="structure context/video"/>
+            <span tal:replace="structure viewdata/film"/>
           </div>
         </div>
 
-        <div tal:condition="context/hinweis" class="row">
-         <blockquote><p tal:content="context/hinweis"/></blockquote>
+        <div tal:condition="viewdata/hinweis" class="row">
+         <blockquote><p tal:content="viewdata/hinweis"/></blockquote>
         </div>
 
-        <div tal:condition="not:view/inputfields" class="form-group">
-          <input tal:condition="not:view/inputfields" type="text" tal:attributes="name view/fieldname" class="form-control" 
-            placeholder="Bitte schreibe hier eine Antwort auf die Frage">
+        <div tal:condition="not:viewdata/inputfields" class="form-group">
+          <textarea tal:condition="not:viewdata/inputfields"  tal:attributes="name viewdata/fieldname" class="form-control" 
+            placeholder="Bitte schreibe hier eine Antwort auf die Frage" required></textarea>
         </div>
 
-        <div tal:condition="view/inputfields" class="form-group-lg">
-          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield view/inputfields">
+        <div tal:condition="viewdata/inputfields" class="form-group-lg">
+          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield viewdata/inputfields">
 
           <div tal:condition="inputfield/image" class="col-xs-5 col-sm-3 col-md-3">
             <div tal:define="image nocall:inputfield/image"
@@ -58,7 +60,7 @@
           <div tal:condition="inputfield/image" class="col-xs-7 col-sm-9 col-md-9">
           <div class="checkbox">
             <label>
-              <input type="checkbox" tal:attributes="name view/fieldname; value inputfield/value">
+              <input type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
               
               <span tal:replace="inputfield/label"/>
             </label>
@@ -68,7 +70,7 @@
           <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
           <div class="checkbox">
             <label>
-              <input type="checkbox" tal:attributes="name view/fieldname; value inputfield/value">
+              <input type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
               
               <span tal:replace="inputfield/label"/>
             </label>
@@ -92,7 +94,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="" tal:attributes="src string:${view/statics}/js/bootstrap.min.js"></script>
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
 
   </body>
 </html>

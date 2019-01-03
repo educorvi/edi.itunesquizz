@@ -88,10 +88,39 @@
     </div>
   </div>
 
+  <div tal:condition="context/solutionimage" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3>Lösungsbild</h3>
+    </div>
+    <div class="col-xs-8 col-sm-6">
+      <img class="img-responsive" tal:attributes="src view/solutionimage" />
+    </div>
+  </div>
+
+  <div tal:condition="context/solutionvideo" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3>Lösungsvideo</h3>
+    </div>
+    <div style="width:100%;" class="embed-responsive embed-responsive-4by3 col-xs-8 col-sm-6">
+      <span tal:replace="structure view/solutionvideo"/>
+    </div>
+  </div>
+
+  <div tal:condition="context/bonus" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3>Bonusbild</h3>
+      <p>Dieses Bild wird zusammen mit dem Barcode eingeblendet.</p>
+    </div>
+    <div class="col-xs-8 col-sm-6">
+      <img class="img-responsive" width="100%" tal:attributes="src view/bonus" />
+    </div>
+  </div>
+
+
   <h3>Link für iTunes U</h3>
   <div class="form-group">
     <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
-    <input type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
+    <input style="margin-bottom:10px;" type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
     <button onclick="myFunction()">Link kopieren</button>
   </div>
 

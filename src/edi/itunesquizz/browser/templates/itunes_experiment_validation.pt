@@ -1,0 +1,48 @@
+<html lang="de" tal:define="viewdata view/update;
+                            outputs viewdata/outputs">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="context/title"></title>
+
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div tal:condition="outputs" class="container">
+      <h1>Ergebnisse des Schülers</h1>
+      <h2 tal:content="viewdata/title"/>
+      <h4 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h4>
+      <div class="resultlist">
+         <div class="row" tal:repeat="outputfield outputs/results">
+           <div class="col-xs-6 col-sm-6 col-md-6"><span tal:content="outputfield/label"/></div>
+           <div class="col-xs-4 col-sm-4 col-md-4"><span tal:content="outputfield/experiment"/></div>
+           <div class="col-xs-2 col-sm-2 col-md-2"><span tal:content="outputfield/einheit"/></div>
+         </div>
+      </div>
+
+      <div class="row" tal:condition="outputs/fazit">
+        <div class="col-xs-12 col-sm-12">
+          <h4>Interpretation der Ergebnisse</h4>
+          <p tal:content="structure outputs/fazit"/>
+        </div>
+      </div>
+
+
+    </div> <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

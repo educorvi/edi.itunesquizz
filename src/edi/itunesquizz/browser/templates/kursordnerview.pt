@@ -16,23 +16,98 @@
       <ul style="width:200px" class="dropdown-menu">
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
       </ul>
     </div>
 
   </div>
-  <div class="col-xs-5 col-sm-6"><h4><a href="#" tal:attributes="href view/meinordner">Zurück</a></h4></div>
-  <div class="col-xs-5 col-sm-5">
+  <div class="col-xs-3 col-sm-3"><h4><a href="#" tal:attributes="href view/meinordner">Zurück</a></h4></div>
+  <div class="col-xs-3 col-sm-3"><h4><a href="#modal1" class="pat-plone-modal" data-pat-plone-modal="width: 600">Hilfe</a></h4></div>
+  <div class="col-xs-4 col-sm-5">
     <h4 style="text-align:right;margin-right:5px">
       <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'">Bearbeiten</a>
     </h4>
   </div>
 
-
   </div>
 </div>
 <hr>
 </div>
+
+   <div id="modal1" style="display: none">
+         
+           <h1>Hilfe</h1>
+           <div style="margin-top:16px;" class="row">
+             <div class="col-xs-1 col-sm-1">
+               <span class="glyphicon glyphicon-plus"/>
+             </div>
+             <div class="col-xs-9 col-sm-9">
+               <p><strong>Hinzufügen</strong> von Übungen, Experimenten, Arbeitsblättern und Bildern.</p>
+             </div>
+             <div class="col-xs-2 col-sm-2"></div>
+           </div>
+
+           <div style="margin-top:16px;" class="row">
+             <div class="col-xs-1 col-sm-1">
+             </div>
+             <div class="col-xs-9 col-sm-9">
+               <p><strong>Zurück</strong> bringt Dich in Deinen Ordner im Portal.</p>
+             </div>
+             <div class="col-xs-2 col-sm-2"></div>
+           </div>
+
+           <div style="margin-top:16px;" class="row">
+             <div class="col-xs-1 col-sm-1">
+             </div>
+             <div class="col-xs-9 col-sm-9">
+               <p><strong>Bearbeiten</strong> bringt Dich in die Bearbeitungsmaske Deines aktuellen Kursordners.</p>
+             </div>
+             <div class="col-xs-2 col-sm-2"></div>
+           </div>
+	   <div style="margin-top:16px;" class="row">
+	     <div class="col-xs-1 col-sm-1">
+	       <img style="width:32px;height:32px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/compose.png">
+	     </div>
+	     <div class="col-xs-9 col-sm-9">
+	       <p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Selbsttests oder benoteten Fragen.</p>
+	     </div>
+	     <div class="col-xs-2 col-sm-2"></div>
+	   </div>
+
+	   <div style="margin-top:10px;" class="row">
+	     <div class="col-xs-1 col-sm-1">
+	       <img style="width:36px;height:36px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/idea.png">
+	     </div>
+	     <div class="col-xs-9 col-sm-9">
+	       <p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler auf einfache Weise überprüfen.
+	       Auch bei Experimenten kannst Du entscheiden, ob diese als Selbsttest angeboten werden sollen oder ob Du sie benoten möchtest.</p>
+	     </div>
+	     <div class="col-xs-2 col-sm-2"></div>
+	   </div>
+	   <div style="margin-top:10px;" class="row">
+	     <div class="col-xs-1 col-sm-1">
+	       <img style="width:36px;height:36px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/list-1.png">
+	     </div>
+	     <div class="col-xs-9 col-sm-9">
+	       <p>Für Deine digitalen <strong>Arbeitsblätter</strong> verwendest Du Übungen und Experimente und ordnest diese nach Deiner Wahl
+	       auf dem Arbeitsblatt an. Ausserdem kannst Du einen Text den Übungen und Experimenten voranstellen und das Arbeitsblatt auch mit
+	       einem Text abschließen, um vielleicht Hinweise für das selbständige weitere Lernen zu geben.</p>
+	     </div>
+	     <div class="col-xs-2 col-sm-2"></div>
+	   </div>
+
+	   <div style="margin-top:10px;" class="row">
+	     <div class="col-xs-1 col-sm-1">
+	       <img style="width:32px;height:32px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/photos.png">
+	     </div>
+	     <div class="col-xs-9 col-sm-9">
+	       <p>Du kannst <strong>Bilder</strong> hochladen, um sie in Übungen und in Arbeitsblättern zu verwenden.</p>
+	     </div>
+	     <div class="col-xs-2 col-sm-2"></div>
+	   </div>
+    </div>
+
 
 <div tal:condition="view/inhalte" class="row">
 
@@ -40,18 +115,18 @@
     <div class="col-xs-12 col-sm-12">
       <h3 style="margin-top:1px">
         <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/compose.png"> 
-          <span style="margin-left:10px">Übungen</span>
+        <span style="margin-left:10px">Übungen</span>
       </h3>
     </div>
-  </div>
-  <div class="row" tal:repeat="uebung view/uebungen">
-    <div class="col-xs-2 col-sm-1">
-      <a tal:attributes="href string:${uebung/url}/delete_confirmation" title="Übung löschen">
-        <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-      </a>
+    <div tal:repeat="uebung view/uebungen">
+      <div class="col-xs-2 col-sm-1">
+        <a tal:attributes="href string:${uebung/url}/delete_confirmation" title="Übung löschen">
+          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+        </a>
+      </div>
+      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href uebung/url" tal:content="uebung/title"></a></h4></div>
     </div>
-    <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href uebung/url" tal:content="uebung/title"></a></h4></div>
-  <hr style="margin-right:10px; margin-left:10px;">
+    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
   </div>
 
   <div tal:condition="view/experimente" class="row">
@@ -61,18 +136,36 @@
           <span style="margin-left:10px">Experimente</span>
       </h3>
     </div>
-  </div>
-  <div class="row" tal:repeat="experiment view/experimente">
-    <div class="col-xs-2 col-sm-1">
-      <a tal:attributes="href string:${experiment/url}/delete_confirmation" title="Experiment löschen">
-        <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-      </a>
+    <div tal:repeat="experiment view/experimente">
+      <div class="col-xs-2 col-sm-1">
+        <a tal:attributes="href string:${experiment/url}/delete_confirmation" title="Experiment löschen">
+          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+        </a>
+      </div>
+      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href experiment/url" tal:content="experiment/title"></a></h4></div>
     </div>
-    <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href experiment/url" tal:content="experiment/title"></a></h4></div>
-  <hr style="margin-right:10px; margin-left:10px;">
+    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
   </div>
 
-  <div style="margin-top:20px;" tal:condition="view/bilder" class="row">
+  <div tal:condition="view/arbeitsblaetter" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3 style="margin-top:1px">
+        <img style="width:34px;height:34px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/list-1.png"> 
+          <span style="margin-left:10px">Arbeitsblätter</span>
+      </h3>
+    </div>
+    <div tal:repeat="arbeitsblatt view/arbeitsblaetter">
+      <div class="col-xs-2 col-sm-1">
+        <a tal:attributes="href string:${arbeitsblatt/url}/delete_confirmation" title="Arbeitsblatt löschen">
+          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+        </a>
+      </div>
+      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href arbeitsblatt/url" tal:content="arbeitsblatt/title"></a></h4></div>
+    </div>
+    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+  </div>
+
+  <div tal:condition="view/bilder" class="row">
     <div class="col-xs-12 col-sm-12">
       <h3 style="margin-top:1px">
         <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/photos.png"> 
@@ -81,22 +174,17 @@
     </div>
   </div>
 
-  <div class="row" tal:repeat="meinbild view/bilder">
-    <div class="row">
-      <div class="col-xs-2 col-sm-1">
-        <a tal:attributes="href string:${meinbild/url}/delete_confirmation" title="Bild löschen">
-          <span style="font-size:130%;color:red;margin-left:38px;margin-top:50%;position:absolute;" class="glyphicon glyphicon-minus-sign"/>
-        </a>
+  <div class="row">
+    <div tal:repeat="meinbild view/bilder" class="col-xs-6 col-sm-3">
+      <div class="row">
+        <div class="col-xs-10 col-sm-10">
+          <a style="padding-left:20px" tal:attributes="href string:${meinbild/url}/view">
+            <img tal:attributes="src meinbild/image" style="max-width:90%">
+          </a>
+        </div>
       </div>
-      <div class="col-xs-10 col-sm-11"><img tal:attributes="src meinbild/image" style="max-width:100%"></div>
-    </div>
-    <div class="row">
-      <div class="col-xs-2 col-sm-1"></div>
-      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href meinbild/url" tal:content="meinbild/title"></a></h4></div>
     </div>
   </div>
-
-
 
 </div>
 
@@ -106,7 +194,9 @@
 
    <h4>Dein Kursordner ist noch leer!</h4>
    <p>Mit Klick auf <img style="width:16px;height:16px;margin-left:3px;margin-right:3px" title="add-2.png" 
-      tal:attributes="src string:${view/statics}/images/add-2.png"> kannst Du neue Übungen hinzufügen.</p>
+      tal:attributes="src string:${view/statics}/images/add-2.png"> kannst Du neue Übungen und Experimente hinzufügen. Für die Gestaltung
+      von digitalen Arbeitsblättern kannst Du die Übungen und Experimente verwenden und diese auf Deinem digitalen Arbeitsblatt anordnen. 
+      Hochgeladene Bilder kannst Du in Übungen, aber auch in Deinen Arbeitsblättern verwenden.</p>
 
    <div style="margin-top:16px;" class="row">
      <div class="col-xs-1 col-sm-1">
@@ -123,7 +213,20 @@
        <img style="width:36px;height:36px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/idea.png">
      </div>
      <div class="col-xs-9 col-sm-9">
-       <p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler auf einfache Weise überprüfen.</p>
+       <p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler auf einfache Weise überprüfen.
+       Auch bei Experimenten kannst Du entscheiden, ob diese als Selbsttest angeboten werden sollen oder ob Du sie benoten möchtest.</p>
+     </div>
+     <div class="col-xs-2 col-sm-2"></div>
+   </div>
+
+   <div style="margin-top:10px;" class="row">
+     <div class="col-xs-1 col-sm-1">
+       <img style="width:36px;height:36px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/list-1.png">
+     </div>
+     <div class="col-xs-9 col-sm-9">
+       <p>Für Deine digitalen <strong>Arbeitsblätter</strong> verwendest Du Übungen und Experimente und ordnest diese nach Deiner Wahl
+       auf dem Arbeitsblatt an. Ausserdem kannst Du einen Text den Übungen und Experimenten voranstellen und das Arbeitsblatt auch mit
+       einem Text abschließen, um vielleicht Hinweise für das selbständige weitere Lernen zu geben.</p>
      </div>
      <div class="col-xs-2 col-sm-2"></div>
    </div>
@@ -133,7 +236,7 @@
        <img style="width:32px;height:32px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/photos.png">
      </div>
      <div class="col-xs-9 col-sm-9">
-       <p>Du kannst <strong>Bilder</strong> hochladen, um sie in Übungen zu verwenden.</p>
+       <p>Du kannst <strong>Bilder</strong> hochladen, um sie in Übungen und in Arbeitsblättern zu verwenden.</p>
      </div>
      <div class="col-xs-2 col-sm-2"></div>
    </div>

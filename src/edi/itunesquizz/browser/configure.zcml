@@ -18,4 +18,11 @@
       name="edi.itunesquizz"
       directory="static" />
 
+  <browser:page
+    name="aufgabeitunes"
+    for="*"
+    class=".aufgabeviews.AufgabeITunes"
+    permission="zope2.View"
+    />
+
 </configure>

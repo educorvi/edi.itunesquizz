@@ -1,0 +1,162 @@
+<html lang="de"
+      tal:define="viewdata view/update">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="context/title"></title>
+
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-horizontal" tal:attributes="action viewdata/validationurl">
+
+       <h1 tal:content="context/title"/>
+
+       <div class="row">
+         <div class="col-xs-6 col-sm-6">
+           <p tal:condition="context/description"><strong><span tal:content="context/description"/></strong></p>
+         </div>
+
+         <div class="col-xs-6 col-sm-6">
+           <div class="panel panel-default">
+             <div class="panel-heading">Inhaltsverzeichnis</div>
+             <div class="panel-body">
+               <ul>
+                 <li tal:repeat="entry viewdata/contentdir">
+                   <a href="" tal:attributes="href python:entry[0]" tal:content="python:entry[1]"/>
+                 </li>
+               </ul>
+             </div>
+           </div>
+         </div>  
+       </div>
+
+
+       <span tal:condition="context/textvor" tal:replace="structure context/textvor/output"/>
+
+       <tal:block repeat="part viewdata/contentlist">
+        <a name="" tal:attributes="name part/name"/><h2 tal:content="part/title"/>
+        <h4 class="form-signin-heading" tal:content="part/aufgabe">Aufgabenstellung</h4>
+        <p tal:condition="part/punkte"><strong>Du bekommst <span tal:replace="part/punkte"/> Punkte mit der richtigen Antwort bzw. den richtigen
+           Ergebnissen.</strong></p>
+
+        <tal:block condition="python: part.get('type') == 'Aufgabe'">
+        <div tal:condition="python: part.get('illustration')=='bild'">
+           <img class="img-rounded img-responsive" tal:attributes="src part/bild" />
+        </div>
+
+        <div class="row" tal:condition="python: part.get('illustration')=='film'">
+          <div class="embed-responsive embed-responsive-4by3">
+            <span tal:replace="structure part/film"/>
+          </div>
+        </div>
+
+        <div tal:condition="part/hinweis" class="row">
+         <blockquote><p tal:content="part/hinweis"/></blockquote>
+        </div>
+
+        <div tal:condition="not:part/inputfields" class="form-group">
+          <input tal:condition="not:part/inputfields" type="text" tal:attributes="name part/fieldname" class="form-control" 
+            placeholder="Bitte schreibe hier eine Antwort auf die Frage">
+        </div>
+
+        <div tal:condition="part/inputfields" class="form-group-lg">
+          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield part/inputfields">
+
+          <div tal:condition="inputfield/image" class="col-xs-5 col-sm-3 col-md-3">
+            <div tal:define="image nocall:inputfield/image"
+               tal:condition="nocall:image">
+            <img class="img-rounded img-responsive" tal:attributes="src inputfield/image" />
+            </div>
+          </div>
+
+          <div tal:condition="inputfield/image" class="col-xs-7 col-sm-9 col-md-9">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" tal:attributes="name part/fieldname; value inputfield/value">
+              
+              <span tal:replace="inputfield/label"/>
+            </label>
+          </div> <-- /chekboxfield -->
+          </div>
+
+          <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" tal:attributes="name part/fieldname; value inputfield/value">
+              
+              <span tal:replace="inputfield/label"/>
+            </label>
+          </div> <-- /chekboxfield -->
+          </div>
+
+          </div>
+        </div> <!-- /form-group -->
+        </tal:block>
+
+        <tal:block condition="python: part.get('type') == 'Experiment'">
+        <div tal:condition="python: part.get('illustration')=='bild'">
+           <img class="img-rounded img-responsive" tal:attributes="src part/bild" />
+        </div>
+
+        <div class="row" tal:condition="python: part.get('illustration')=='film'">
+          <div class="embed-responsive embed-responsive-4by3">
+            <span tal:replace="structure part/video"/>
+          </div>
+        </div>
+
+        <div style="margin-top:20px" tal:condition="part/inputfields" class="form-group-lg">
+          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield part/inputfields">
+
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <span tal:content="inputfield/label"/>
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-4">
+            <div class="form-group">
+             <input type="text" class="form-control" tal:attributes="id inputfield/value;name inputfield/value" placeholder="Wert?">
+            </div>
+          </div>
+
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <span tal:content="inputfield/einheit"/>
+          </div>
+
+          </div>
+        </div> <!-- /form-group -->
+        </tal:block>
+
+
+        </tal:block>
+
+        <span tal:condition="context/textnach" tal:replace="structure context/textnach/output"/> 
+
+        <div style="margin-top:20px" class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Absenden</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

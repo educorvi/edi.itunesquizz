@@ -20,83 +20,107 @@ class ExperimentITunes(api.View):
                 reihe = {}
                 if i.get('antwort'):
                     reihe['label'] = i.get('antwort')
-                    reihe['value'] = 'reihe_%s' %self.context.versuchsreihen.index(i)
+                    reihe['value'] = 'reihe_%s_%s' %(self.context.UID(), self.context.versuchsreihen.index(i))
                     reihe['einheit'] = i.get('einheit')
                     reihen.append(reihe)
         return reihen
                
     def update(self):
+        retdict = {}
         portal = ploneapi.portal.get().absolute_url()
-        self.validationurl = self.context.absolute_url() + '/@@validateexperiment'
-        self.statics = portal + '/++resource++edi.itunesquizz'
-        self.illustration = ''
+        retdict['title'] = self.context.title
+        retdict['aufgabe'] = self.context.aufgabe
+        retdict['punkte'] = self.context.punkte
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validateexperiment'
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        illustration = ''
         if self.context.image:
-            self.illustration = 'bild'
+            retdict['illustration'] = 'bild'
+            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
         if self.context.video:
-            self.illustration = 'film'
-        self.fieldname = self.context.id
-        self.inputfields = self.formatinputs()
-        return
+            retdict['illustration'] = 'film'
+            retdict['film'] = self.context.video
+        retdict['fieldname'] = self.context.id
+        retdict['inputfields'] = self.formatinputs()
+        retdict['fazit'] = self.context.fazit
+        return retdict
 
 
 class ValidateExperiment(api.View):
     api.context(IExperiment)
 
-    def formatoutputs(self, formkeys):
+    def formatoutputs(self, formkeys, test):
+        resultdict = {}
         results = []
-        self.again = False
-        self.result = True
-        formkeys.sort()
+        again = False
+        result = True
         versuchsreihen=self.context.versuchsreihen
         for i in range(len(versuchsreihen)):
             reihe = versuchsreihen[i]
             erwartung = reihe.get('erwartung')
             ergebnis = reihe.get('ergebnis')
-            experiment = self.request.form.get(formkeys[i])
-            result = {}
+            experiment = test.get(formkeys[i])
+            myresult = {}
             if erwartung == 'integer':
                 if int(experiment) != int(ergebnis):
-                    self.again = True
-                    self.result = False
+                    again = True
+                    result = False
             if erwartung == 'float':
                 if myfloat(experiment) != myfloat(ergebnis):
-                    self.again = True
-                    self.result = False
+                    again = True
+                    result = False
             if erwartung == 'intrange':
                 ergebnis = ergebnis.split('|')
                 if not int(ergebnis[0]) < int(experiment) < int(ergebnis[1]):
-                    self.again = True
-                    self.result = False
+                    again = True
+                    result = False
             if erwartung == 'floatrange':
                 ergebnis = ergebnis.split('|')
                 if not myfloat(ergebnis[0]) < myfloat(experiment) < myfloat(ergebnis[1]):
-                    self.again = True
-                    self.result = False
-            result['label'] = reihe.get('antwort')
-            result['experiment'] = experiment
-            result['einheit'] = reihe.get('einheit')
-            results.append(result)
-        return results
+                    again = True
+                    result = False
+            myresult['label'] = reihe.get('antwort')
+            myresult['experiment'] = experiment
+            myresult['einheit'] = reihe.get('einheit')
+            results.append(myresult)
+        resultdict['again'] = again
+        resultdict['result'] = result
+        resultdict['results'] = results
+        resultdict['fazit'] = test.get('fazit')
+        return resultdict
+
+    def formatexperiment(self, retdict):
+        retdict['title'] = self.context.title
+        retdict['aufgabe'] = self.context.aufgabe
+        retdict['art'] = self.context.art
+        retdict['erklaerung'] = self.context.erklaerung
+        return retdict
+
+    def cookiesetter(self, retdict):
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        session.set("qrdata", retdict)
 
     def update(self):
-        self.questionurl = self.context.absolute_url() + '/@@experimentitunes'
-        marker = False
+        retdict = {}
+        questionurl = self.context.absolute_url() + '/@@experimentitunes'
         formkeys = []
         for i in self.request.form.keys():
             if i .startswith('reihe'):
                 formkeys.append(i)
         if not formkeys:
-            return self.response.redirect(self.questionurl)
+            return self.response.redirect(questionurl)
+        retdict['questionurl'] = questionurl
         portal = ploneapi.portal.get().absolute_url()
-        self.statics = portal + '/++resource++edi.itunesquizz'
-        self.illustration = ''
-        ##if self.context.solutionimage:
-        #    self.illustration = 'bild'
-        #if self.context.solutionvideo:
-        #    self.illustration = 'film'
-        self.outputfields = []
-        if self.context.art == u'selbsttest':
-            self.outputfields = self.formatoutputs(formkeys)
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        retdict = self.formatexperiment(retdict)
+        formkeys.sort()
+        test = self.request.form
+        outputs = self.formatoutputs(formkeys, test)
+        retdict['outputs'] = outputs
+        if self.context.art == 'benotet':
+            cookie = self.cookiesetter(retdict)
+        return retdict
 
 
 class ExperimentView(api.Page):
@@ -111,7 +135,7 @@ class ExperimentView(api.Page):
         if self.context.webcode:
             self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
         else:
-            self.ituneslink = self.context.absolute_url + '/@@experimentitunes'
+            self.ituneslink = self.context.absolute_url() + '/@@experimentitunes'
         self.versuchsreihen = []
         if self.context.versuchsreihen:
             for i in self.context.versuchsreihen:

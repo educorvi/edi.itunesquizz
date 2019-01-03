@@ -15,7 +15,9 @@
           <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
             <a class="submit-widget button-field context" href="#" tal:attributes="href view/register" role="button">Registrieren</a>
           </div>
-          <div class="col-xs-3 col-sm-6 col-md-6 col-lg-5"></div>
+          <div class="col-xs-3 col-sm-6 col-md-6 col-lg-5">
+            <div class="col-xs-3 col-sm-3"><h4><a href="#modal1" class="pat-plone-modal" data-pat-plone-modal="width: 600">Hilfe</a></h4></div>
+          </div>
           <div class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
             <a class="submit-widget button-field standalone" href="#" tal:attributes="href view/login" role="button">Anmelden</a>
           </div>
@@ -29,6 +31,12 @@
     </div>
   </div>
 </div>
+
+   <div id="modal1" style="display: none">
+     <h1>Basic modal!</h1>
+     <p>Indeed. Whoa whoa whoa whoa. Wait.</p>
+   </div>
+
 
 <div class="row">
 <div class="col-xs-1 col-sm-3"></div>

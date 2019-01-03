@@ -1,4 +1,4 @@
-<html lang="de">
+<html lang="de" tal:define="viewdata view/update">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +9,8 @@
 
     <title tal:content="context/title"></title>
 
-    <link href="" tal:attributes="href string:${view/statics}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="" tal:attributes="href string:${view/statics}/css/signin.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
 
   </head>
 
@@ -18,29 +18,29 @@
 
     <div class="container">
 
-      <form class="form-horizontal" tal:attributes="action view/validationurl">
+      <form class="form-horizontal" tal:attributes="action viewdata/validationurl">
 
         <h2 tal:content="context/title"/>
 
         <p tal:condition="python:context.art=='selbsttest'"><strong>Das Experiment als Selbsttest</strong></p>
         <p tal:condition="python:context.art=='benotet'"><strong>Dieses Experiment wird benotet. Du bekommst 
-          <span tal:replace="context/punkte"/> Punkte mit der richtigen Antwort.</strong></p>
+          <span tal:replace="viewdata/punkte"/> Punkte mit der richtigen Antwort.</strong></p>
 
-        <h4 class="form-signin-heading" tal:content="context/aufgabe">Aufgabenstellung</h4>
+        <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
 
         <div tal:define="image nocall:context/image"
-             tal:condition="python: view.illustration=='bild'">
-           <img class="img-rounded img-responsive" tal:attributes="src python:context.absolute_url()+'/@@images/image'" />
+             tal:condition="python: viewdata.get('illustration')=='bild'">
+           <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
         </div>
 
-        <div class="row" tal:condition="python: view.illustration=='film'">
+        <div class="row" tal:condition="python: viewdata.get('illustration')=='film'">
           <div class="embed-responsive embed-responsive-4by3">
-            <span tal:replace="structure context/video"/>
+            <span tal:replace="structure viewdata/video"/>
           </div>
         </div>
 
-        <div style="margin-top:20px" tal:condition="view/inputfields" class="form-group-lg">
-          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield view/inputfields">
+        <div style="margin-top:20px" tal:condition="viewdata/inputfields" class="form-group-lg">
+          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield viewdata/inputfields">
 
           <div class="col-xs-6 col-sm-6 col-md-6">
             <span tal:content="inputfield/label"/>
@@ -59,6 +59,12 @@
           </div>
         </div> <!-- /form-group -->
 
+        <div tal:condition="viewdata/fazit" class="form-group">
+          <textarea name="fazit" class="form-control" 
+            placeholder="Bitte schreibe hier auf wie Du die Ergebnisse interpretierst bzw. deutest." required></textarea>
+        </div>
+
+
         <div style="margin-top:20px" class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Absenden</button>
@@ -72,7 +78,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="" tal:attributes="src string:${view/statics}/js/bootstrap.min.js"></script>
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
 
   </body>
 </html>

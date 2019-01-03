@@ -20,3 +20,10 @@ class LoggedInMembers(api.Viewlet):
             match = [x for x in editroles if x in roles]
             if match:
                 self.available = False
+
+class LoggedInAll(api.Viewlet):
+    api.context(Interface)
+    api.viewletmanager(IPortalFooter)
+
+    def update(self):
+        self.available = True

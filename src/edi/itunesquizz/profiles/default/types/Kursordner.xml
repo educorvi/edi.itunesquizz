@@ -38,6 +38,7 @@
 
   <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle"/>
+    <element value="nva.portlet.webcode.webcodebehavior.IWebcodeDexterity"/>
   </property>
 
   <property name="schema">edi.itunesquizz.kursordner.IKursordner</property>

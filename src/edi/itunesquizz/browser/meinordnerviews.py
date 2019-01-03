@@ -5,6 +5,7 @@ from Products.ATContentTypes.interface import IATTopic
 from plone.app.contenttypes.interfaces import ICollection
 from Products.CMFCore.interfaces import IFolderish
 from plone import api as ploneapi
+from edi.itunesquizz.leermeldungen import startseite
 
 api.templatedir('templates')
 
@@ -28,6 +29,7 @@ class MeinOrdnerView(api.Page):
     def update(self):
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
+        self.leermeldung = startseite
         self.meinordner = self.context.aq_parent.absolute_url()
         self.kursordner = []
         self.inhalte = False
@@ -38,5 +40,9 @@ class MeinOrdnerView(api.Page):
                 entry = {}
                 entry['url'] = i.getURL()
                 entry['title'] = i.Title
+                entry['image'] = ''
+                obj = i.getObject()
+                if obj.image:
+                    entry['image'] = "%s/@@images/image/tile" % obj.absolute_url()
                 entry['description'] = i.Description
                 self.kursordner.append(entry)

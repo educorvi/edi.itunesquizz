@@ -1,26 +1,27 @@
 <div class="row">
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2 style="margin-left:5px" class="panel-title"><span tal:replace="context/title"/></h2>
+    <h2 style="margin-left:5px" class="panel-title">Kursaufgaben von <span tal:replace="context/title"/></h2>
   </div>
   <div style="margin-top:30px; margin-bottom:-10px" class="panel-body">
     <div class="row">
 
 
-  <div class="col-xs-2 col-sm-1">
+  <div class="col-xs-6 col-sm-6">
+
+    <!--<h4><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Kursordner'">Aufgabenordner hinzufügen</a></h4>-->
 
     <div style="margin-left:5px" class="btn-group">
       <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="glyphicon glyphicon-plus">
       </button>
       <ul style="width:200px" class="dropdown-menu">
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Kursordner'">Kursordner</a></li>
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Kursordner'">Aufgabenordner</a></li>
       </ul>
     </div>
 
   </div>
-  <div class="col-xs-5 col-sm-6"><h4>Meine Kurse</h4></div>
-  <div class="col-xs-5 col-sm-5"></div>
+  <div class="col-xs-6 col-sm-5"></div>
 
 
   </div>
@@ -34,21 +35,32 @@
     <div class="col-xs-12 col-sm-12">
       <h3 style="margin-top:1px">
         <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/folder.png"> 
-          <span style="margin-left:10px">Kursordner</span>
+          <span style="margin-left:10px">Aufgabenordner</span>
       </h3>
     </div>
   </div>
   <div class="row" tal:repeat="ordner view/kursordner">
-    <div class="col-xs-2 col-sm-1">
+    <div style="padding-top:5px;" class="col-xs-2 col-sm-1">
       <a tal:attributes="href string:${ordner/url}/delete_confirmation" title="Ordner löschen">
         <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
       </a>
     </div>
-    <div class="col-xs-10 col-sm-11">
+
+    <div tal:condition="ordner/image" class="col-xs-2 col-sm-1">
+      <img class="img-responsive" tal:attributes="src ordner/image">
+    </div>
+    <div style="padding-top:5px;" tal:condition="ordner/image" class="col-xs-8 col-sm-10">
       <h4 style="margin-top:1px">
         <a tal:attributes="href ordner/url"><span tal:replace="ordner/description"/> (<span tal:replace="ordner/title"/>)</a>
       </h4>
     </div>
+
+    <div style="padding-top:5px;" tal:condition="not:ordner/image" class="col-xs-10 col-sm-11">
+      <h4 style="margin-top:1px">
+        <a tal:attributes="href ordner/url"><span tal:replace="ordner/description"/> (<span tal:replace="ordner/title"/>)</a>
+      </h4>
+    </div>
+
   </div>
 
 </div>
@@ -56,20 +68,8 @@
 <div tal:condition="not:view/inhalte" class="row">
  <div class="col-xs-2 col-sm-1"></div>
  <div class="col-xs-9 col-sm-9">
-   <h4>Dein persönlicher Bereich ist noch leer!</h4>
-   <p>Mit Klick auf <img style="width:16px;height:16px;margin-left:3px;margin-right:3px" title="add-2.png" 
-      tal:attributes="src string:${view/statics}/images/add-2.png"> kannst Du neue Kursordner hinzufügen.</p>
 
-   <div style="margin-top:16px;" class="row">
-     <div class="col-xs-1 col-sm-1">
-       <img style="width:32px;height:32px;" class="img-responsive" tal:attributes="src string:${view/statics}/images/folder.png">
-     </div>
-     <div class="col-xs-9 col-sm-9">
-       <p>In den <strong>Kursordnern</strong> speicherst Du die Übungsaufgaben für Deine Schüler und Studenten. Lege hier für
-          jeden Deiner iTunes U Kurse einen Kursordner an.</p>
-     </div>
-     <div class="col-xs-2 col-sm-2"></div>
-   </div>
+   <span tal:replace="structure view/leermeldung"/>
 
  </div>
  <div class="col-xs-1 col-sm-2"></div>

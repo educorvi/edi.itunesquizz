@@ -5,6 +5,7 @@ from Products.ATContentTypes.interface import IATTopic
 from plone.app.contenttypes.interfaces import ICollection
 from Products.CMFCore.interfaces import IFolderish
 from plone import api as ploneapi
+from edi.itunesquizz.leermeldungen import aufgabenordner
 
 api.templatedir('templates')
 
@@ -29,6 +30,7 @@ class KursordnerView(api.Page):
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.meinordner = self.context.aq_parent.absolute_url()
+        self.leermeldung = aufgabenordner
         self.uebungen = []
         self.bilder = []
         self.experimente = []

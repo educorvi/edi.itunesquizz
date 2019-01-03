@@ -1,0 +1,7 @@
+<div style="margin-right:20px;float:right;" tal:condition="viewlet/checkhilfe">
+  <a href="#modal1" class="pat-plone-modal"
+                    data-pat-plone-modal="width: 400"><h4><span class="glyphicon glyphicon-question-sign"/> Hilfe</h4></a>
+  <div id="modal1" style="display: none">
+    <span tal:replace="structure viewlet/hilfe"/>
+  </div>
+</div>

@@ -22,7 +22,7 @@ aufgabenordner = """\
 <p>Wissenskontrolle im Tabellenformat mit Auswahlmöglichkeit der SI-Basiseinheiten
 
 <h4>Arbeitsblatt</h4>
-<p>Kombinationsmöglichkeit Deiner Übungen und Experimente</p>
+<p>Kombinationsmöglichkeit Deiner Übungen und Experimente sowie Freitexteingaben zu einem kompletten Arbeitsblatt.</p>
 
 <h4>Bilder</h4>
 <p>Lade Bilder in Deinen Aufgabenordner, um sie in Übungen oder Arbeitsblättern zu verwenden.</p>

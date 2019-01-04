@@ -79,14 +79,18 @@ Aufgabenordner auf Deiner Startseite angezeigt.</p>
 uebung = """\
 <h1>Hilfe</h1>
 
-<p>Hilfe bei Anlegen und Bearbeitung einer Übung</p>
+<p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Multiple-Choice Antwortoptionen.
+Du kannst zwischen Selbsttest oder benoteter Aufgaben(Vergabe von Punkten) wählen. Außerdem ist es möglich, Lösungshinweise in Form von Text, Bildern oder Videos zu vergeben.</p>
+
 """
 
 #Diese Hilfe wird bei der Einzelansicht einer Übung angezeigt
 uebungsansicht = """\
 <h1>Hilfe</h1>
 
-<p>Hilfe bei Einzelansicht einer Übung</p>
+<p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Multiple-Choice Antwortoptionen.
+Du kannst zwischen Selbsttest oder benoteter Aufgaben(Vergabe von Punkten) wählen. Außerdem ist es möglich, Lösungshinweise in Form von Text, Bildern oder Videos zu vergeben.</p>
+
 """
 
 #Diese Hilfe wird beim Anlegen oder bei Bearbeitung eines Experiments angezeigt

@@ -5,6 +5,7 @@ startseite = """\
 <h1>Hilfe</h1>
 
 <p>Hilfe der Startseite</p>
+<p>Wenn Du nicht weiter weisst geh weiter.</p>
 """
 
 
@@ -31,7 +32,7 @@ aufgabenliste = """\
 
 <h3>Übungen</h3>
 <p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Selbsttests oder benoteten Fragen.</p>
-               
+
 <h3>Experimente</h3>
 <p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler auf einfache Weise überprüfen.
 Auch bei Experimenten kannst Du entscheiden, ob diese als Selbsttest angeboten werden sollen oder ob Du sie benoten möchtest.</p>
@@ -47,26 +48,26 @@ einem Text abschließen, um vielleicht Hinweise für das selbständige weitere L
 aufgabenordner = """\
 <h1>Hilfe</h1>
 
-<p>Hier legst Du einen neuen Aufgabenordner an. Nachdem Du die Kurs-ID eingetragen hast, kannst Du Deine Eingaben speichern. 
-Optional besteht die Möglichkeit, eine Kurzbeschreibung sowie ein Bild hinzuzufügen. Nach dem Speichern kannst Du Deinen Ordner 
+<p>Hier legst Du einen neuen Aufgabenordner an. Nachdem Du die Kurs-ID eingetragen hast, kannst Du Deine Eingaben speichern.
+Optional besteht die Möglichkeit, eine Kurzbeschreibung sowie ein Bild hinzuzufügen. Nach dem Speichern kannst Du Deinen Ordner
 mit verschiedenen Arten von Aufgaben (Übungen, Experimente) oder Materialen (Bilder) bestücken.</p>
 
 <p>Auf Deiner Startseite siehst Du alle angelegten Aufgabenordner.</p>
 
 <h3>Kurs-ID</h3>
 
-<p>Hier vergibst Du die Identifikationsnummer (ID) des Kurses. Diese wird auch Bestandteil des Links, welcher zur Weitergabe an 
-Deine Schüler vom System gebildet wird. Verwende entweder die ID aus dem dazugehörigen Kurs (iTunes U), oder vergib eine eigene 
+<p>Hier vergibst Du die Identifikationsnummer (ID) des Kurses. Diese wird auch Bestandteil des Links, welcher zur Weitergabe an
+Deine Schüler vom System gebildet wird. Verwende entweder die ID aus dem dazugehörigen Kurs (iTunes U), oder vergib eine eigene
 ID. Die Eingabe darf keine Leerzeichen enthalten.</p>
 
 <h3>Kurzbeschreibung</h3>
 
-<p>In dieses Feld kannst Du eine genaue Bezeichnung oder Kurzbeschreibung eintragen. Diese wird auf Deiner Startseite zusätzlich 
+<p>In dieses Feld kannst Du eine genaue Bezeichnung oder Kurzbeschreibung eintragen. Diese wird auf Deiner Startseite zusätzlich
 zur Kurs-ID angezeigt.</p>
 
 <h3>Bild zum Aufgabenordner</h3>
 
-<p>Jedem Aufgabenordner kannst Du optional ein kleines Vorschaubild hinzufügen. Dieses wird ebenfalls in der Auflistung der 
+<p>Jedem Aufgabenordner kannst Du optional ein kleines Vorschaubild hinzufügen. Dieses wird ebenfalls in der Auflistung der
 Aufgabenordner auf Deiner Startseite angezeigt.</p>
 """
 
@@ -111,4 +112,3 @@ arbeitsblattansicht = """\
 
 <p>Hilfe bei Einzelansicht eines Arbeitsblattes</p>
 """
-

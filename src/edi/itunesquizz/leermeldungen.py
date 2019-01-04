@@ -13,17 +13,17 @@ jeden Deiner Kurse (iTunes U) einen Aufgbenordner an.</p>
 #Diese Leermeldung wird angezeigt, wenn der Augabenordner noch keine Inhalte hat.
 aufgabenordner = """\
 <h3>Dein Aufgabenordner ist noch leer!</h3>
-<p>Mit Klick auf <span class="glyphicon glyphicon-plus"/> kannst Du verschiedene Aufgaben hinzufügen. Unterscheide dabei in:</p>
+<p class="callout">Mit Klick auf <span class="glyphicon glyphicon-plus"/> kannst Du folgende Aufgabentypen hinzufügen.</p>
 
-<h4>Übungen</h4>
-<p>Übungen erlauben die Wissenskontrolle im Multiple-Choice oder Freitext-Format.</p>
+<h4>Übung</h4>
+<p>Wissenskontrolle im Multiple-Choice oder Freitext-Format</p>
 
-<h4>Experimente</h4>
-<p>Mit diesem Aufgabentyp können Deine Schüler Messwerte in Tabellenform erfassen und gegen von Dir vorgegebene Vergleichswerte prüfen.</p>
+<h4>Experiment</h4>
+<p>Wissenskontrolle im Tabellenformat mit Auswahlmöglichkeit der SI-Basiseinheiten
 
-<h4>Arbeitsblätter</h4>
-<p>In Arbeitsblättern kannst Du selbst formulierte Texte mit Stoff oder Lernhinweisen mit Übungen oder Experimenten kombinieren.</p>
+<h4>Arbeitsblatt</h4>
+<p>Kombinationsmöglichkeit Deiner Übungen und Experimente</p>
 
 <h4>Bilder</h4>
-<p>Du kannst Bilder in Deinen Aufgabenordner hochladen, um sie in Übungen oder Arbeitsblättern zu verwenden.</p>
+<p>Lade Bilder in Deinen Aufgabenordner, um sie in Übungen oder Arbeitsblättern zu verwenden.</p>
 """

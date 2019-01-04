@@ -22,7 +22,8 @@ aufgabenliste = """\
 <h1>Hilfe</h1>
 
 <h3><span class="glyphicon glyphicon-plus"/> (Hinzufügen)</h3>
-<p><strong>Mit Klick auf + kannst Du Deinem Aufgabenordner Übungen, Experimenten, Arbeitsblätter und Bilder hinzufügen.</p>
+<p><strong>Mit Klick auf + kannst Du Deinem Aufgabenordner Übungen, Experimenten, Arbeitsblätter und Bilder hinzufügen. Alle Aufgabentypen enthalten Pflichtfelder, die Du ausfüllen musst.
+Dabei hast Du u.a. die Wahl, die Aufgabe als Selbsttest oder benotet an den Schüler weiterzugeben. Bei der benoteten Variante kannst Du Über einen QR-Code die Lösungen Deiner Schüler überprüfen.</p>
 
 <h3>Zurück</h3>
 <p><strong>Zurück</strong> bringt Dich in Deinen Ordner im Portal.</p>
@@ -30,15 +31,17 @@ aufgabenliste = """\
 <h3>Bearbeiten</h3>
 <p><strong>Bearbeiten</strong> bringt Dich in die Bearbeitungsmaske Deines aktuellen Aufgabenordners.</p>
 
-<h3>Übungen</h3>
+<h3>Übung</h3>
 <p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Multiple-Choice Antwortoptionen.
 Du kannst zwischen Selbsttest oder benoteter Aufgaben(Vergabe von Punkten) wählen. Außerdem ist es möglich, Lösungshinweise in Form von Text, Bildern oder Videos zu vergeben.</p>
 
-<h3>Experimente</h3>
-<p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler überprüfen. Die Anordnung erfolgt im Tabellenformat.
-Auch hier hast du die Wahl zwischen Selbsttest und benoteter Aufgabe.</p>
+<h3>Experiment</h3>
+<p>Dieser Aufgabentyp eignet sich insbesondere für alle naturwissenschaftlichen Fächer. Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler überprüfen.
+Aller SI-Basiseinheiten werden Dir zur Auswahl angeboten.
+Die Anordnung der Ergebnisse erfolgt im Tabellenformat.
+Du kannst die Aufgabe als Selbsttest oder durch die Vergabe von Punkten benotet anlegen.</p>
 
-<h3>Arbeitsblätter</h3>
+<h3>Arbeitsblatt</h3>
 <p>Für Deine digitalen <strong>Arbeitsblätter</strong> verwendest Du Deine Übungen und Experimente. Du kannst diese nach Deiner Wahl
 auf dem Arbeitsblatt anordnen. Dazu fügst Du lediglich den Link der jeweiligen Übung oder des Experiments in die entsprechenden Eingabefelder Deines Arbeitsblattes.
 Zusätzlich kannst Du Deinem Arbeitsblatt einen Prolog und Epilog anfügen, um so vielleicht Hinweise für das selbständige weitere Lernen zu geben.</p>
@@ -68,7 +71,7 @@ zur Kurs-ID angezeigt.</p>
 
 <h3>Bild zum Aufgabenordner</h3>
 
-<p>Jedem Aufgabenordner kannst Du optional ein kleines Vorschaubild hinzufügen. Dieses wird ebenfalls in der Auflistung der
+<p>Jedem Aufgabenordner kannst Du optional ein kleines Vorschaubild hinzufügen. Dieses wird mit der Auflistung der
 Aufgabenordner auf Deiner Startseite angezeigt.</p>
 """
 

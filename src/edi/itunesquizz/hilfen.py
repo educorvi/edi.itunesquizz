@@ -22,7 +22,7 @@ aufgabenliste = """\
 <h1>Hilfe</h1>
 
 <h3><span class="glyphicon glyphicon-plus"/> (Hinzufügen)</h3>
-<p><strong>Hinzufügen</strong> von Übungen, Experimenten, Arbeitsblättern und Bildern.</p>
+<p><strong>Mit Klick auf + kannst Du Deinem Aufgabenordner Übungen, Experimenten, Arbeitsblätter und Bilder hinzufügen.</p>
 
 <h3>Zurück</h3>
 <p><strong>Zurück</strong> bringt Dich in Deinen Ordner im Portal.</p>
@@ -31,16 +31,17 @@ aufgabenliste = """\
 <p><strong>Bearbeiten</strong> bringt Dich in die Bearbeitungsmaske Deines aktuellen Aufgabenordners.</p>
 
 <h3>Übungen</h3>
-<p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Selbsttests oder benoteten Fragen.</p>
+<p><strong>Übungen</strong> dienen der Wissenskontrolle Deiner Schüler in Form von Multiple-Choice Antwortoptionen.
+Du kannst zwischen Selbsttest oder benoteter Aufgaben(Vergabe von Punkten) wählen. Außerdem ist es möglich, Lösungshinweise in Form von Text, Bildern oder Videos zu vergeben.</p>
 
 <h3>Experimente</h3>
-<p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler auf einfache Weise überprüfen.
-Auch bei Experimenten kannst Du entscheiden, ob diese als Selbsttest angeboten werden sollen oder ob Du sie benoten möchtest.</p>
+<p>Mit <strong>Experimenten</strong> kannst Du die Ergebnisse aus Versuchsreihen Deiner Schüler überprüfen. Die Anordnung erfolgt im Tabellenformat.
+Auch hier hast du die Wahl zwischen Selbsttest und benoteter Aufgabe.</p>
 
 <h3>Arbeitsblätter</h3>
-<p>Für Deine digitalen <strong>Arbeitsblätter</strong> verwendest Du Übungen und Experimente und ordnest diese nach Deiner Wahl
-auf dem Arbeitsblatt an. Ausserdem kannst Du einen Text den Übungen und Experimenten voranstellen und das Arbeitsblatt auch mit
-einem Text abschließen, um vielleicht Hinweise für das selbständige weitere Lernen zu geben.</p>
+<p>Für Deine digitalen <strong>Arbeitsblätter</strong> verwendest Du Deine Übungen und Experimente. Du kannst diese nach Deiner Wahl
+auf dem Arbeitsblatt anordnen. Dazu fügst Du lediglich den Link der jeweiligen Übung oder des Experiments in die entsprechenden Eingabefelder Deines Arbeitsblattes.
+Zusätzlich kannst Du Deinem Arbeitsblatt einen Prolog und Epilog anfügen, um so vielleicht Hinweise für das selbständige weitere Lernen zu geben.</p>
 """
 
 

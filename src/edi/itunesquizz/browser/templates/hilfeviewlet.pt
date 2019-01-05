@@ -1,6 +1,10 @@
-<div style="margin-right:20px;float:right;" tal:condition="viewlet/checkhilfe">
-  <a href="#modal1" class="pat-plone-modal"
-                    data-pat-plone-modal="width: 400"><h4><span class="glyphicon glyphicon-question-sign"/> Hilfe</h4></a>
+<div style="margin-right:20px;float:right;">
+  <a tal:condition="viewlet/checkhilfe" href="#modal1" class="pat-plone-modal"
+                    data-pat-plone-modal="width: 400" style="font-size:16px;font-weight:400">
+                    <span class="glyphicon glyphicon-question-sign"/> Hilfe</a>
+  <a tal:condition="viewlet/loggedin" tal:attributes="href viewlet/logoutlink" 
+                    style="font-size:16px;margin-left:20px;font-weight:400">
+                    <span class="glyphicon glyphicon-log-out"/> Abmelden</a>
   <div id="modal1" style="display: none">
     <span tal:replace="structure viewlet/hilfe"/>
   </div>

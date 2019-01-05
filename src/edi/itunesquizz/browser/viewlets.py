@@ -25,19 +25,14 @@ class LoggedInMembers(api.Viewlet):
             if match:
                 self.available = False
 
-class LoggedInAll(api.Viewlet):
-    api.context(Interface)
-    api.viewletmanager(IPortalFooter)
-
-    def update(self):
-        self.available = True
-
 class HilfeViewlet(api.Viewlet):
     api.context(Interface)
     api.viewletmanager(IGlobalStatusMessage)
 
-    #'https://itunesu.educorvi.de/Members/anke--lampe/dzx-byz-wnh/@@edit'
-    #'https://itunesu.educorvi.de/Members/anke--lampe/++add++Kursordner'
+    def loggedin(self):
+       if not ploneapi.user.is_anonymous():
+           return True
+       return False
 
     def checkhilfe(self):
         if self.context.layout == 'startseiteview' and ploneapi.user.is_anonymous():
@@ -85,3 +80,4 @@ class HilfeViewlet(api.Viewlet):
 
     def update(self):
        self.hilfe = self.checkhilfe()
+       self.logoutlink = ploneapi.portal.get().absolute_url() + '/logout'

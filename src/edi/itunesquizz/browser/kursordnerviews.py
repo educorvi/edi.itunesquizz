@@ -26,6 +26,16 @@ class KursordnerView(api.Page):
         elif IFolderish.providedBy(self.context):
             return self.context.getFolderContents(batch=False)
 
+    def editpanel(self):
+        if not ploneapi.user.is_anonymous():
+            current = ploneapi.user.get_current()
+            editroles = ['Manager', 'Owner', 'Editor']
+            currentroles = ploneapi.user.get_roles(username=current.id, obj=self.context)
+            match = [x for x in editroles if x in currentroles]
+            if match:
+                return True
+        return False
+
     def update(self):
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'

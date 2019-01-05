@@ -12,7 +12,7 @@ from zope import schema
 from plone.dexterity.browser import edit
 from plone.dexterity.browser import add
 from plone.supermodel import model
-from plone.directives import form
+from plone.autoform import directives as form
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IContextSourceBinder
 from plone.namedfile.field import NamedBlobImage
@@ -45,6 +45,8 @@ def possibleArticle(context):
             homeurl = pm.getHomeUrl()
             folderid = homeurl.split('/')[-1]
             homefolder = membersfolder[folderid]
+        else:
+            homefolder = context.aq_parent
     terms = []
     if homefolder:
         homepath = homefolder.getPhysicalPath()
@@ -64,12 +66,21 @@ directlyProvides(possibleArticle, IContextSourceBinder)
 class SelbstTest(Invalid):
     __doc__ = u"Die Art des Arbeitsblattes muss zu den ausgwählten Aufgabenstellungen passen."
 
-class IArbeitsblatt(Interface):
+class IArbeitsblatt(model.Schema):
     title = schema.TextLine(title=u"Überschrift", description=u"Titel des Arbeitsblattes")
     description = schema.Text(title=u"Kurzbeschreibung", required=False)
     art = schema.Choice(title=u"Art des Arbeitsblattes", description=u"Selbsttest dient der selbständigen Wissenskontrolle durch den Schüler.\
                         Bei der benoteten Variante kannst Du über einen QR-Code die Lösungen Deiner Schüler überprüfen.",
                         vocabulary=aufgabenart)
+
+    model.fieldset(
+        'extras',
+        label=u"Extras zum Arbeitsblatt",
+        fields=['image']
+    )
+
+    image = NamedBlobImage(title=u"Bild zum Arbeitsblatt",
+                           description=u"Erscheint als Vorschaubild in der Übersicht des Aufgabenordners", required=False)
 
     textvor = RichText(title=u"Prolog", description=u"Hier kannst Du Text vor die Übungen und Experimente setzen.", required=False)
     parts = schema.List(title=u"Übungen und Experimente auswählen", description=u"Beachte: Bei einem benoteten Arbeitsblatt\
@@ -96,18 +107,3 @@ class IArbeitsblatt(Interface):
    
 class Arbeitsblatt(Item):
     """Content Class"""
-
-
-#class EditForm(edit.DefaultEditForm):
-#    fields = field.Fields(IAufgabe)
-#    fields['antworten'].widgetFactory = DataGridFieldFactory
-
-
-#class AddForm(add.DefaultAddForm):
-#    portal_type = u"Aufgabe"
-#    fields = field.Fields(IAufgabe)
-#    fields['antworten'].widgetFactory = DataGridFieldFactory
-
-
-#class AddView(add.DefaultAddView):
-#    form = AddForm

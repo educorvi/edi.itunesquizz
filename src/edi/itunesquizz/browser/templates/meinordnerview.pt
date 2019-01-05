@@ -3,7 +3,7 @@
   <div class="panel-heading">
     <h2 style="margin-left:5px" class="panel-title">Kursaufgaben von <span tal:replace="context/title"/></h2>
   </div>
-  <div style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+  <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
     <div class="row">
 
 
@@ -39,7 +39,7 @@
       </h3>
     </div>
   </div>
-  <div class="row" tal:repeat="ordner view/kursordner">
+  <div class="row" style="margin-top:5px;" tal:repeat="ordner view/kursordner">
     <div style="padding-top:5px;" class="col-xs-2 col-sm-1">
       <a tal:attributes="href string:${ordner/url}/delete_confirmation" title="Ordner löschen">
         <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>

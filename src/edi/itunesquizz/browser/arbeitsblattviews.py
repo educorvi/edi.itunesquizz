@@ -92,6 +92,16 @@ class ValidateArbeitsblatt(api.View):
 class ArbeitsblattView(api.Page):
     api.context(IArbeitsblatt)
 
+    def editpanel(self):
+        if not ploneapi.user.is_anonymous():
+            current = ploneapi.user.get_current()
+            editroles = ['Manager', 'Owner', 'Editor']
+            currentroles = ploneapi.user.get_roles(username=current.id, obj=self.context)
+            match = [x for x in editroles if x in currentroles]
+            if match:
+                return True
+        return False
+
     def update(self):
         self.kursordner = self.context.aq_parent.absolute_url()
         portal = ploneapi.portal.get().absolute_url()

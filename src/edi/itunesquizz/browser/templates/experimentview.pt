@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <h2 class="panel-title" tal:content="context/title">Panel title</h2>
     </div>
-    <div style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+    <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
       <div class="row">
         <div class="col-xs-6 col-sm-6">
           <h4><a href="#" tal:attributes="href view/kursordner">Zurück</a></h4>
@@ -87,9 +87,10 @@
 
   <h3>Link für iTunes U</h3>
   <div class="form-group">
-    <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
+    <label for="myInput">Bitte kopiere diesen Link und füge Ihn als Aufgabe Deinem iTunesU Kurs hinzu.</label>
     <input style="margin-bottom:10px;" type="text" tal:attributes="value view/ituneslink" id="myInput" readonly>
     <button onclick="myFunction()">Link kopieren</button>
+    <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
   </div>
 
   <script>

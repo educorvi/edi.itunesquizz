@@ -3,7 +3,7 @@
   <div class="panel-heading">
     <h2 style="margin-left:5px" class="panel-title" tal:content="context/description">Panel title</h2>
   </div>
-  <div style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+  <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
     <div class="row">
 
 

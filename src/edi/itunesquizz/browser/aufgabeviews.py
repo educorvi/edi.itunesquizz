@@ -62,16 +62,21 @@ class ValidateAufgabe(api.View):
             if i.get('antwort'):
                 myresult['label'] = i.get('antwort')
                 resultoption = 'option_%s' %self.context.antworten.index(i)
-                if resultoption in test:
-                    myresult['checkbox'] = 'glyphicon glyphicon-check'
-                    if i.get('bewertung') == u'falsch':
-                        result = False
-                        again = True
-                else:
+                if not test:
                     myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
-                    if i.get('bewertung') == u'richtig':
-                        result = False
-                        again = True
+                    result = False
+                    again = True
+                else:
+                    if resultoption in test:
+                        myresult['checkbox'] = 'glyphicon glyphicon-check'
+                        if i.get('bewertung') == u'falsch':
+                            result = False
+                            again = True
+                    else:
+                        myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
+                        if i.get('bewertung') == u'richtig':
+                            result = False
+                            again = True
                 results.append(myresult)
         resultdict['again'] = again
         resultdict['result'] = result

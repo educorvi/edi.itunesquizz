@@ -12,7 +12,8 @@ from zope import schema
 from plone.dexterity.browser import edit
 from plone.dexterity.browser import add
 from plone.supermodel import model
-from plone.directives import form
+#from plone.directives import form
+from plone.autoform import directives as form
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IContextSourceBinder
 from plone.namedfile.field import NamedBlobImage
@@ -25,6 +26,7 @@ from Products.CMFCore.utils import getToolByName
 from zope.interface import invariant, Invalid
 from zope.interface import directlyProvides
 from z3c.form.browser.radio import RadioWidget
+from plone.supermodel import model
 
 wertvalues = SimpleVocabulary(
     [SimpleTerm(value=u'auswahl', token=u'auswahl', title=u'bitte auswählen'),
@@ -77,7 +79,7 @@ def option_constraint(value):
     return True
 
 
-class IAnswerOptions(form.Schema):
+class IAnswerOptions(model.Schema):
     antwort = schema.TextLine(title=u"Antwort")
 
     image = schema.Choice(title=u"Bild zur Antwort",
@@ -97,39 +99,47 @@ class Punkte(Invalid):
     __doc__ = u"Fehler bei der Vergabe von Punkten für diese Aufgabe."
 
 
-class IAufgabe(Interface):
+class IAufgabe(model.Schema):
     title = schema.TextLine(title=u"Überschrift", description=u"Gib der Aufgabe eine kurze Überschrift.")
-    art = schema.Choice(title=u"Art der Aufgabenstellung", description=u"Bei benoteten Aufgabenstellungen wird ein Barcode generiert.\
-                                                                         Dein Schüler muss diesen Barcode mit Dir teilen. Mit diesem Barcode\
-                                                                         kannst Du die Lösung Deines Schülers überprüfen",
+    art = schema.Choice(title=u"Art der Aufgabenstellung", description=u"Selbsttest dient der selbständigen Wissenskontrolle durch den Schüler.\
+                        Bei der benoteten Variante kannst Du über einen QR-Code die Lösungen Deiner Schüler überprüfen.",
                         vocabulary=aufgabenart)
-    punkte = schema.Int(title=u"Punkte", description=u"Bei Selbsttestaufgaben hier bitte 0 eintragen.", default=0)
-    aufgabe = schema.Text(title=u"Aufgabe", description=u"Formuliere hier Deine Fragestellung oder Aufgabe.")
-    image = NamedBlobImage(title=u"Bild zur Frage oder Aufgabe", required=False)
-    video = schema.Text(title=u"Alternativ: Video zur Frage oder Aufgabe",
+    punkte = schema.Int(title=u"Punkte", description=u"Vergib hier Punkte für eine benotete Aufgabe. Bei Selbsttestaufgaben hier bitte 0 eintragen.",
+                        default=0)
+    aufgabe = schema.Text(title=u"Frage-/Aufgabenstellung", description=u"Deine Formulierung für Multiple-Choice- oder Freitext-Aufgaben.")
+
+
+    model.fieldset(
+        'extras',
+        label=u"Extras zur Übung",
+        fields=['image', 'video', 'hinweis', 'erklaerung', 'solutionimage', 'solutionvideo']
+    )
+
+    image = NamedBlobImage(title=u"Bild zur Frage- oder Aufgabenstellung", 
+                           description=u"Erscheint unterhalb der Frage- oder Aufgabenstellung", required=False)
+    video = schema.Text(title=u"Alternativ: Video zur Frage- oder Aufgabenstellung",
                         description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
                         required=False,)
+    form.widget('antworten', DataGridFieldFactory)
     antworten = schema.List(title=u"Antwortoptionen",
-                            description=u"Hier kannst Du Antwortoptionen für eine Multiple-Choice-Frage eingeben.\
-                                          Du musst hier nichts eintragen wenn Du eine Textantwort erwartest.", 
+                            description=u"Nur für Multiple-Choice Frage- oder Aufgabenstellungen.", 
                             required=False,
                             constraint=option_constraint,
                             value_type=DictRow(title=u"Optionen", schema=IAnswerOptions))
     hinweis = schema.Text(title=u"Lösungshinweis",
                           required=False,
-                          description=u"Hier kannst Du Deinen Schülern einen Lösungshinweis geben. Der Lösungshinweis\
-                                        wird bei der Aufgabenstellung eingeblendet.")
+                          description=u"Erscheint unterhalb der Frage- oder Aufgabenstellung bzw. des Bildes.")
     erklaerung = schema.Text(title=u"Erklärung/Lernempfehlung",
                              required=False,
-                             description=u"Hier kannst Du Deinen Schülern eine Erklärung zur Lösung oder einen Empfehlung\
-                                           zum Weiterlernen geben. Der Text wird mit dem Ergebnis eingeblendet.")
-    solutionimage = NamedBlobImage(title=u"Bild zur Lösung der Aufgabe", required=False)
-    solutionvideo = schema.Text(title=u"Alternativ: Video zur Lösung der Frage oder Aufgabe",
+                             description=u"Nur relevant für Selbsttest-Aufgaben. Der Text wird zusammen mit dem Ergebnis eingeblendet.")
+    solutionimage = NamedBlobImage(title=u"Bild zur Erklärung der Lösung", 
+                                   description=u"Das Bild wird zusammen mit dem Ergebnis eingeblendet.",
+                                   required=False)
+    solutionvideo = schema.Text(title=u"Video zur Erklärung der Lösung (alternativ zum Bild).",
                         description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
                         required=False,)
-    bonus = NamedBlobImage(title=u"Bonusbild zur Aufgabe", description=u"Das Bild wird mit einem Barcode kombiniert und angezeigt.\
-                                                                         Dein Schüler kann sich das Bilder herunterladen und mit Dir teilen.\
-                                                                         Das gilt nur für benotete Aufgabenstellungen.",
+    bonus = NamedBlobImage(title=u"Bonusbild zum QR-Code", description=u"Bei benoteten Aufgaben wird Dein Bild mit dem Barcode kombiniert\
+                           und dem Schüler zum Download bereitgestellt.",
                            required=False)
 
 
@@ -156,16 +166,16 @@ class Aufgabe(Item):
     """Content Class"""
 
 
-class EditForm(edit.DefaultEditForm):
-    fields = field.Fields(IAufgabe)
-    fields['antworten'].widgetFactory = DataGridFieldFactory
+#class EditForm(edit.DefaultEditForm):
+#    fields = field.Fields(IAufgabe)
+#    fields['antworten'].widgetFactory = DataGridFieldFactory
 
 
-class AddForm(add.DefaultAddForm):
-    portal_type = u"Aufgabe"
-    fields = field.Fields(IAufgabe)
-    fields['antworten'].widgetFactory = DataGridFieldFactory
+#class AddForm(add.DefaultAddForm):
+#    portal_type = u"Aufgabe"
+#    fields = field.Fields(IAufgabe)
+#    fields['antworten'].widgetFactory = DataGridFieldFactory
 
 
-class AddView(add.DefaultAddView):
-    form = AddForm
+#class AddView(add.DefaultAddView):
+#    form = AddForm

@@ -12,7 +12,8 @@ from zope import schema
 from plone.dexterity.browser import edit
 from plone.dexterity.browser import add
 from plone.supermodel import model
-from plone.directives import form
+#from plone.directives import form
+from plone.autoform import directives as form
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IContextSourceBinder
 from plone.namedfile.field import NamedBlobImage
@@ -49,13 +50,13 @@ einheiten = SimpleVocabulary(
     )
      
 
-class IVersuche(form.Schema):
-    antwort = schema.TextLine(title=u"Aufgabe oder Messreihe")
+class IVersuche(model.Schema):
+    antwort = schema.TextLine(title=u"Text zur Versuchsreihe")
 
-    erwartung = schema.Choice(title=u"Ergebniserwartung",
+    erwartung = schema.Choice(title=u"Ergebnisart",
                           vocabulary=ergebnisart)
 
-    ergebnis = schema.TextLine(title=u"Ergebnis",
+    ergebnis = schema.TextLine(title=u"Ergebniserwartung",
                               required=True)
     einheit = schema.Choice(title=u"Einheit",
                           vocabulary=einheiten,
@@ -69,31 +70,38 @@ class Fazit(Invalid):
     __doc__ = u"Fehler bei der Anforderung eines Fazits für diese Aufgabe."
 
 
-class IExperiment(Interface):
-    title = schema.TextLine(title=u"Überschrift", description=u"Gib dem Experiment einen Namen.")
-    art = schema.Choice(title=u"Art des Experiments", description=u"Bei benoteten Experimenten wird ein Barcode generiert.\
-                                                                    Dein Schüler muss diesen Barcode mit Dir teilen. Mit diesem Barcode\
-                                                                    kannst Du die Experimentdurchführung Deines Schülers überprüfen", 
+class IExperiment(model.Schema):
+    title = schema.TextLine(title=u"Überschrift", description=u"Titel des Experiments.")
+    art = schema.Choice(title=u"Art des Experiments", description=u"Selbsttest dient der selbständigen Ergebniskontrolle durch den Schüler.\
+                        Bei der benoteten Variante kannst Du über einen QR-Code die Ergebnisse Deiner Schüler überprüfen.",
                         vocabulary=aufgabenart)
     punkte = schema.Int(title=u"Punkte", description=u"Bei Selbsttestaufgaben hier bitte 0 eintragen.", default=0)
     aufgabe = schema.Text(title=u"Versuchsaufbau", description=u"Formuliere hier Deinen Versuchsaufbau und die Aufgabenstellung für das Experiment.")
-    image = NamedBlobImage(title=u"Bild zum Versuchsaufbau.", required=False)
-    video = schema.Text(title=u"Alternativ: Video zum Versuchsaufbau.",
+
+    model.fieldset(
+        'extras',
+        label=u"Extras zum Experiment",
+        fields=['image', 'video', 'erklaerung']
+    )
+
+    image = NamedBlobImage(title=u"Bild zum Versuchsaufbau", description=u"Erscheint unterhalb der Aufgabenstellung für das Experiment", 
+                           required=False)
+    video = schema.Text(title=u"Alternativ: Video zum Versuchsaufbau",
                         description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
                         required=False,)
+    form.widget('versuchsreihen', DataGridFieldFactory)
     versuchsreihen = schema.List(title=u"Versuchsreihen",
                             description=u"Hier kannst Du angeben, welche Ergebnisse Du in den einzelnen Versuchsreihen erwartest.", 
                             required=True,
-                            value_type=DictRow(title=u"Optionen", schema=IVersuche))
-    fazit = schema.Bool(title=u"Fazit",
-                        description=u"Sollen Deine Schüler ein selbständiges Fazit aus dem Experiment ableiten?. Wenn ja, bitte hier klicken.")
+                            value_type=DictRow(title=u"Optionen", schema=IVersuche),
+                            default=[{'antwort':'z.B. Bremsweg bei 30km/h', 'erwartung':'floatrange', 'ergebnis':'4,5|9,0', 'einheit':'m'}])
+    fazit = schema.Bool(title=u"Fazit des Schülers erwünscht",
+                        description=u"Auswahl setzt ein zusätzliches Freitextfeld unterhalb der Ergebnistabelle (nur für benotete Experimente).")
     erklaerung = schema.Text(title=u"Erklärung/Lernempfehlung",
                              required=False,
-                             description=u"Hier kannst Du Deinen Schülern eine Erklärung zu den Messergebnissen geben oder einen Empfehlung\
-                                           zum Weiterlernen geben. Der Text wird mit dem Ergebnis eingeblendet.")
-    bonus = NamedBlobImage(title=u"Bonusbild zum Experiment", description=u"Das Bild wird mit einem Barcode kombiniert und angezeigt.\
-                                                                            Dein Schüler kann sich das Bilde herunterladen und mit Dir teilen.\
-                                                                            Das gilt aktuell nur für benotete Aufgabenstellungen.",
+                             description=u"Nur relevant für Selbsttest-Aufgaben. Der Text wird zusammen mit dem Ergebnis eingeblendet.")
+    bonus = NamedBlobImage(title=u"Bonusbild zum QR-Code", description=u"Bei benoteten Aufgaben wird Dein Bild mit dem Barcode kombiniert\
+                           und dem Schüler zum Download bereitgestellt.",
                            required=False)
 
 
@@ -114,16 +122,16 @@ class Experiment(Item):
     """Content Class"""
 
 
-class EditForm(edit.DefaultEditForm):
-    fields = field.Fields(IExperiment)
-    fields['versuchsreihen'].widgetFactory = DataGridFieldFactory
+#class EditForm(edit.DefaultEditForm):
+#    fields = field.Fields(IExperiment)
+#    fields['versuchsreihen'].widgetFactory = DataGridFieldFactory
 
 
-class AddForm(add.DefaultAddForm):
-    portal_type = u"Experiment"
-    fields = field.Fields(IExperiment)
-    fields['versuchsreihen'].widgetFactory = DataGridFieldFactory
+#class AddForm(add.DefaultAddForm):
+#    portal_type = u"Experiment"
+#    fields = field.Fields(IExperiment)
+#    fields['versuchsreihen'].widgetFactory = DataGridFieldFactory
 
 
-class AddView(add.DefaultAddView):
-    form = AddForm
+#class AddView(add.DefaultAddView):
+#    form = AddForm

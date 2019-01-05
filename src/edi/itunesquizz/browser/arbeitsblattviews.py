@@ -32,9 +32,18 @@ class ValidateArbeitsblatt(api.View):
     api.context(IArbeitsblatt)
 
 
+    def cookiesetter(self, retdict):
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        session.set("qrdata", retdict)
+
+
     def update(self):
+        retdict = {}
+        again = False
         resultdict = self.request.form
-        del resultdict['_authenticator']
+        if resultdict.has_key('_authenticator'):
+            del resultdict['_authenticator']
         elements = {}
         for i in resultdict:
             if i.startswith('reihe'):
@@ -51,24 +60,34 @@ class ValidateArbeitsblatt(api.View):
             obj = ploneapi.content.get(UID=i)
             objview = 'validate' + obj.portal_type.lower()
             validation = ploneapi.content.get_view(objview, obj, self.request)
-            print validation
-            #Extrahieren der Results aus dem Elemente Dictionary
             result = elements.get(obj.id)
             if obj.portal_type == 'Aufgabe':
-                resultdict = validation.formatoutputs({obj.id:result})
-                contentlist.append(resultdict)
+                resultdict = validation.formatoutputs(result)
+                resultdict = validation.formataufgabe(resultdict)
+                if resultdict['again'] == True:
+                    again = True
             elif obj.portal_type == 'Experiment':
                 formkeys = result.keys()
                 formkeys.sort()
                 resultdict = validation.formatoutputs(formkeys, result)
-                contentlist.append(resultdict)
-        import pdb;pdb.set_trace()
-        print contentlist
+                resultdict = validation.formatexperiment(resultdict)
+                if resultdict['again'] == True:
+                    again = True
+            resultdict['type'] = obj.portal_type
+            resultdict['name'] = i
+            contentlist.append(resultdict)
+            contentdir.append((self.context.absolute_url()+'/@@arbeitsblattitunes/#'+i, obj.Title()))
+        retdict['contentlist'] = contentlist
+        retdict['contentdir'] = contentdir
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        retdict['questionurl'] = self.context.absolute_url() + '/@@arbeitsblattitunes'
+        retdict['again'] = again
+        retdict['art'] = self.context.art
+        if self.context.art == 'benotet':
+            cookie = self.cookiesetter(retdict)
+        return retdict
             
-    def render(self):
-        
-        return u'ok'
-
 
 class ArbeitsblattView(api.Page):
     api.context(IArbeitsblatt)

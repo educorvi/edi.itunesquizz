@@ -45,14 +45,14 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
-  <browser:page
+  <!--<browser:page
     for=".aufgabe.IAufgabe"
     name="edit"
     class=".aufgabe.EditForm"
     permission="cmf.ModifyPortalContent"
-    />
+    />-->
 
-  <adapter
+  <!--<adapter
     for="Products.CMFCore.interfaces.IFolderish
          zope.publisher.interfaces.browser.IDefaultBrowserLayer
          plone.dexterity.interfaces.IDexterityFTI"
@@ -65,16 +65,16 @@
         permission="cmf.AddPortalContent"
         interface="zope.publisher.interfaces.browser.IBrowserPage"
         />
-  </class>
+  </class>-->
 
-  <browser:page
+  <!--<browser:page
     for=".experiment.IExperiment"
     name="edit"
     class=".experiment.EditForm"
     permission="cmf.ModifyPortalContent"
-    />
+    />-->
 
-  <adapter
+  <!--<adapter
     for="Products.CMFCore.interfaces.IFolderish
          zope.publisher.interfaces.browser.IDefaultBrowserLayer
          plone.dexterity.interfaces.IDexterityFTI"
@@ -87,7 +87,7 @@
         permission="cmf.AddPortalContent"
         interface="zope.publisher.interfaces.browser.IBrowserPage"
         />
-  </class>
+  </class>-->
 
 
 </configure>

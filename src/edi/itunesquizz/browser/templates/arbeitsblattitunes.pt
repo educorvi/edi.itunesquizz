@@ -48,8 +48,8 @@
        <tal:block repeat="part viewdata/contentlist">
         <a name="" tal:attributes="name part/name"/><h2 tal:content="part/title"/>
         <h4 class="form-signin-heading" tal:content="part/aufgabe">Aufgabenstellung</h4>
-        <p tal:condition="part/punkte"><strong>Du bekommst <span tal:replace="part/punkte"/> Punkte mit der richtigen Antwort bzw. den richtigen
-           Ergebnissen.</strong></p>
+        <p tal:condition="part/punkte"><strong>Du bekommst 
+          <span tal:replace="part/punkte"/> Punkte mit der richtigen Antwort bzw. den richtigen Ergebnissen.</strong></p>
 
         <tal:block condition="python: part.get('type') == 'Aufgabe'">
         <div tal:condition="python: part.get('illustration')=='bild'">
@@ -68,7 +68,7 @@
 
         <div tal:condition="not:part/inputfields" class="form-group">
           <input tal:condition="not:part/inputfields" type="text" tal:attributes="name part/fieldname" class="form-control" 
-            placeholder="Bitte schreibe hier eine Antwort auf die Frage">
+            placeholder="Bitte schreibe hier eine Antwort auf die Frage" required>
         </div>
 
         <div tal:condition="part/inputfields" class="form-group-lg">
@@ -125,7 +125,7 @@
 
           <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-             <input type="text" class="form-control" tal:attributes="id inputfield/value;name inputfield/value" placeholder="Wert?">
+             <input type="text" class="form-control" tal:attributes="id inputfield/value;name inputfield/value" placeholder="Wert?" required>
             </div>
           </div>
 

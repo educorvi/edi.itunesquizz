@@ -53,29 +53,33 @@ class HilfeViewlet(api.Viewlet):
             return hilfen.aufgabenordner
         if self.context.portal_type == 'Kursordner' and self.request.getURL().endswith('@@edit'):
             return hilfen.aufgabenordner
-        if self.context.portal_type == 'Kursordner':
-            return hilfen.aufgabenliste
 
         if self.context.portal_type == 'Kursordner' and self.request.getURL().endswith('++add++Aufgabe'):
             return hilfen.uebung
         if self.context.portal_type == 'Aufgabe' and self.request.getURL().endswith('@@edit'):
             return hilfen.uebung
-        if self.context.portal_type == 'Aufgabe':
-            return hilfen.uebungsansicht
 
         if self.context.portal_type == 'Kursordner' and self.request.getURL().endswith('++add++Experiment'):
             return hilfen.experiment
         if self.context.portal_type == 'Experiment' and self.request.getURL().endswith('@@edit'):
             return hilfen.experiment
-        if self.context.portal_type == 'Experiment':
-            return hilfen.experimentansicht
 
         if self.context.portal_type == 'Kursordner' and self.request.getURL().endswith('++add++Arbeitsblatt'):
             return hilfen.arbeitsblatt
         if self.context.portal_type == 'Arbeitsblatt' and self.request.getURL().endswith('@@edit'):
             return hilfen.arbeitsblatt
+
         if self.context.portal_type == 'Arbeitsblatt':
             return hilfen.arbeitsblattansicht
+
+        if self.context.portal_type == 'Kursordner':
+            return hilfen.aufgabenliste
+
+        if self.context.portal_type == 'Aufgabe':
+            return hilfen.uebungsansicht
+
+        if self.context.portal_type == 'Experiment':
+            return hilfen.experimentansicht
 
         return False
 

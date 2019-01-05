@@ -22,7 +22,7 @@ aufgabenliste = """\
 <h1>Hilfe</h1>
 
 <h3><span class="glyphicon glyphicon-plus"/> (Hinzufügen)</h3>
-<p><strong>Mit Klick auf + kannst Du Deinem Aufgabenordner Übungen, Experimenten, Arbeitsblätter und Bilder hinzufügen. Alle Aufgabentypen enthalten Pflichtfelder, die Du ausfüllen musst.
+<p><strong>Mit Klick auf + kannst Du Deinem Aufgabenordner Übungen, Experimente, Arbeitsblätter und Bilder hinzufügen. Alle Aufgabentypen enthalten Pflichtfelder, die Du ausfüllen musst.
 Dabei hast Du u.a. die Wahl, die Aufgabe als Selbsttest oder benotet an den Schüler weiterzugeben. Bei der benoteten Variante kannst Du Über einen QR-Code die Lösungen Deiner Schüler überprüfen.</p>
 
 <h3>Zurück</h3>

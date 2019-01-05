@@ -12,7 +12,6 @@ class iTunesView(api.View):
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.webcode = self.request.get('code')
-        #self.setterurl = portal + '/@@cookiesetter'
         if self.webcode:
             brains = ploneapi.content.find(Webcode=self.webcode)
             obj = brains[0].getObject()
@@ -20,13 +19,9 @@ class iTunesView(api.View):
                 viewextension = u'/@@aufgabeitunes'
             elif obj.portal_type == 'Experiment':
                 viewextension = u'/@@experimentitunes'
+            elif obj.portal_type == 'Arbeitsblatt':
+                viewextension = u'/@@arbeitsblattitunes'
             return self.redirect(obj.absolute_url() + viewextension)
-
-            #else:
-            #    sdm = self.context.session_data_manager
-            #    session = sdm.getSessionData(create=True)
-            #    if session.has_key('usermail'):
-            #        return self.redirect(obj.absolute_url() + viewextension)
         else:
             print 'return to error-site'
 
@@ -42,6 +37,9 @@ class ITunes_Aufgabe_Validation(api.View):
         return data
 
 class ITunes_Experiment_Validation(ITunes_Aufgabe_Validation):
+    api.context(Interface)
+
+class ITunes_Arbeitsblatt_Validation(ITunes_Aufgabe_Validation):
     api.context(Interface)
 
 

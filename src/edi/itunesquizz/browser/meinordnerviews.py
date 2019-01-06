@@ -6,6 +6,7 @@ from plone.app.contenttypes.interfaces import ICollection
 from Products.CMFCore.interfaces import IFolderish
 from plone import api as ploneapi
 from edi.itunesquizz.leermeldungen import startseite
+from edi.itunesquizz.browser.security import checkOwner
 
 api.templatedir('templates')
 
@@ -37,6 +38,8 @@ class MeinOrdnerView(api.Page):
         return False
 
     def update(self):
+        if not checkOwner(self.context, self.request):
+            self.request.response.redirect(self.context.absolute_url() + '/@@securitypage')
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.leermeldung = startseite

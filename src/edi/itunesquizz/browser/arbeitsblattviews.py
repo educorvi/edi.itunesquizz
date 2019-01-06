@@ -2,6 +2,7 @@ from zope.interface import Interface
 from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.arbeitsblatt import IArbeitsblatt
+from edi.itunesquizz.browser.security import checkOwner
 
 api.templatedir('templates')
 
@@ -103,6 +104,8 @@ class ArbeitsblattView(api.Page):
         return False
 
     def update(self):
+        if not checkOwner(self.context, self.request):
+            self.request.response.redirect(self.context.absolute_url() + '/@@securitypage')
         self.kursordner = self.context.aq_parent.absolute_url()
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'

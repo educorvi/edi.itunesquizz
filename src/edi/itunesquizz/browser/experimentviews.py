@@ -3,6 +3,7 @@ from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.experiment import IExperiment
 from edi.itunesquizz.experiment import aufgabenart, ergebnisart
+from edi.itunesquizz.browser.security import checkOwner
 
 api.templatedir('templates')
 
@@ -137,6 +138,8 @@ class ExperimentView(api.Page):
         return False
 
     def update(self):
+        if not checkOwner(self.context, self.request):
+            self.request.response.redirect(self.context.absolute_url() + '/@@securitypage')
         self.kursordner = self.context.aq_parent.absolute_url()
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'

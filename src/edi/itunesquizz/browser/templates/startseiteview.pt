@@ -79,7 +79,7 @@
       <h3 class="panel-title">Übung</h3>
     </div>
     <div class="panel-body">
-      <a href="" tal:attributes="href aufgabe/url"><img style="max-width:100%" tal:attributes="src aufgabe/img"></a>
+      <a href="" target="_blank" tal:attributes="href aufgabe/url"><img style="max-width:100%" tal:attributes="src aufgabe/img"></a>
     </div>
     <div class="panel-footer" tal:content="aufgabe/title"></div>
   </div>
@@ -91,7 +91,7 @@
       <h3 class="panel-title">Experiment</h3>
     </div>
     <div class="panel-body">
-      <a href="" tal:attributes="href experiment/url"><img style="max-width:100%" tal:attributes="src experiment/img"></a>
+      <a href="" target="_blank" tal:attributes="href experiment/url"><img style="max-width:100%" tal:attributes="src experiment/img"></a>
     </div>
     <div class="panel-footer" tal:content="experiment/title"></div>
   </div>
@@ -103,7 +103,7 @@
       <h3 class="panel-title">Arbeitsblatt</h3>
     </div>
     <div class="panel-body">
-      <a href="" tal:attributes="href arbeitsblatt/url"><img style="max-width:100%" tal:attributes="src arbeitsblatt/img"></a>
+      <a href="" target="_blank" tal:attributes="href arbeitsblatt/url"><img style="max-width:100%" tal:attributes="src arbeitsblatt/img"></a>
     </div>
     <div class="panel-footer" tal:content="arbeitsblatt/title"></div>
   </div>

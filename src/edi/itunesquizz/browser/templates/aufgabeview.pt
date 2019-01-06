@@ -6,11 +6,11 @@
     <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
       <div class="row">
         <div class="col-xs-6 col-sm-6">
-          <h4><a href="#" tal:attributes="href view/kursordner">Zurück</a></h4>
+          <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
         </div>
         <div class="col-xs-6 col-sm-6">
           <h4 style="text-align:right;margin-right:5px">
-            <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'">Bearbeiten</a>
+            <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
           </h4>
         </div>
     </div>

@@ -14,15 +14,15 @@ class StartseiteView(api.Page):
         ex_context = ploneapi.portal.get()['beispiele']
         experimente = ploneapi.content.find(context=ex_context, portal_type='Experiment')
         experiment = experimente[0].getObject()
-        examples['experiment'] = {'url':experiment.absolute_url, 'title':experiment.title, 
+        examples['experiment'] = {'url':experiment.absolute_url() + '/@@experimentitunes', 'title':experiment.title, 
                                   'img': '%s/@@images/image/preview' % experiment.absolute_url()}
         aufgaben = ploneapi.content.find(context=ex_context, portal_type='Aufgabe')
         aufgabe = aufgaben[0].getObject()
-        examples['aufgabe'] = {'url':aufgabe.absolute_url, 'title':aufgabe.title, 
+        examples['aufgabe'] = {'url':aufgabe.absolute_url() + '/@@aufgabeitunes', 'title':aufgabe.title, 
                                'img': '%s/@@images/image/preview' % aufgabe.absolute_url()}
         arbeitsblaetter = ploneapi.content.find(context=ex_context, portal_type='Arbeitsblatt')
         arbeitsblatt = arbeitsblaetter[0].getObject()
-        examples['arbeitsblatt'] = {'url':arbeitsblatt.absolute_url, 'title':arbeitsblatt.title,
+        examples['arbeitsblatt'] = {'url':arbeitsblatt.absolute_url() + '/@@arbeitsblattitunes', 'title':arbeitsblatt.title,
                                'img': '%s/arbeitsblatt.png' % portal_url}
         return examples
 

@@ -51,6 +51,27 @@
     </div>
   </div>
 
+  <div tal:define="datei view/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
+    <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
+       <video src="" tal:attributes="src datei/url" controls width="70%">
+           Dein Browser kann dieses Video nicht wiedergeben.<br/>
+           Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+       </video>
+    </div>
+    <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
+       <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
+           Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
+           Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+       </audio>
+    </div>
+    <div class="col-xs-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+       <a href="" tal:attributes="href datei/url"><span class="glyphicon glyphicon-download"/>
+                                                  <span tal:content="datei/filename"/>
+                                                  (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
+       </a>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <h3>Antwortoptionen</h3>

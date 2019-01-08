@@ -17,6 +17,7 @@ from plone.autoform import directives as form
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IContextSourceBinder
 from plone.namedfile.field import NamedBlobImage
+from plone.namedfile.field import NamedBlobFile
 from z3c.relationfield.schema import RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.app.vocabularies.catalog import CatalogSource
@@ -112,14 +113,19 @@ class IAufgabe(model.Schema):
     model.fieldset(
         'extras',
         label=u"Extras zur Übung",
-        fields=['image', 'video', 'hinweis', 'erklaerung', 'solutionimage', 'solutionvideo']
+        fields=['image', 'video', 'datei', 'hinweis', 'erklaerung', 'solutionimage', 'solutionvideo']
     )
 
     image = NamedBlobImage(title=u"Bild zur Frage- oder Aufgabenstellung", 
-                           description=u"Erscheint unterhalb der Frage- oder Aufgabenstellung", required=False)
+                           description=u"Erscheint oberhalb der Frage- oder Aufgabenstellung", required=False)
     video = schema.Text(title=u"Alternativ: Video zur Frage- oder Aufgabenstellung",
                         description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
                         required=False,)
+    datei = NamedBlobFile(title=u"Datei zur Frage- oder Aufgabenstellung",
+                          description=u"Hier kannst Du eine Datei zur Frage- oder Aufgabenstellung hochladen. Videodateien im mp4-Format\
+                          und Audio-Dateien im mp3-Format werden automatisch erkannt und abgespielt wenn der Browser das unterstützt.\
+                          Alle anderen Dateiformate werden zum Download angeboten. Die Datei erscheint oberhalb der Frage- oder Aufgabenstellung.",
+                          required=False,)
     form.widget('antworten', DataGridFieldFactory)
     antworten = schema.List(title=u"Antwortoptionen",
                             description=u"Nur für Multiple-Choice Frage- oder Aufgabenstellungen.", 

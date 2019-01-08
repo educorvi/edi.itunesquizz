@@ -7,6 +7,12 @@ from edi.itunesquizz.browser.security import checkOwner
 
 api.templatedir('templates')
 
+def sizeof_fmt(num, suffix='Byte'):
+    for unit in ['','k','M','G','T','P','E','Z']:
+        if abs(num) < 1024.0:
+            return "%3.2f %s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.2f %s%s" % (num, 'Y', suffix)
 
 class AufgabeITunes(api.View):
     api.context(IAufgabe)
@@ -35,6 +41,14 @@ class AufgabeITunes(api.View):
         retdict['aufgabe'] = self.context.aufgabe
         retdict['punkte'] = self.context.punkte
         retdict['hinweis'] = self.context.hinweis
+        retdict['datei'] = {}
+        if self.context.datei:
+            datei = {}
+            datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            datei['contentType'] = self.context.datei.contentType
+            datei['size'] = sizeof_fmt(self.context.datei.size)
+            datei['filename'] = self.context.datei.filename
+            retdict['datei'] = datei
         illustration = ''
         if self.context.image:
             illustration = 'bild'
@@ -143,6 +157,12 @@ class AufgabeView(api.Page):
         self.kursordner = self.context.aq_parent.absolute_url()
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
+        self.datei = {}
+        if self.context.datei:
+            self.datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            self.datei['contentType'] = self.context.datei.contentType
+            self.datei['size'] = sizeof_fmt(self.context.datei.size)
+            self.datei['filename'] = self.context.datei.filename
         self.aufgabenart = aufgabenart.getTerm(self.context.art).title
         self.images = False
         if self.context.webcode:

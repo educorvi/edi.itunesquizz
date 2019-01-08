@@ -51,6 +51,7 @@ setup(
         'numpy',
         'requests',
         'pymongo',
+        'python-magic',
     ],
     extras_require={
         'test': [

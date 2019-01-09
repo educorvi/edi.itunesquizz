@@ -65,7 +65,7 @@
         <div tal:define="datei python: part.get('datei');filetype python:datei.get('contentType')" tal:condition="datei" class="row">
           <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
             <div class="embed-responsive embed-responsive-4by3">
-              <video class="embed-responsive-item" src="" tal:attributes="src datei/url" controls width="70%">
+              <video class="embed-responsive-item" src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
                 Dein Browser kann dieses Video nicht wiedergeben.<br/>
                 Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
               </video>

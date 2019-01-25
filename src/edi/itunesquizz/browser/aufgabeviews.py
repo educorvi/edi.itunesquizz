@@ -61,6 +61,55 @@ class AufgabeITunes(api.View):
         retdict['inputfields'] = self.formatinputs()
         return retdict
 
+
+class AufgabePlone(api.Page):
+    api.context(IAufgabe)
+
+    def formatinputs(self):
+        options = []
+        if self.context.antworten:
+            for i in self.context.antworten:
+                option = {}
+                if i.get('antwort'):
+                    option['image'] = ''
+                    if i.get('image'):
+                        parenturl = self.context.aq_parent.absolute_url()
+                        option['image'] = '%s/%s/@@images/image' %(parenturl, i.get('image').id)
+                    option['value'] = 'option_%s' %self.context.antworten.index(i)
+                    option['label'] = i.get('antwort')
+                    options.append(option)
+        return options
+
+    def update(self):
+        retdict = {}
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabe'
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        retdict['title'] = self.context.title
+        retdict['aufgabe'] = self.context.aufgabe
+        retdict['punkte'] = self.context.punkte
+        retdict['hinweis'] = self.context.hinweis
+        retdict['datei'] = {}
+        if self.context.datei:
+            datei = {}
+            datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            datei['contentType'] = self.context.datei.contentType
+            datei['size'] = sizeof_fmt(self.context.datei.size)
+            datei['filename'] = self.context.datei.filename
+            retdict['datei'] = datei
+        illustration = ''
+        if self.context.image:
+            illustration = 'bild'
+            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
+        if self.context.video:
+            illustration = 'film'
+            retdict['film'] = self.context.absolute_url()
+        retdict['illustration'] = illustration
+        retdict['fieldname'] = self.context.id
+        retdict['inputfields'] = self.formatinputs()
+        return retdict
+
+
 class ValidateAufgabe(api.View):
     api.context(IAufgabe)
 

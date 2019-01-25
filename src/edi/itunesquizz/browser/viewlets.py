@@ -35,8 +35,9 @@ class HilfeViewlet(api.Viewlet):
        return False
 
     def checkhilfe(self):
-        if self.context.layout == 'startseiteview' and ploneapi.user.is_anonymous():
-            return hilfen.startseite
+        if hasattr(self.context, 'layout'):
+            if self.context.layout == 'startseiteview' and ploneapi.user.is_anonymous():
+                return hilfen.startseite
 
         if not ploneapi.user.is_anonymous():
             pm = getToolByName(self.context, 'portal_membership')

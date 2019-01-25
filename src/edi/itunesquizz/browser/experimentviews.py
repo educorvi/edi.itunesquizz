@@ -7,9 +7,11 @@ from edi.itunesquizz.browser.security import checkOwner
 
 api.templatedir('templates')
 
+
 def myfloat(value):
     value = value.replace(',', '.')
     return float(value)
+
 
 class ExperimentITunes(api.View):
     api.context(IExperiment)
@@ -26,6 +28,42 @@ class ExperimentITunes(api.View):
                     reihen.append(reihe)
         return reihen
                
+    def update(self):
+        retdict = {}
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['title'] = self.context.title
+        retdict['aufgabe'] = self.context.aufgabe
+        retdict['punkte'] = self.context.punkte
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validateexperiment'
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        illustration = ''
+        if self.context.image:
+            retdict['illustration'] = 'bild'
+            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
+        if self.context.video:
+            retdict['illustration'] = 'film'
+            retdict['film'] = self.context.video
+        retdict['fieldname'] = self.context.id
+        retdict['inputfields'] = self.formatinputs()
+        retdict['fazit'] = self.context.fazit
+        return retdict
+
+
+class ExperimentPlone(api.Page):
+    api.context(IExperiment)
+
+    def formatinputs(self):
+        reihen = []
+        if self.context.versuchsreihen:
+            for i in self.context.versuchsreihen:
+                reihe = {}
+                if i.get('antwort'):
+                    reihe['label'] = i.get('antwort')
+                    reihe['value'] = 'reihe_%s_%s' %(self.context.UID(), self.context.versuchsreihen.index(i))
+                    reihe['einheit'] = i.get('einheit')
+                    reihen.append(reihe)
+        return reihen
+
     def update(self):
         retdict = {}
         portal = ploneapi.portal.get().absolute_url()

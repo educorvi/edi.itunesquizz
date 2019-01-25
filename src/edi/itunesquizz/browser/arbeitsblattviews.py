@@ -9,6 +9,28 @@ api.templatedir('templates')
 class ArbeitsblattITunes(api.View):
     api.context(IArbeitsblatt)
 
+    def update(self):
+        retdict = {}
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validatearbeitsblatt'
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        contentdir = []
+        contentlist = []
+        for i in self.context.parts:
+            obj = ploneapi.content.get(UID=i)
+            objview = obj.portal_type.lower() + 'itunes'
+            objdict = ploneapi.content.get_view(objview, obj, self.request).update()
+            objdict['type'] = obj.portal_type
+            objdict['name'] = i
+            contentdir.append((self.context.absolute_url()+'/@@arbeitsblattitunes/#'+i, obj.Title()))
+            contentlist.append(objdict)
+        retdict['contentdir'] = contentdir
+        retdict['contentlist'] = contentlist
+        return retdict
+
+
+class ArbeitsblattPlone(api.Page):
+    api.context(IArbeitsblatt)
 
     def update(self):
         retdict = {}
@@ -28,6 +50,7 @@ class ArbeitsblattITunes(api.View):
         retdict['contentdir'] = contentdir
         retdict['contentlist'] = contentlist
         return retdict
+
 
 class ValidateArbeitsblatt(api.View):
     api.context(IArbeitsblatt)

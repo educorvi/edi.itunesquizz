@@ -25,6 +25,7 @@
   <property name="default_view">experimentview</property>
   <property name="view_methods">
     <element value="aufgabeview"/>
+    <element value="aufgabeplone"/>
   </property>
   <property name="default_view_fallback">False</property>
 

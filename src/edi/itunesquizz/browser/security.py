@@ -6,13 +6,13 @@ import zExceptions
 
 api.templatedir('templates')
 
-class NotFound(api.View):
-    api.context(zExceptions.NotFound)
-    api.name("index.html")
-
-    def render(self):
-        self.request.response.status = "404"
-        return u"NOT FOUND"
+#class NotFound(api.View):
+#    api.context(zExceptions.NotFound)
+#    api.name("index.html")
+#
+#    def render(self):
+#        self.request.response.status = "404"
+#        return u"NOT FOUND"
 
 def checkOwner(context, request):
     if not ploneapi.user.is_anonymous():

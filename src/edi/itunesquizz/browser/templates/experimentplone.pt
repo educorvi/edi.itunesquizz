@@ -1,7 +1,5 @@
 <div class="row" tal:define="viewdata view/update">
 
-    <div class="container">
-
       <form class="form-horizontal" tal:attributes="action viewdata/validationurl">
 
         <h2 tal:content="context/title"/>
@@ -51,17 +49,10 @@
 
         <div style="margin-top:20px" class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Absenden</button>
+            <button class="btn btn-lg btn-primary" type="submit">Absenden</button>
           </div>
         </div>
 
       </form>
-
-    </div> <!-- /container -->
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
 
 </div>

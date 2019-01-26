@@ -35,7 +35,7 @@ class ArbeitsblattPlone(api.Page):
     def update(self):
         retdict = {}
         portal = ploneapi.portal.get().absolute_url()
-        retdict['validationurl'] = self.context.absolute_url() + '/@@validatearbeitsblatt'
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validatearbeitsblattplone'
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         contentdir = []
         contentlist = []
@@ -45,7 +45,7 @@ class ArbeitsblattPlone(api.Page):
             objdict = ploneapi.content.get_view(objview, obj, self.request).update()
             objdict['type'] = obj.portal_type
             objdict['name'] = i
-            contentdir.append((self.context.absolute_url()+'/@@arbeitsblattitunes/#'+i, obj.Title()))
+            contentdir.append((self.context.absolute_url()+'/@@arbeitsblattplone/#'+i, obj.Title()))
             contentlist.append(objdict)
         retdict['contentdir'] = contentdir
         retdict['contentlist'] = contentlist
@@ -55,12 +55,10 @@ class ArbeitsblattPlone(api.Page):
 class ValidateArbeitsblatt(api.View):
     api.context(IArbeitsblatt)
 
-
     def cookiesetter(self, retdict):
         sdm = self.context.session_data_manager
         session = sdm.getSessionData(create=True)
         session.set("qrdata", retdict)
-
 
     def update(self):
         retdict = {}
@@ -111,7 +109,65 @@ class ValidateArbeitsblatt(api.View):
         if self.context.art == 'benotet':
             cookie = self.cookiesetter(retdict)
         return retdict
+
             
+class ValidateArbeitsblattPlone(api.Page):
+    api.context(IArbeitsblatt)
+
+    def cookiesetter(self, retdict):
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        session.set("qrdata", retdict)
+
+    def update(self):
+        retdict = {}
+        again = False
+        resultdict = self.request.form
+        if resultdict.has_key('_authenticator'):
+            del resultdict['_authenticator']
+        elements = {}
+        for i in resultdict:
+            if i.startswith('reihe'):
+                parts = i.split('_')
+                keyid = ploneapi.content.get(UID=parts[1]).id
+                if not elements.has_key(keyid):
+                    elements[keyid] = {}
+                elements[keyid][i] = resultdict.get(i)
+            else:
+                elements[i] = resultdict.get(i)
+        contentdir = []
+        contentlist = []
+        for i in self.context.parts:
+            obj = ploneapi.content.get(UID=i)
+            objview = 'validate' + obj.portal_type.lower()
+            validation = ploneapi.content.get_view(objview, obj, self.request)
+            result = elements.get(obj.id)
+            if obj.portal_type == 'Aufgabe':
+                resultdict = validation.formatoutputs(result)
+                resultdict = validation.formataufgabe(resultdict)
+                if resultdict['again'] == True:
+                    again = True
+            elif obj.portal_type == 'Experiment':
+                formkeys = result.keys()
+                formkeys.sort()
+                resultdict = validation.formatoutputs(formkeys, result)
+                resultdict = validation.formatexperiment(resultdict)
+                if resultdict['again'] == True:
+                    again = True
+            resultdict['type'] = obj.portal_type
+            resultdict['name'] = i
+            contentlist.append(resultdict)
+            contentdir.append((self.context.absolute_url()+'/@@arbeitsblattplone/#'+i, obj.Title()))
+        retdict['contentlist'] = contentlist
+        retdict['contentdir'] = contentdir
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        retdict['questionurl'] = self.context.absolute_url() + '/@@arbeitsblattplone'
+        retdict['again'] = again
+        retdict['art'] = self.context.art
+        if self.context.art == 'benotet':
+            cookie = self.cookiesetter(retdict)
+        return retdict
 
 class ArbeitsblattView(api.Page):
     api.context(IArbeitsblatt)

@@ -70,7 +70,7 @@ class ExperimentPlone(api.Page):
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['punkte'] = self.context.punkte
-        retdict['validationurl'] = self.context.absolute_url() + '/@@validateexperiment'
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validateexperimentplone'
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         illustration = ''
         if self.context.image:
@@ -143,6 +143,83 @@ class ValidateExperiment(api.View):
     def update(self):
         retdict = {}
         questionurl = self.context.absolute_url() + '/@@experimentitunes'
+        formkeys = []
+        for i in self.request.form.keys():
+            if i .startswith('reihe'):
+                formkeys.append(i)
+        if not formkeys:
+            return self.response.redirect(questionurl)
+        retdict['questionurl'] = questionurl
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        retdict = self.formatexperiment(retdict)
+        formkeys.sort()
+        test = self.request.form
+        outputs = self.formatoutputs(formkeys, test)
+        retdict['outputs'] = outputs
+        if self.context.art == 'benotet':
+            cookie = self.cookiesetter(retdict)
+        return retdict
+
+
+class ValidateExperimentPlone(api.Page):
+    api.context(IExperiment)
+
+    def formatoutputs(self, formkeys, test):
+        resultdict = {}
+        results = []
+        again = False
+        result = True
+        versuchsreihen=self.context.versuchsreihen
+        for i in range(len(versuchsreihen)):
+            reihe = versuchsreihen[i]
+            erwartung = reihe.get('erwartung')
+            ergebnis = reihe.get('ergebnis')
+            experiment = test.get(formkeys[i])
+            myresult = {}
+            if erwartung == 'integer':
+                if int(experiment) != int(ergebnis):
+                    again = True
+                    result = False
+            if erwartung == 'float':
+                if myfloat(experiment) != myfloat(ergebnis):
+                    again = True
+                    result = False
+            if erwartung == 'intrange':
+                ergebnis = ergebnis.split('|')
+                if not int(ergebnis[0]) < int(experiment) < int(ergebnis[1]):
+                    again = True
+                    result = False
+            if erwartung == 'floatrange':
+                ergebnis = ergebnis.split('|')
+                if not myfloat(ergebnis[0]) < myfloat(experiment) < myfloat(ergebnis[1]):
+                    again = True
+                    result = False
+            myresult['label'] = reihe.get('antwort')
+            myresult['experiment'] = experiment
+            myresult['einheit'] = reihe.get('einheit')
+            results.append(myresult)
+        resultdict['again'] = again
+        resultdict['result'] = result
+        resultdict['results'] = results
+        resultdict['fazit'] = test.get('fazit')
+        return resultdict
+
+    def formatexperiment(self, retdict):
+        retdict['title'] = self.context.title
+        retdict['aufgabe'] = self.context.aufgabe
+        retdict['art'] = self.context.art
+        retdict['erklaerung'] = self.context.erklaerung
+        return retdict
+
+    def cookiesetter(self, retdict):
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        session.set("qrdata", retdict)
+
+    def update(self):
+        retdict = {}
+        questionurl = self.context.absolute_url() + '/@@experimentplone'
         formkeys = []
         for i in self.request.form.keys():
             if i .startswith('reihe'):

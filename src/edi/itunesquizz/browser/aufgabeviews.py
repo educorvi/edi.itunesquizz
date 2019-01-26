@@ -83,7 +83,7 @@ class AufgabePlone(api.Page):
     def update(self):
         retdict = {}
         portal = ploneapi.portal.get().absolute_url()
-        retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabe'
+        retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabeplone'
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
@@ -186,6 +186,85 @@ class ValidateAufgabe(api.View):
         if self.context.art == 'benotet':
             cookie = self.cookiesetter(retdict)
         return retdict
+
+
+class ValidateAufgabePlone(api.Page):
+    api.context(IAufgabe)
+
+    def formatoutputs(self, test):
+        resultdict = {}
+        results = []
+        again = False
+        result = True
+        if not self.context.antworten:
+            result = 'text'
+            results = test
+        for i in self.context.antworten:
+            myresult = {}
+            if i.get('antwort'):
+                myresult['label'] = i.get('antwort')
+                resultoption = 'option_%s' %self.context.antworten.index(i)
+                if not test:
+                    myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
+                    result = False
+                    again = True
+                else:
+                    if resultoption in test:
+                        myresult['checkbox'] = 'glyphicon glyphicon-check'
+                        if i.get('bewertung') == u'falsch':
+                            result = False
+                            again = True
+                    else:
+                        myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
+                        if i.get('bewertung') == u'richtig':
+                            result = False
+                            again = True
+                results.append(myresult)
+        resultdict['again'] = again
+        resultdict['result'] = result
+        resultdict['results'] = results
+        return resultdict
+
+    def formataufgabe(self, retdict):
+        retdict['title'] = self.context.title
+        retdict['aufgabe'] = self.context.aufgabe
+        retdict['art'] = self.context.art
+        retdict['erklaerung'] = self.context.erklaerung
+        retdict['illustration'] = ''
+        if self.context.solutionimage:
+            retdict['illustration'] = 'bild'
+        if self.context.solutionvideo:
+            retdict['illustration'] = 'film'
+        retdict['bild'] = ''
+        if self.context.solutionimage:
+            retdict['bild'] = "%s/@@images/solutionimage" %self.context.absolute_url()
+        retdict['film'] = ''
+        if self.context.solutionvideo:
+            retdict['film'] = self.context.solutionvideo
+        return retdict
+
+    def cookiesetter(self, retdict):
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        session.set("qrdata", retdict)
+        
+    def update(self):
+        retdict = {}
+        questionurl = self.context.absolute_url() + '/@@aufgabeplone'
+        if not self.request.form.get(self.context.id):
+            return self.response.redirect(questionurl)
+        portal = ploneapi.portal.get().absolute_url()
+        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
+        retdict['questionurl'] = questionurl
+        retdict = self.formataufgabe(retdict)
+        outputs = {}
+        fieldname = self.context.id
+        outputs = self.formatoutputs(self.request.form.get(fieldname))
+        retdict['outputs'] = outputs
+        if self.context.art == 'benotet':
+            cookie = self.cookiesetter(retdict)
+        return retdict
+
 
 class AufgabeView(api.Page):
     api.context(IAufgabe)

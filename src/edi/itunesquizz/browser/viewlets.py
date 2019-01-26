@@ -4,7 +4,10 @@ from plone import api as ploneapi
 from Products.CMFCore.utils import getToolByName
 from edi.itunesquizz import hilfen
 from edi.itunesquizz.kursordner import IKursordner
-from plone.app.layout.viewlets.interfaces import IGlobalStatusMessage
+try:
+    from plone.app.layout.viewlets.interfaces import IGlobalStatusMessage
+except:
+    from plone.app.layout.viewlets.interfaces import IAboveContent as IGlobalStatusMessage
 from plone.app.layout.viewlets.interfaces import IAboveContentTitle
 from plone.app.layout.viewlets.interfaces import IPortalFooter
 

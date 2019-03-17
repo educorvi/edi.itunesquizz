@@ -1,63 +1,35 @@
 <div class="row">
+<div class="col-xs-1 col-sm-1"></div>
+<div class="col-xs-10 col-sm-10"><h2>In 4  Schritten zur neuen Aufgabe:</h2></div>
+<div class="col-xs-1 col-sm-1"></div>
+</div>
+
+<div class="row">
   <div class="col-xs-1 col-sm-1"></div>
-  <div class="col-xs-10 col-sm-10">
-    <h1 style="margin-left:5px" class="panel-title">Aufgaben für iTunes&nbsp;U</h1>
-  </div>
+  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/user-3.png"> Registrieren oder Anmelden</h3></div>
   <div class="col-xs-1 col-sm-1"></div>
 </div>
 <div class="row">
-  <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-  <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
-    <a class="submit-widget button-field context" href="#" tal:attributes="href view/register" role="button">Registrieren</a>
-  </div>
-  <div class="col-xs-4 col-sm-8 col-md-8 col-lg-8"></div>
-  <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
-    <a class="submit-widget button-field standalone" href="#" tal:attributes="href view/login" role="button">Anmelden</a>
-  </div>
-  <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+  <div class="col-xs-1 col-sm-1"></div>
+  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/folder.png"> Aufgabenordner anlegen</h3></div>
+  <div class="col-xs-1 col-sm-1"></div>
 </div>
 <div class="row">
+  <div class="col-xs-1 col-sm-1"></div>
+  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/compose.png"> Aufgabe anlegen</h3></div>
+  <div class="col-xs-1 col-sm-1"></div>
+</div>
+<div class="row">
+  <div class="col-xs-1 col-sm-1"></div>
+  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/link.png"> Link teilen</h3></div>
+  <div class="col-xs-1 col-sm-1"></div>
+</div>
+
+<div tal:condition="view/examples" class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><hr></div>
 </div>
 
-<div class="row">
-<div class="col-xs-1 col-sm-3"></div>
-<div class="col-xs-10 col-sm-6"><h3>In 3  Schritten zur neuen Aufgabe:</h3></div>
-<div class="col-xs-1 col-sm-3"></div>
-</div>
-
-<div class="row">
-  <div class="col-xs-1 col-sm-3"></div>
-  <div class="col-xs-10 col-sm-6"><h2><img style="width:48px;height:48px;" tal:attributes="src string:${view/statics}/images/folder.png"> Aufgabenordner anlegen</h2></div>
-  <div class="col-xs-1 col-sm-3"></div>
-</div>
-<div class="row">
-  <div class="col-xs-4 col-sm-4"></div>
-  <div class="col-xs-2 col-sm-2"><img style="width:50px;height:64px;margin-left:15px" tal:attributes="src string:${view/statics}/images/fulldown.png"></div>
-  <div class="col-xs-6 col-sm-6"></div>
-</div>
-<div class="row">
-  <div class="col-xs-1 col-sm-3"></div>
-  <div class="col-xs-10 col-sm-6"><h2><img style="width:48px;height:48px;" tal:attributes="src string:${view/statics}/images/compose-color-white.png"> Aufgabe anlegen</h2></div>
-  <div class="col-xs-1 col-sm-3"></div>
-</div>
-<div class="row">
-  <div class="col-xs-4 col-sm-4"></div>
-  <div class="col-xs-2 col-sm-2"><img style="width:50px;height:64px;margin-left:15px" tal:attributes="src string:${view/statics}/images/fulldown.png"></div>
-  <div class="col-xs-6 col-sm-6"></div>
-</div>
-<div class="row">
-  <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
-  <div class="col-xs-10 col-sm-8 col-md-8 col-lg-6"><h2>Link kopieren und einfügen
-    <img style="width:64px;height:64px;" tal:attributes="src string:${view/statics}/images/mortarboard.png"></h2></div>
-  <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><hr></div>
-</div>
-
-<div class="row">
+<div tal:condition="view/examples" class="row">
   <div class="col-xs-1 col-sm-1"></div>
   <div class="col-xs-10 col-sm-10">
     <h2 style="margin-left:5px" class="panel-title">Beispiele für unsere Aufgabentypen</h2>
@@ -71,9 +43,9 @@
 </div>
 
 
-<div class="row" tal:define="examples view/examples">
+<div class="row" tal:define="examples view/examples" tal:condition="examples">
 <div class="col-xs-1 col-sm-1"></div>
-<div class="col-xs-5 col-sm-3">
+<div tal:condition="examples/aufgabe" class="col-xs-5 col-sm-3">
   <div class="panel panel-default" tal:define="aufgabe examples/aufgabe">
     <div class="panel-heading">
       <h3 class="panel-title">Übung</h3>
@@ -85,7 +57,7 @@
   </div>
 </div>
 
-<div class="col-xs-5 col-sm-3">
+<div tal:condition="examples/expermiment" class="col-xs-5 col-sm-3">
   <div class="panel panel-default" tal:define="experiment examples/experiment">
     <div class="panel-heading">
       <h3 class="panel-title">Experiment</h3>
@@ -97,7 +69,7 @@
   </div>
 </div>
 
-<div class="col-xs-5 col-sm-3">
+<div tal:condition="examples/arbeitsblatt" class="col-xs-5 col-sm-3">
   <div class="panel panel-default" tal:define="arbeitsblatt examples/arbeitsblatt">
     <div class="panel-heading">
       <h3 class="panel-title">Arbeitsblatt</h3>

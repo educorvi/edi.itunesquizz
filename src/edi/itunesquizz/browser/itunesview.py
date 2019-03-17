@@ -21,6 +21,8 @@ class iTunesView(api.View):
                 viewextension = u'/@@experimentitunes'
             elif obj.portal_type == 'Arbeitsblatt':
                 viewextension = u'/@@arbeitsblattitunes'
+            elif obj.portal_type == 'Vokabeltest':
+                viewextension = u'/@@vokabeltestitunes'
             return self.redirect(obj.absolute_url() + viewextension)
         else:
             print 'return to error-site'

@@ -21,6 +21,10 @@ aufgabenordner = """\
 <h4>Experiment</h4>
 <p>Erfassung und Vergleich von Messwerten aus Experimenten im Tabellenformat</p>
 
+<h4>Vokabeltest</h4>
+<p>Teste den Wortschatz Deiner Schüler in einer Fremdsprache. Der Vokabeltest erlaubt das Hochladen von Audiodateien zum Test des
+Hörverständnisses.</p> 
+
 <h4>Arbeitsblatt</h4>
 <p>Kombinationsmöglichkeit Deiner Übungen und Experimente sowie Freitexteingaben zu einem vollständigen Arbeitsblatt</p>
 

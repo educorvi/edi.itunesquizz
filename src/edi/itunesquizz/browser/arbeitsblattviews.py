@@ -6,6 +6,14 @@ from edi.itunesquizz.browser.security import checkOwner
 
 api.templatedir('templates')
 
+def sizeof_fmt(num, suffix='Byte'):
+    for unit in ['','k','M','G','T','P','E','Z']:
+        if abs(num) < 1024.0:
+            return "%3.2f %s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.2f %s%s" % (num, 'Y', suffix)
+
+
 class ArbeitsblattITunes(api.View):
     api.context(IArbeitsblatt)
 
@@ -24,7 +32,28 @@ class ArbeitsblattITunes(api.View):
             objdict['name'] = i
             contentdir.append((self.context.absolute_url()+'/@@arbeitsblattitunes/#'+i, obj.Title()))
             contentlist.append(objdict)
-        retdict['contentdir'] = contentdir
+        if self.context.toc:
+            #Inhaltsverzeichnis nur aktivieren wenn das Bool-Feld gesetzt ist
+            retdict['contentdir'] = contentdir
+        retdict['datei'] = {}
+        if self.context.datei:
+            datei = {}
+            datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            if self.context.datei.contentType.startswith('audio'):
+                datei['contentType'] = 'audio/mpeg'
+            else:
+                datei['contentType'] = self.context.datei.contentType
+            datei['size'] = sizeof_fmt(self.context.datei.size)
+            datei['filename'] = self.context.datei.filename
+            retdict['datei'] = datei
+        illustration = ''
+        if self.context.image:
+            illustration = 'bild'
+            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
+        if self.context.video:
+            illustration = 'film'
+            retdict['film'] = self.context.absolute_url()
+        retdict['illustration'] = illustration
         retdict['contentlist'] = contentlist
         return retdict
 
@@ -47,7 +76,28 @@ class ArbeitsblattPlone(api.Page):
             objdict['name'] = i
             contentdir.append((self.context.absolute_url()+'/@@arbeitsblattplone/#'+i, obj.Title()))
             contentlist.append(objdict)
-        retdict['contentdir'] = contentdir
+        if self.context.toc:
+            #Inhaltsverzeichnis nur aktivieren wenn das Bool-Feld gesetzt ist
+            retdict['contentdir'] = contentdir
+        retdict['datei'] = {}
+        if self.context.datei:
+            datei = {}
+            datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            if self.context.datei.contentType.startswith('audio'):
+                datei['contentType'] = 'audio/mpeg'
+            else:
+                datei['contentType'] = self.context.datei.contentType
+            datei['size'] = sizeof_fmt(self.context.datei.size)
+            datei['filename'] = self.context.datei.filename
+            retdict['datei'] = datei
+        illustration = ''
+        if self.context.image:
+            illustration = 'bild'
+            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
+        if self.context.video:
+            illustration = 'film'
+            retdict['film'] = self.context.absolute_url()
+        retdict['illustration'] = illustration
         retdict['contentlist'] = contentlist
         return retdict
 
@@ -200,3 +250,11 @@ class ArbeitsblattView(api.Page):
             entry['title'] = obj.title
             entry['url'] = obj.absolute_url()
             self.parts.append(entry)
+        self.datei = {}
+        if self.context.datei:
+            self.datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            self.datei['contentType'] = self.context.datei.contentType
+            self.datei['size'] = sizeof_fmt(self.context.datei.size)
+            self.datei['filename'] = self.context.datei.filename
+
+

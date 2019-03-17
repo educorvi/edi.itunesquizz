@@ -1,0 +1,61 @@
+<div tal:define="viewdata viewlet/objdict; available viewlet/available" tal:condition="available" class="row">
+  <div tal:attributes="style viewlet/topstyle" class="col-xs-12">
+
+    <div tal:condition="not: viewdata" class="row">
+      <div class="col-xs-1 col-md-3"></div>
+      <div class="col-xs-10 col-md-8">
+        <p style="margin-top:100px;color:white;font-size:500%;font-weight:bold">edi.quiz<p>
+      </div>
+      <div class="col-xs-1 col-md-1"></div>
+    </div>
+
+    <div tal:condition="viewdata" class="row">
+      <div class="col-xs-1 col-md-3"></div>
+      <div class="col-xs-10 col-md-8">
+        <p style="margin-top:30px;color:white;font-size:500%;font-weight:bold">edi.quiz<p>
+      </div>
+      <div class="col-xs-1 col-md-1"></div>
+    </div>
+
+    <div tal:condition="viewdata" class="row">
+      <div class="col-xs-1 col-md-3"></div>
+      <div class="col-xs-10 col-md-8"> 
+        <p style="color:white;font-size:30px" tal:content="viewdata/aufgabe">Aufgabenstellung</p>
+      </div>
+      <div class="col-xs-1 col-md-1"></div>
+    </div>
+
+    <div tal:condition="viewdata" class="row">
+      <div class="col-xs-1 col-md-3"></div>
+      <div class="col-xs-10 col-md-8">
+ 
+      <form action="" tal:attributes="action viewdata/validationurl">
+
+        <div tal:condition="viewdata/inputfields" class="form-group-lg">
+          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield viewdata/inputfields">
+
+            <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
+              <div class="checkbox">
+                <label>
+                  <input style="transform:scale(1.5)" type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
+                  <span style="margin-left:5px;color:white;font-weight:normal;font-size:24px" tal:content="inputfield/label"/>
+                </label>
+              </div> <-- /chekboxfield -->
+            </div>
+          
+          </div>
+        </div>
+
+        <div style="margin-top:20px" class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <button class="btn btn-lg btn-primary" type="submit">Absenden</button>
+          </div>
+        </div>
+
+      </form>
+      </div>
+      <div class="col-xs-1 col-md-1"></div>
+    </div>
+
+  </div>
+</div>

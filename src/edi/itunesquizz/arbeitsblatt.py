@@ -16,6 +16,7 @@ from plone.autoform import directives as form
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IContextSourceBinder
 from plone.namedfile.field import NamedBlobImage
+from plone.namedfile.field import NamedBlobFile
 from z3c.relationfield.schema import RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.app.vocabularies.catalog import CatalogSource
@@ -76,11 +77,19 @@ class IArbeitsblatt(model.Schema):
     model.fieldset(
         'extras',
         label=u"Extras zum Arbeitsblatt",
-        fields=['image']
+        fields=['image', 'video', 'datei']
     )
 
     image = NamedBlobImage(title=u"Bild zum Arbeitsblatt",
                            description=u"Erscheint als Vorschaubild in der Übersicht des Aufgabenordners", required=False)
+    video = schema.Text(title=u"Alternativ: Video zum Arbeitsblatt",
+                        description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
+                        required=False,)
+    datei = NamedBlobFile(title=u"Datei zum Arbeitsblatt",
+                          description=u"Hier kannst Du eine Datei zum Arbeitsblatt hochladen. Videodateien im mp4-Format\
+                          und Audio-Dateien im mp3-Format werden automatisch erkannt und abgespielt wenn der Browser das unterstützt.\
+                          Alle anderen Dateiformate werden zum Download angeboten. Die Datei erscheint oberhalb der Frage- oder Aufgabenstellung.",
+                          required=False,)
 
     textvor = RichText(title=u"Prolog", description=u"Hier kannst Du Text vor die Übungen und Experimente setzen.", required=False)
     parts = schema.List(title=u"Übungen und Experimente auswählen", description=u"Beachte: Bei einem benoteten Arbeitsblatt\
@@ -88,6 +97,10 @@ class IArbeitsblatt(model.Schema):
                         Selbsttest-Aufgabentypen.",
                         value_type=schema.Choice(source=possibleArticle))
     textnach = RichText(title=u"Epilog", description=u"Hier kannst Du Text im Anschluss an die Übungen und Experimente setzen.", required=False)
+
+    toc = schema.Bool(title=u"Inhaltsverzeichnis aktivieren", description=u"Checkbox markieren wenn Dein Arbeitsblatt ein Inhaltsverzeichnis\
+                        erhalten soll.",
+                        default=True,)
 
     bonus = NamedBlobImage(title=u"Bonusbild zum QR-Code", description=u"Bei einem benoteten Arbeitsblatt wird Dein Bild mit dem Barcode kombiniert\
                         und dem Schüler zum Download bereitgestellt.",

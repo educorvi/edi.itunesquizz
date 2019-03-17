@@ -1,17 +1,52 @@
+import random
 from zope.interface import Interface
 from uvc.api import api
 from plone import api as ploneapi
 from Products.CMFCore.utils import getToolByName
 from edi.itunesquizz import hilfen
 from edi.itunesquizz.kursordner import IKursordner
+from plone.app.layout.viewlets.interfaces import IAboveContent
 try:
     from plone.app.layout.viewlets.interfaces import IGlobalStatusMessage
 except:
     from plone.app.layout.viewlets.interfaces import IAboveContent as IGlobalStatusMessage
 from plone.app.layout.viewlets.interfaces import IAboveContentTitle
 from plone.app.layout.viewlets.interfaces import IPortalFooter
+from plone.app.layout.viewlets.interfaces import IPortalTop
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 
 api.templatedir('templates')
+
+class BannerViewlet(api.Viewlet):
+    api.context(Interface)
+    api.viewletmanager(IAboveContent)
+
+    def available(self):
+        portal = ploneapi.portal.get()
+        if self.context == portal:
+            return True
+        return False
+
+    def update(self):
+        portal = ploneapi.portal.get().absolute_url()
+        background = u"background-image:url('%s');background-size:cover;min-height:400px;max-height:400px;background-repeat:no-repeat"
+        topimage = portal + '/++resource++edi.itunesquizz/images/default-top.jpg'
+        self.topstyle = background %topimage
+        registry = getUtility(IRegistry)
+        topexamples = ploneapi.content.find(portal_type="Aufgabe", Webcode=registry['edi.itunesquizz.settings.IQuizSettings.topexamples'])
+        self.objdict = {}
+        if topexamples:
+            index = random.randint(1,len(topexamples)) - 1
+            topaufgabe = topexamples[index].UID
+            obj = ploneapi.content.get(UID=topaufgabe)
+            objview = obj.portal_type.lower() + 'plone'
+            objdict = ploneapi.content.get_view(objview, obj, self.request).update()
+            objdict['type'] = obj.portal_type
+            objdict['name'] = topaufgabe
+        self.objdict = objdict
+        self.topstyle = background %objdict['bild']
+
 
 class LoggedInMembers(api.Viewlet):
     api.context(Interface)
@@ -30,7 +65,7 @@ class LoggedInMembers(api.Viewlet):
 
 class HilfeViewlet(api.Viewlet):
     api.context(Interface)
-    api.viewletmanager(IGlobalStatusMessage)
+    api.viewletmanager(IPortalTop)
 
     def loggedin(self):
        if not ploneapi.user.is_anonymous():
@@ -85,3 +120,5 @@ class HilfeViewlet(api.Viewlet):
     def update(self):
        self.hilfe = self.checkhilfe()
        self.logoutlink = ploneapi.portal.get().absolute_url() + '/logout'
+       self.loginlink = ploneapi.portal.get().absolute_url() + '/login'
+       self.reglink = ploneapi.portal.get().absolute_url() + '/register'

@@ -41,11 +41,15 @@ class AufgabeITunes(api.View):
         retdict['aufgabe'] = self.context.aufgabe
         retdict['punkte'] = self.context.punkte
         retdict['hinweis'] = self.context.hinweis
+        retdict['bild'] = ''
         retdict['datei'] = {}
         if self.context.datei:
             datei = {}
             datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
-            datei['contentType'] = self.context.datei.contentType
+            if self.context.datei.contentType.startswith('audio'):
+                datei['contentType'] = 'audio/mpeg'
+            else:
+                datei['contentType'] = self.context.datei.contentType
             datei['size'] = sizeof_fmt(self.context.datei.size)
             datei['filename'] = self.context.datei.filename
             retdict['datei'] = datei
@@ -89,6 +93,7 @@ class AufgabePlone(api.Page):
         retdict['aufgabe'] = self.context.aufgabe
         retdict['punkte'] = self.context.punkte
         retdict['hinweis'] = self.context.hinweis
+        retdict['bild'] = ''
         retdict['datei'] = {}
         if self.context.datei:
             datei = {}

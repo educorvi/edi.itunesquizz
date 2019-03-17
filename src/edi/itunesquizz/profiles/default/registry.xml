@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
 <registry>
-<!-- -*- extra stuff goes here -*- -->
-
+  <records interface="edi.itunesquizz.settings.IQuizSettings" prefix="edi.itunesquizz.settings.IQuizSettings"/>
 </registry>

@@ -46,6 +46,7 @@ setup(
         'z3c.jbot',
         'collective.z3cform.datagridfield',
         'plone.formwidget.contenttree',
+        'plone.app.registry',
         'Pillow',
         'qrcode',
         'numpy',

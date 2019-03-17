@@ -16,6 +16,7 @@
       <ul style="width:200px" class="dropdown-menu">
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabeltest'">Vokabeltest</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
       </ul>
@@ -70,6 +71,24 @@
         </a>
       </div>
       <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href experiment/url" tal:content="experiment/title"></a></h4></div>
+    </div>
+    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+  </div>
+
+  <div tal:condition="view/vokabeltests" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3 style="margin-top:1px">
+        <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/chat.png">
+          <span style="margin-left:10px">Vokabeltests</span>
+      </h3>
+    </div>
+    <div tal:repeat="vokabeltest view/vokabeltests">
+      <div class="col-xs-2 col-sm-1">
+        <a tal:attributes="href string:${vokabeltest/url}/delete_confirmation" title="Vokabeltest löschen">
+          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+        </a>
+      </div>
+      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href vokabeltest/url" tal:content="vokabeltest/title"></a></h4></div>
     </div>
     <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
   </div>

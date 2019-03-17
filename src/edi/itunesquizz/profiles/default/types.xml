@@ -3,4 +3,6 @@
   <object name="Experiment" meta_type="Dexterity FTI"/>
   <object name="Arbeitsblatt" meta_type="Dexterity FTI"/>
   <object name="Kursordner" meta_type="Dexterity FTI"/>
+  <object name="Vokabeltest" meta_type="Dexterity FTI"/>
+  <object name="Beispielordner" meta_type="Dexterity FTI"/>
 </object>

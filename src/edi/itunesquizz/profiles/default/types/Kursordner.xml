@@ -21,6 +21,7 @@
     <element value="Aufgabe"/>
     <element value="Experiment"/>
     <element value="Vokabeltest"/>
+    <element value="Vokabelserie"/>
     <element value="Arbeitsblatt"/>
     <element value="Image"/>
   </property>

@@ -14,6 +14,14 @@
 
   <include file="upgrades.zcml" />
 
+  <utility
+    component=".settings.example_tasks"
+    name="example.tasks"
+  />
+
+  <adapter name="Beispiel" factory=".aufgabe.myBeispiel" />
+
+
   <genericsetup:registerProfile
       name="default"
       title="edi.itunesquizz"

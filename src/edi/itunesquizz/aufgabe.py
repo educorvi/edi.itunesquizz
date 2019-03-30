@@ -28,6 +28,8 @@ from zope.interface import invariant, Invalid
 from zope.interface import directlyProvides
 from z3c.form.browser.radio import RadioWidget
 from plone.supermodel import model
+from plone.indexer import indexer
+from five import grok
 
 wertvalues = SimpleVocabulary(
     [SimpleTerm(value=u'auswahl', token=u'auswahl', title=u'bitte auswählen'),
@@ -147,6 +149,8 @@ class IAufgabe(model.Schema):
     bonus = NamedBlobImage(title=u"Bonusbild zum QR-Code", description=u"Bei benoteten Aufgaben wird Dein Bild mit dem Barcode kombiniert\
                            und dem Schüler zum Download bereitgestellt.",
                            required=False)
+    beispiel = schema.Bool(title=u"Beispielübung", description=u"Markiere Deine Übung wenn sie als Beispiel geeignet ist und dafür auch\
+                        verwendet werden.")
 
 
     @invariant
@@ -167,6 +171,12 @@ class IAufgabe(model.Schema):
             for i in data.antworten:
                 if i.get('bewertung') == u'auswahl':
                     raise Antwortoption(u"Bitte prüfe Deine Antworten, ob Du richtig oder falsch ausgewählt hast.")
+
+@indexer(IAufgabe)
+def myBeispiel(obj):
+    print obj.beispiel
+    return obj.beispiel
+
 
 class Aufgabe(Item):
     """Content Class"""

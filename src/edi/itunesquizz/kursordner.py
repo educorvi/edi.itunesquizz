@@ -17,7 +17,5 @@ class IKursordner(model.Schema):
     image = NamedBlobImage(title=u"Bild zum Aufgabenordner",
                            required=False)
 
-
-
 class Kursordner(Container):
     """Dexterity Class"""

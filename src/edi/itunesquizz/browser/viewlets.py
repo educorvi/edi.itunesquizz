@@ -34,8 +34,8 @@ class BannerViewlet(api.Viewlet):
         topimage = portal + '/++resource++edi.itunesquizz/images/default-top.jpg'
         self.topstyle = background %topimage
         registry = getUtility(IRegistry)
-        topexamples = ploneapi.content.find(portal_type="Aufgabe", Webcode=registry['edi.itunesquizz.settings.IQuizSettings.topexamples'])
-        self.objdict = {}
+        topexamples = ploneapi.content.find(UID=registry['edi.itunesquizz.settings.IQuizSettings.topexamples'])
+        objdict = {}
         if topexamples:
             index = random.randint(1,len(topexamples)) - 1
             topaufgabe = topexamples[index].UID
@@ -44,8 +44,8 @@ class BannerViewlet(api.Viewlet):
             objdict = ploneapi.content.get_view(objview, obj, self.request).update()
             objdict['type'] = obj.portal_type
             objdict['name'] = topaufgabe
+            self.topstyle = background %objdict['bild']
         self.objdict = objdict
-        self.topstyle = background %objdict['bild']
 
 
 class LoggedInMembers(api.Viewlet):

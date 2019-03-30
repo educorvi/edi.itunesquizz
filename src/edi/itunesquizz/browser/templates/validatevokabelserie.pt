@@ -1,0 +1,113 @@
+<html lang="de" tal:define="viewdata view/update;
+                            outputs viewdata/outputs">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="viewdata/title"></title>
+
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
+
+    <script>
+      function delete_cookie() {
+      document.cookie = 'mycookie' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
+    </script>
+
+
+
+  </head>
+
+  <body onload="delete_cookie()">
+
+    <div class="container">
+      <h4 tal:content="viewdata/aufforderung"/>
+      <table class="table table-striped">
+        <thead>
+          <th>Aufgabe</th>
+          <th>Antwort</th>
+        <thead>
+        <tbody>
+          <td tal:condition="viewdata/aufgabe" style="font-size:130%" tal:content="viewdata/aufgabe"/>
+          <td tal:condition="viewdata/datei">
+
+          <div tal:define="datei viewdata/datei;filetype python:datei.get('contentType')">
+            <div tal:condition="python: filetype == 'video/mp4'">
+              <div class="embed-responsive embed-responsive-4by3">
+                <video class="embed-responsive-item" src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
+                  Dein Browser kann dieses Video nicht wiedergeben.<br/>
+                  Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+                </video>
+              </div>
+            </div>
+            <div tal:condition="python: filetype == 'audio/mpeg'">
+              <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
+                Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
+                Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+              </audio>
+            </div>
+            <div tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+              <a href="" tal:attributes="href datei/url"><span class="glyphicon glyphicon-download"/>
+                                                      <span tal:content="datei/filename"/>
+                                                      (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
+              </a>
+            </div>
+          </div></td>
+
+          <td style="font-size:130%" tal:condition="not:outputs/eingabe">*****</td>
+          <td style="font-size:130%" tal:condition="outputs/eingabe" tal:content="outputs/eingabe"/>
+        </tbody>
+      </table>
+
+      <div tal:condition="python: viewdata.get('art') == 'selbsttest' and outputs.get('result')" class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+        <div class="col-xs-10 col-sm-10 col-md-10">
+          <img src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png"> 
+            <strong style="color:#298A08">Prima, das war richtig!</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+      </div>
+
+      <div tal:condition="python: viewdata.get('art') == 'benotet'" class="row">
+        <div class="col-xs-10 col-sm-6 col-md-6">
+         <a href="" tal:attributes="href python:context.absolute_url() + '/qrimage'">
+          <img src="" alt=""
+                      width="100%"
+                      height="100%"
+                      tal:attributes="src python:context.absolute_url() + '/qrimage'" />
+          <span>Speichere Deine Lösung  als Bild und teile diese mit Deinem Lehrer.</span>
+         </a>
+        </div>
+      </div>
+
+      <div tal:condition="python: viewdata.get('art') == 'selbsttest' and not outputs.get('result')" class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+        <div class="col-xs-10 col-sm-10 col-md-10">
+          <img src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png"> 
+            <strong style="color:#ff0000;">Hm... das war leider falsch!!</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+      </div>
+
+      <div style="margin-top:20px" class="row" tal:condition="viewdata/nexturl">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <form class="form-horizontal" tal:attributes="action viewdata/nexturl"> 
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Weiter</button>
+          </form>
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

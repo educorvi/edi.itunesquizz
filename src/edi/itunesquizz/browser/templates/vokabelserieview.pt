@@ -1,0 +1,76 @@
+<div style="margin-left:3px;margin-right:3px" class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title" tal:content="context/title">Panel title</h2>
+      <p tal:condition="context/description" class="documentDescription" tal:content="context/description"/>
+    </div>
+    <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6">
+          <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+          <h4 style="text-align:right;margin-right:5px">
+            <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
+          </h4>
+        </div>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<div style="margin-left:3px;margin-right:3px" class="row">
+
+  <!--<div class="row">
+    <div class="col-xs-8 col-sm-8">
+      <ul>
+        <li>Art der Aufgabenstellung: <span tal:replace="view/aufgabenart"/></li>
+        <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
+      </ul>
+    </div>
+    <div class="col-xs-4 col-sm-4"></div>
+  </div>-->
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3>Prolog-Text</h3>
+      <span tal:condition="context/textvor" tal:replace="structure context/textvor/output"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3>Bestandteile des Arbeitsblatts</h3>
+      <ul tal:define="myparts view/parts">
+        <li tal:repeat="entry myparts">
+          <a tal:attributes="href entry/url" tal:content="entry/title"/>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3>Epilog-Text</h3>
+      <span tal:condition="context/textnach" tal:replace="structure context/textnach/output"/>
+    </div>
+  </div>
+
+  <h3>Link für iTunes U</h3>
+  <div class="form-group">
+    <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
+    <input style="margin-bottom:10px;" type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
+    <button onclick="myFunction()">Link kopieren</button>
+    <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
+  </div>
+
+  <script>
+    function myFunction() {
+      var copyText = document.getElementById("myInput");
+      copyText.select();
+      document.execCommand("copy");
+      alert("Link kopiert: " + copyText.value);
+    }
+  </script>
+
+</div>

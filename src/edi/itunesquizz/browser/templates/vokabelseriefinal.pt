@@ -1,0 +1,84 @@
+<html lang="de" tal:define="viewdata view/update;
+                            outputs viewdata/outputs">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title tal:content="viewdata/title"></title>
+
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${viewdata/statics}/css/signin.css" rel="stylesheet">
+
+    <script>
+      function delete_cookie() {
+      document.cookie = 'mycookie' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
+    </script>
+  </head>
+
+  <body onload="delete_cookie()">
+
+    <div class="container">
+
+      <span tal:replace="structure viewdata/text">
+
+      <h2>Deine Ergebnisse</h2>
+
+      <table class="table table-striped">
+        <thead>
+          <th>Aufgabe</th>
+          <th>Antwort</th>
+          <th>Ergebnis</th>
+        <thead>
+        <tbody>
+          <tr tal:repeat="output outputs">
+          <td tal:condition="output/aufgabe" style="font-size:130%" tal:content="output/aufgabe"/>
+          <td tal:condition="output/datei">
+
+          <div tal:define="datei output/datei;filetype python:datei.get('contentType')">
+            <div tal:condition="python: filetype == 'video/mp4'">
+              <div class="embed-responsive embed-responsive-4by3">
+                <video class="embed-responsive-item" src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
+                  Dein Browser kann dieses Video nicht wiedergeben.<br/>
+                  Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+                </video>
+              </div>
+            </div>
+            <div tal:condition="python: filetype == 'audio/mpeg'">
+              <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
+                Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
+                Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+              </audio>
+            </div>
+            <div tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+              <a href="" tal:attributes="href datei/url"><span class="glyphicon glyphicon-download"/>
+                                                      <span tal:content="datei/filename"/>
+                                                      (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
+              </a>
+            </div>
+          </div></td>
+
+          <td tal:define="result output/outputs" style="font-size:130%" tal:condition="not:result/eingabe">*****</td>
+          <td tal:define="result output/outputs" style="font-size:130%" tal:condition="result/eingabe" tal:content="result/eingabe"/>
+          <td tal:define="result output/outputs" style="font-size:130%"> 
+              <span style="color:green" tal:condition="result/result">richtig</span>
+              <span style="color:red" tal:condition="not: result/result">falsch</span>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

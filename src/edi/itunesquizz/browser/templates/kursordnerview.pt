@@ -17,6 +17,7 @@
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabeltest'">Vokabeltest</a></li>
+        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabelserie'">Vokabelserie</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
         <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
       </ul>
@@ -89,6 +90,24 @@
         </a>
       </div>
       <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href vokabeltest/url" tal:content="vokabeltest/title"></a></h4></div>
+    </div>
+    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+  </div>
+
+  <div tal:condition="view/vokabelserien" class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h3 style="margin-top:1px">
+        <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/vokabelserie.png">
+          <span style="margin-left:10px">Vokabelserien</span>
+      </h3>
+    </div>
+    <div tal:repeat="vokabelserie view/vokabelserien">
+      <div class="col-xs-2 col-sm-1">
+        <a tal:attributes="href string:${vokabelserie/url}/delete_confirmation" title="Vokabelserie löschen">
+          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+        </a>
+      </div>
+      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href vokabelserie/url" tal:content="vokabelserie/title"></a></h4></div>
     </div>
     <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
   </div>

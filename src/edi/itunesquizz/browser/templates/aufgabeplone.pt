@@ -1,6 +1,8 @@
 <div class="row"
      tal:define="viewdata view/update">
 
+      <div tal:replace="structure provider:plone.abovecontenttitle" />
+
       <form class="form-horizontal" tal:attributes="action viewdata/validationurl">
  
         <h1 tal:content="viewdata/title"/>
@@ -85,12 +87,14 @@
           </div>
         </div> <!-- /form-group -->
 
-        <div style="margin-top:20px" class="row">
+        <div style="margin-top:20px;margin-bottom:10px;" class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <button class="btn btn-lg btn-primary" type="submit">Absenden</button>
           </div>
         </div>
 
       </form>
+
+      <div tal:replace="structure provider:plone.belowcontentbody" />
 
 </div>

@@ -1,5 +1,7 @@
 <div class="row" tal:define="viewdata view/update;
                             outputs viewdata/outputs">
+    
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
 
     <div tal:condition="outputs/results">
       <h1 tal:content="viewdata/title"/>
@@ -67,7 +69,7 @@
         </div>
       </div>
 
-      <div style="margin-top:20px" class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
+      <div style="margin-top:20px;margin-bottom:10px" class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
         <div class="col-xs-12 col-sm-12 col-md-12">
           <form tal:condition="outputs/again" class="form-horizontal" tal:attributes="action viewdata/questionurl"> 
             <button class="btn btn-lg btn-primary" type="submit">Nochmal versuchen</button>
@@ -76,6 +78,7 @@
       </div>
     </div> 
 
+    <div tal:replace="structure provider:plone.belowcontentbody" />
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

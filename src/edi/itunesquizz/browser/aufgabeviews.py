@@ -298,10 +298,11 @@ class AufgabeView(api.Page):
             self.datei['filename'] = self.context.datei.filename
         self.aufgabenart = aufgabenart.getTerm(self.context.art).title
         self.images = False
-        if self.context.webcode:
-            self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
+        if hasattr(self.context, 'webcode'):
+            if self.context.webcode:
+                self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
         else:
-            self.ituneslink = self.context.absolute_url + '/@@aufgabeitunes'
+            self.ituneslink = self.context.absolute_url() + '/@@aufgabeitunes'
         self.antworten = []
         self.solutionimage = ''
         if self.context.solutionimage:

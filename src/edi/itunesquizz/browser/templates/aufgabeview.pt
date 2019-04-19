@@ -1,4 +1,7 @@
 <div style="margin-left:3px;margin-right:3px" class="row">
+
+  <div tal:replace="structure provider:plone.abovecontenttitle" />
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title" tal:content="context/title">Panel title</h2>
@@ -145,6 +148,8 @@
     <button onclick="myFunction()">Link kopieren</button>
     <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
   </div>
+
+  <div tal:replace="structure provider:plone.belowcontentbody" />
 
   <script>
     function myFunction() {

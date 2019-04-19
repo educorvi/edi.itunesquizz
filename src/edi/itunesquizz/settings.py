@@ -42,6 +42,9 @@ class IQuizSettings(Interface):
     emoji = schema.Bool(title=u"Aktivieren, wenn Emojis bei den Ergebnissen der Aufgabenstellungen  angezeigt weden sollen.",
                              default=True)
 
+    qrcode = schema.Bool(title=u"Aktivieren, um Ergebnisse benoteter Aufgaben als QR-Code auszugeben.",
+                             default=True)
+
     true_emoji = schema.Choice(title=u"Emoji für erfolgreich gelöste Aufgaben.", vocabulary='quiz.emojis',required=False)
 
     false_emoji = schema.Choice(title=u"Emoji für fehlerhaft gelöste Aufgaben.", vocabulary='quiz.emojis', required=False)

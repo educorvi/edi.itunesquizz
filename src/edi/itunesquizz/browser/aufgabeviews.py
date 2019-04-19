@@ -256,6 +256,8 @@ class ValidateAufgabePlone(api.Page):
         retdict['emoji'] = True
         if not registry['edi.itunesquizz.settings.IQuizSettings.emoji']:
            retdict['emoji'] = False
+        retdict['qrcode'] = registry['edi.itunesquizz.settings.IQuizSettings.qrcode']
+        print "QRCODE QRCODE", retdict['qrcode']
         override_emojis = self.get_overrideemojis()
         retdict['true_emoji'] = override_emojis.get('true_emoji')
         retdict['false_emoji'] = override_emojis.get('false_emoji')
@@ -294,6 +296,7 @@ class ValidateAufgabePlone(api.Page):
         fieldname = self.context.id
         outputs = self.formatoutputs(self.request.form.get(fieldname))
         retdict['outputs'] = outputs
+        print retdict['outputs']
         if self.context.art == 'benotet':
             cookie = self.cookiesetter(retdict)
         return retdict

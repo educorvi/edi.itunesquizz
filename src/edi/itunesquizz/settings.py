@@ -26,7 +26,7 @@ def example_tasks(context):
 
 @provider(IVocabularyFactory)
 def quiz_emojis(context):
-    brains = ploneapi.content.find(portal_type='Quizemoji', published=True)
+    brains = ploneapi.content.find(portal_type='Quizemoji')
     result = [(brain['UID'], '%s' %brain['Title']) for brain in brains]
     terms = make_terms(result)
     return SimpleVocabulary(terms)

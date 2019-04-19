@@ -4,6 +4,8 @@ from plone import api as ploneapi
 from edi.itunesquizz.aufgabe import IAufgabe
 from edi.itunesquizz.aufgabe import aufgabenart
 from edi.itunesquizz.browser.security import checkOwner
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 
 api.templatedir('templates')
 
@@ -230,7 +232,33 @@ class ValidateAufgabePlone(api.Page):
         resultdict['results'] = results
         return resultdict
 
+    def get_overrideemojis(self):
+        registry = getUtility(IRegistry)
+        override_emojis = {'true_emoji':'', 'false_emoji':''}
+        override_true = registry['edi.itunesquizz.settings.IQuizSettings.true_emoji']
+        if override_true:
+            try:
+               emoji_obj = ploneapi.content.get(UID = override_true)
+               override_emojis['true_emoji'] = "%s/@@images/image/tile" %emoji_obj.absolute_url()
+            except:
+               pass # Default Emoji
+        override_false = registry['edi.itunesquizz.settings.IQuizSettings.false_emoji']
+        if override_false:
+            try:
+               emoji_obj = ploneapi.content.get(UID = override_false)
+               override_emojis['false_emoji'] = "%s/@@images/image/tile" %emoji_obj.absolute_url()
+            except:
+               pass # Default Emoji
+        return override_emojis
+
     def formataufgabe(self, retdict):
+        registry = getUtility(IRegistry)
+        retdict['emoji'] = True
+        if not registry['edi.itunesquizz.settings.IQuizSettings.emoji']:
+           retdict['emoji'] = False
+        override_emojis = self.get_overrideemojis()
+        retdict['true_emoji'] = override_emojis.get('true_emoji')
+        retdict['false_emoji'] = override_emojis.get('false_emoji')
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['art'] = self.context.art

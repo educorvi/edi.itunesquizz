@@ -21,8 +21,11 @@
       <div tal:condition="python: viewdata.get('art') == 'selbsttest' and outputs.get('result')" class="row">
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
         <div class="col-xs-10 col-sm-10 col-md-10">
-          <img src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png"> 
-            <strong style="color:#298A08">Prima, das war richtig!</strong>
+          <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('true_emoji')" 
+               src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
+          <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')" 
+               src="" tal:attributes="src viewdata/true_emoji">
+          <strong style="color:#298A08;font-size:120%">Prima, das war richtig!</strong>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
       </div>
@@ -42,8 +45,11 @@
       <div tal:condition="python: viewdata.get('art') == 'selbsttest' and not outputs.get('result')" class="row">
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
         <div class="col-xs-10 col-sm-10 col-md-10">
-          <img src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png"> 
-            <strong style="color:#ff0000;">Hm... das war leider falsch!!</strong>
+          <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('false_emoji')"
+               src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
+          <img tal:condition="python: viewdata.get('emoji') and viewdata.get('false_emoji')"
+               src="" tal:attributes="src viewdata/false_emoji">
+          <strong style="color:#ff0000;font-size:120%">Hm... das war leider falsch!!</strong>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
       </div>

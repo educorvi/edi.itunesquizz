@@ -4,6 +4,7 @@ from zope.interface import Interface
 from zope import schema
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+from plone.namedfile.field import NamedImage
 from plone.z3cform import layout
 from z3c.form import form
 from zope.schema.interfaces import IContextSourceBinder
@@ -21,10 +22,29 @@ def example_tasks(context):
     brains = ploneapi.content.find(portal_type='Aufgabe', Beispiel=True)
     result = [(brain['UID'], '%s (%s)' %(brain['Title'], brain['Creator'])) for brain in brains]
     terms = make_terms(result)
-    return SimpleVocabulary(terms) 
+    return SimpleVocabulary(terms)
+
+@provider(IVocabularyFactory)
+def quiz_emojis(context):
+    brains = ploneapi.content.find(portal_type='Quizemoji', published=True)
+    result = [(brain['UID'], '%s' %brain['Title']) for brain in brains]
+    terms = make_terms(result)
+    return SimpleVocabulary(terms)
+ 
 
 class IQuizSettings(Interface):
     """ Define settings data structure """
+
+    isquizsite = schema.Bool(title=u"Aktivieren wenn es sich um eine edi.quiz Site handelt.",
+                             description=u"Damit werden alle Viewlet-Elemente der Quiz-Site aktiviert",
+                             default=False)
+
+    emoji = schema.Bool(title=u"Aktivieren, wenn Emojis bei den Ergebnissen der Aufgabenstellungen  angezeigt weden sollen.",
+                             default=True)
+
+    true_emoji = schema.Choice(title=u"Emoji für erfolgreich gelöste Aufgaben.", vocabulary='quiz.emojis',required=False)
+
+    false_emoji = schema.Choice(title=u"Emoji für fehlerhaft gelöste Aufgaben.", vocabulary='quiz.emojis', required=False)
 
     topexamples = schema.List(title=u"Beispiele für die Bühne",
                               description=u"Wähle hier die Beispiele für die Bühne auf der Startseite aus.",

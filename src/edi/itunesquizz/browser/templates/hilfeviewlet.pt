@@ -1,4 +1,4 @@
-<div class="row">
+<div tal:condition="viewlet/available" class="row">
   <div class="col-xs-12 col-md-12">
     <div style="text-align:right">
       <a tal:condition="viewlet/checkhilfe" href="#modal1" class="pat-plone-modal"

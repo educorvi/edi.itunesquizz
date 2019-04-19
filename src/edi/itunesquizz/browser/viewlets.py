@@ -23,6 +23,9 @@ class BannerViewlet(api.Viewlet):
     api.viewletmanager(IAboveContent)
 
     def available(self):
+        registry = getUtility(IRegistry)
+        if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+           return False
         portal = ploneapi.portal.get()
         if self.context == portal:
             return True
@@ -53,6 +56,10 @@ class LoggedInMembers(api.Viewlet):
     api.viewletmanager(IPortalFooter)
 
     def update(self):
+        registry = getUtility(IRegistry)
+        if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+           self.available = False
+           return
         self.available = True
         if not ploneapi.user.is_anonymous():
             current = ploneapi.user.get_current()
@@ -66,6 +73,12 @@ class LoggedInMembers(api.Viewlet):
 class HilfeViewlet(api.Viewlet):
     api.context(Interface)
     api.viewletmanager(IPortalTop)
+
+    def available(self):
+        registry = getUtility(IRegistry)
+        if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+           return False
+        return True
 
     def loggedin(self):
        if not ploneapi.user.is_anonymous():

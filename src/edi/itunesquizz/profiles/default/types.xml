@@ -6,4 +6,5 @@
   <object name="Vokabeltest" meta_type="Dexterity FTI"/>
   <object name="Vokabelserie" meta_type="Dexterity FTI"/>
   <object name="Beispielordner" meta_type="Dexterity FTI"/>
+  <object name="Quizemoji" meta_type="Dexterity FTI"/>
 </object>

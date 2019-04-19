@@ -21,6 +21,11 @@
     name="example.tasks"
   />
 
+  <utility
+    component=".settings.quiz_emojis"
+    name="quiz.emojis"
+  />
+
   <adapter name="Beispiel" factory=".aufgabe.myBeispiel" />
 
 

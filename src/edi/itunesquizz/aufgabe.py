@@ -174,7 +174,6 @@ class IAufgabe(model.Schema):
 
 @indexer(IAufgabe)
 def myBeispiel(obj):
-    print obj.beispiel
     return obj.beispiel
 
 

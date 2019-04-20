@@ -2,7 +2,7 @@
 
   <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-  <div class="panel panel-default">
+  <div tal:condition="view/isquizsite" class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title" tal:content="context/title">Panel title</h2>
     </div>
@@ -17,8 +17,8 @@
           </h4>
         </div>
     </div>
-  </div>
   <hr>
+  </div>
 </div>
 
 <div style="margin-left:3px;margin-right:3px" class="row">

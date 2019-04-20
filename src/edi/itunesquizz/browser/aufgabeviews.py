@@ -6,6 +6,10 @@ from edi.itunesquizz.aufgabe import aufgabenart
 from edi.itunesquizz.browser.security import checkOwner
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+try:
+    from edi.course.persistance import getResultsForQuiz
+except:
+    getResultsForQuiz = None
 
 api.templatedir('templates')
 
@@ -87,6 +91,12 @@ class AufgabePlone(api.Page):
         return options
 
     def update(self):
+        registry = getUtility(IRegistry)
+        if registry['edi.itunesquizz.settings.IQuizSettings.iscoursesite'] and getResultsForQuiz:
+            retdict = getResultsForQuiz(self.context)
+            if retdict:
+                returl = self.context.absolute_url() + '/@@validateaufgabeplone'
+                return self.response.redirect(returl)
         retdict = {}
         portal = ploneapi.portal.get().absolute_url()
         retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabeplone'
@@ -284,6 +294,11 @@ class ValidateAufgabePlone(api.Page):
         session.set("qrdata", retdict)
         
     def update(self):
+        registry = getUtility(IRegistry)
+        if registry['edi.itunesquizz.settings.IQuizSettings.iscoursesite'] and getResultsForQuiz:
+            retdict = getResultsForQuiz(self.context)
+            if retdict:
+                return retdict
         retdict = {}
         questionurl = self.context.absolute_url() + '/@@aufgabeplone'
         if not self.request.form.get(self.context.id):
@@ -317,6 +332,8 @@ class AufgabeView(api.Page):
     def update(self):
         if not checkOwner(self.context, self.request):
             self.request.response.redirect(self.context.absolute_url() + '/@@securitypage')
+        registry = getUtility(IRegistry)
+        self.isquizsite = registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']
         self.kursordner = self.context.aq_parent.absolute_url()
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'

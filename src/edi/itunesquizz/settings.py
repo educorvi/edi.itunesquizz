@@ -35,9 +35,13 @@ def quiz_emojis(context):
 class IQuizSettings(Interface):
     """ Define settings data structure """
 
-    isquizsite = schema.Bool(title=u"Aktivieren wenn es sich um eine edi.quiz Site handelt.",
+    isquizsite = schema.Bool(title=u"Aktivieren, wenn es sich um eine edi.quiz Site handelt.",
                              description=u"Damit werden alle Viewlet-Elemente der Quiz-Site aktiviert",
                              default=False)
+
+    iscoursesite = schema.Bool(title=u"Aktivieren, wenn es sich um eine edi.course Site handelt.",
+                               description=u"Die Ergebnisdaten der benoteten Quizfragen werden aus der Datenbank von edi.course gelesen.",
+                               default=False) 
 
     emoji = schema.Bool(title=u"Aktivieren, wenn Emojis bei den Ergebnissen der Aufgabenstellungen  angezeigt weden sollen.",
                              default=True)

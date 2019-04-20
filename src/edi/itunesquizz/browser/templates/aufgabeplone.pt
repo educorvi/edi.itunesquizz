@@ -95,6 +95,16 @@
 
       </form>
 
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <progress tal:condition="python:viewdata.get('bedenkzeit') > 0" value="0" max="14"
+                    tal:attributes="max python:str(viewdata.get('bedenkzeit')-1)" style="height:40px;width:100%" id="progressBar"></progress>
+        </div>
+      </div>
+
       <div tal:replace="structure provider:plone.belowcontentbody" />
+
+      <script tal:condition="python:viewdata.get('bedenkzeit') > 0" tal:replace="structure view/timersnippet"/>
+      <script tal:condition="python:viewdata.get('bedenkzeit') > 0" tal:replace="structure view/delaysnippet"/>
 
 </div>

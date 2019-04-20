@@ -121,6 +121,22 @@ class AufgabePlone(api.Page):
         if self.context.video:
             illustration = 'film'
             retdict['film'] = self.context.absolute_url()
+        retdict['bedenkzeit'] = self.context.bedenkzeit
+        if self.context.bedenkzeit > 0:
+            self.timersnippet = """\
+              <script>
+                var timeleft = %s;
+                var downloadTimer = setInterval(function(){
+                document.getElementById("progressBar").value = %s - timeleft;
+                timeleft -= 1;
+                if(timeleft <= 0)
+                clearInterval(downloadTimer);
+                }, 1000);
+              </script>""" %(self.context.bedenkzeit, self.context.bedenkzeit)
+            self.delaysnippet = """\
+              <script>
+                setTimeout("location.href = '%s/@@validateaufgabeplone';",%s);
+              </script>""" %(self.context.absolute_url(), self.context.bedenkzeit * 1000)
         retdict['illustration'] = illustration
         retdict['fieldname'] = self.context.id
         retdict['inputfields'] = self.formatinputs()
@@ -301,7 +317,7 @@ class ValidateAufgabePlone(api.Page):
                 return retdict
         retdict = {}
         questionurl = self.context.absolute_url() + '/@@aufgabeplone'
-        if not self.request.form.get(self.context.id):
+        if not self.request.form.get(self.context.id) and self.context.art == 'selbsttest':
             return self.response.redirect(questionurl)
         portal = ploneapi.portal.get().absolute_url()
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'

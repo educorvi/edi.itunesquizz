@@ -151,6 +151,10 @@ class IAufgabe(model.Schema):
                            required=False)
     beispiel = schema.Bool(title=u"Beispielübung", description=u"Markiere Deine Übung wenn sie als Beispiel geeignet ist und dafür auch\
                         verwendet werden.")
+    bedenkzeit = schema.Int(title=u"Bedenkzeit", description=u"Bitte trage hier eine Bedenkzeit in Sekunden für diesen Test ein. Die Angabe 0\
+                        bedeutet: keine Bedenkzeitbeschränkung.",
+                        required=True,
+                        default=0)
 
 
     @invariant

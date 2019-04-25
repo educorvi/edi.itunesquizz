@@ -51,7 +51,10 @@ class AufgabeITunes(api.View):
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['punkte'] = self.context.punkte
-        retdict['hinweis'] = self.context.hinweis
+        if self.context.hinweis:
+            retdict['hinweis'] = self.context.hinweis.output
+        else:
+            retdict['hinweis'] = ''
         retdict['bild'] = ''
         retdict['datei'] = {}
         if self.context.datei:
@@ -109,7 +112,10 @@ class AufgabePlone(api.Page):
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['punkte'] = self.context.punkte
-        retdict['hinweis'] = self.context.hinweis
+        if self.context.hinweis:
+            retdict['hinweis'] = self.context.hinweis.output
+        else:
+            retdict['hinweis'] = ''
         retdict['bild'] = ''
         retdict['datei'] = {}
         if self.context.datei:
@@ -189,7 +195,10 @@ class ValidateAufgabe(api.View):
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['art'] = self.context.art
-        retdict['erklaerung'] = self.context.erklaerung
+        if self.context.erklaerung:
+            retdict['erklaerung'] = self.context.erklaerung.output
+        else:
+            retdict['erklaerung'] = ''
         retdict['illustration'] = ''
         if self.context.solutionimage:
             retdict['illustration'] = 'bild'
@@ -296,7 +305,10 @@ class ValidateAufgabePlone(api.Page):
         retdict['aufgabe'] = self.context.aufgabe
         retdict['art'] = self.context.art
         retdict['punkte'] = self.context.punkte
-        retdict['erklaerung'] = self.context.erklaerung
+        if self.context.erklaerung:
+            retdict['erklaerung'] = self.context.erklaerung.output
+        else:
+            retdict['erklaerung'] = ''
         retdict['illustration'] = ''
         if self.context.solutionimage:
             retdict['illustration'] = 'bild'

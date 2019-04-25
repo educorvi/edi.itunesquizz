@@ -7,12 +7,12 @@
       <h1 tal:content="viewdata/title"/>
       <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
       <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'">
-         <p tal:condition="python: viewdata.get('art') == 'benotet'" 
+         <p tal:condition="python: viewdata.get('art') == 'benotet' and not outputs.get('result')" 
             tal:repeat="outputfield outputs/results" tal:attributes="style outputfield/bewertung">
            <span class="" tal:attributes="class outputfield/checkbox"></span>
            <span tal:content="outputfield/label"></span>
          </p>
-         <p tal:condition="python: viewdata.get('art') == 'selbsttest'" 
+         <p tal:condition="python: viewdata.get('art') == 'selbsttest' or outputs.get('result')" 
             tal:repeat="outputfield outputs/results">
            <span class="" tal:attributes="class outputfield/checkbox"></span>
            <span tal:content="outputfield/label"></span>
@@ -86,7 +86,7 @@
       <div tal:condition="python: not outputs.get('result') and viewdata.get('erklaerung')" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
           <h4>Erklärung/Lerntipp</h4>
-          <p><span tal:replace="viewdata/erklaerung"/></p>
+          <p><span tal:replace="structure viewdata/erklaerung"/></p>
         </div>
       </div>
 

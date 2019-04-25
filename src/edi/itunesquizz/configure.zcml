@@ -27,6 +27,7 @@
   />
 
   <adapter name="Beispiel" factory=".aufgabe.myBeispiel" />
+  <adapter name="Aufgabenart" factory=".aufgabe.myAufgabenart" />
 
 
   <genericsetup:registerProfile

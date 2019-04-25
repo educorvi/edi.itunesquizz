@@ -3,4 +3,7 @@
     <index name="Beispiel" meta_type="BooleanIndex">
         <indexed_attr value="Beispiel"/>
     </index>
+    <index name="Aufgabenart" meta_type="FieldIndex">
+        <indexed_attr value="Aufgabenart"/>
+    </index>
 </object>

@@ -12,6 +12,7 @@ from zope import schema
 from plone.dexterity.browser import edit
 from plone.dexterity.browser import add
 from plone.supermodel import model
+from plone.app.textfield import RichText
 #from plone.directives import form
 from plone.autoform import directives as form
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
@@ -134,12 +135,12 @@ class IAufgabe(model.Schema):
                             required=False,
                             constraint=option_constraint,
                             value_type=DictRow(title=u"Optionen", schema=IAnswerOptions))
-    hinweis = schema.Text(title=u"Lösungshinweis",
+    hinweis = RichText(title=u"Lösungshinweis",
+                       required=False,
+                       description=u"Erscheint unterhalb der Frage- oder Aufgabenstellung bzw. des Bildes.")
+    erklaerung = RichText(title=u"Erklärung/Lernempfehlung",
                           required=False,
-                          description=u"Erscheint unterhalb der Frage- oder Aufgabenstellung bzw. des Bildes.")
-    erklaerung = schema.Text(title=u"Erklärung/Lernempfehlung",
-                             required=False,
-                             description=u"Nur relevant für Selbsttest-Aufgaben. Der Text wird zusammen mit dem Ergebnis eingeblendet.")
+                          description=u"Der Text wird bei fehlerhaften Lösungen zusammen mit dem Ergebnis eingeblendet.")
     solutionimage = NamedBlobImage(title=u"Bild zur Erklärung der Lösung", 
                                    description=u"Das Bild wird zusammen mit dem Ergebnis eingeblendet.",
                                    required=False)
@@ -180,6 +181,9 @@ class IAufgabe(model.Schema):
 def myBeispiel(obj):
     return obj.beispiel
 
+@indexer(IAufgabe)
+def myAufgabenart(obj):
+    return obj.art
 
 class Aufgabe(Item):
     """Content Class"""

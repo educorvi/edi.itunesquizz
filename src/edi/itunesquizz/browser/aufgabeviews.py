@@ -20,6 +20,11 @@ def sizeof_fmt(num, suffix='Byte'):
         num /= 1024.0
     return "%.2f %s%s" % (num, 'Y', suffix)
 
+def backcolor(bewertung):
+    colors = {'richtig':'background-color:#99E090',
+              'falsch':'background-color:#FFE4E1'}
+    return colors.get(bewertung)
+
 class AufgabeITunes(api.View):
     api.context(IAufgabe)
 
@@ -236,6 +241,7 @@ class ValidateAufgabePlone(api.Page):
             myresult = {}
             if i.get('antwort'):
                 myresult['label'] = i.get('antwort')
+                myresult['bewertung'] = backcolor(i.get('bewertung'))
                 resultoption = 'option_%s' %self.context.antworten.index(i)
                 if not test:
                     myresult['checkbox'] = 'glyphicon glyphicon-unchecked'

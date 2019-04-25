@@ -7,8 +7,13 @@
       <h1 tal:content="viewdata/title"/>
       <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
       <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'">
-         <p tal:repeat="outputfield outputs/results">
-           <!--<span class="" style="" tal:attributes="class outputfield/class; style outputfield/style"></span>-->
+         <p tal:condition="python: viewdata.get('art') == 'benotet'" 
+            tal:repeat="outputfield outputs/results" tal:attributes="style outputfield/bewertung">
+           <span class="" tal:attributes="class outputfield/checkbox"></span>
+           <span tal:content="outputfield/label"></span>
+         </p>
+         <p tal:condition="python: viewdata.get('art') == 'selbsttest'" 
+            tal:repeat="outputfield outputs/results">
            <span class="" tal:attributes="class outputfield/checkbox"></span>
            <span tal:content="outputfield/label"></span>
          </p>
@@ -25,7 +30,7 @@
                src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
           <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')" 
                src="" tal:attributes="src viewdata/true_emoji">
-          <strong style="color:#298A08;font-size:120%">Prima, das war richtig!</strong>
+          <strong style="color:#298A08;font-size:150%">Prima, das war richtig!</strong>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
       </div>
@@ -37,7 +42,7 @@
                src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
           <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')"
                src="" tal:attributes="src viewdata/true_emoji">
-          <strong style="color:#298A08;font-size:120%">Prima, das war richtig!</strong>
+          <strong style="color:#298A08;font-size:150%">Prima, das war richtig!</strong>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
       </div>
@@ -78,7 +83,7 @@
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
       </div>
 
-      <div tal:condition="python: viewdata.get('art') == 'selbsttest' and outputs.get('result') and viewdata.get('erklaerung')" class="row">
+      <div tal:condition="python: not outputs.get('result') and viewdata.get('erklaerung')" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
           <h4>Erklärung/Lerntipp</h4>
           <p><span tal:replace="viewdata/erklaerung"/></p>

@@ -3,27 +3,40 @@
 
       <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-      <form class="form-horizontal" tal:attributes="action viewdata/validationurl">
- 
-        <h1 tal:content="viewdata/title"/>
+      <form tal:attributes="action viewdata/validationurl">
 
+      <div class="col-xs-12 col-sm-12"> 
+        <h1 tal:content="viewdata/title"/>
+      </div>
+
+      <div class="col-xs-12 col-sm-12">
         <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
         <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
            mit der richtigen Antwort.</strong></p>
-        <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
+      </div>
 
+      <div class="col-xs-12 col-sm-12">
+        <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
+      </div>
+
+      
+      <div class="col-xs-12 col-sm-12">
         <div tal:condition="python: viewdata.get('illustration')=='bild'">
            <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
         </div>
+      </div>
 
+      <div class="col-xs-12 col-sm-12">
         <div class="row" tal:condition="python: viewdata.get('illustration')=='film'">
           <div class="embed-responsive embed-responsive-4by3">
             <span tal:replace="structure viewdata/film"/>
           </div>
         </div>
+      </div>
 
+      <div class="col-xs-12 col-sm-12">
         <div tal:define="datei viewdata/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
-          <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
+          <div tal:condition="python: filetype == 'video/mp4'">
             <div class="embed-responsive embed-responsive-4by3">
               <video class="embed-responsive-item" src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
                 Dein Browser kann dieses Video nicht wiedergeben.<br/>
@@ -31,29 +44,33 @@
               </video>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
+          <div tal:condition="python: filetype == 'audio/mpeg'">
             <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
               Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
               Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
             </audio>
           </div>
-          <div class="col-xs-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+          <div tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
             <a href="" tal:attributes="href datei/url"><span class="glyphicon glyphicon-download"/>
                                                       <span tal:content="datei/filename"/>
                                                       (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
             </a>
           </div>
         </div>
+      </div>
 
-        <div tal:condition="viewdata/hinweis" class="row">
-         <blockquote><p tal:content="viewdata/hinweis"/></blockquote>
-        </div>
+      <div tal:condition="viewdata/hinweis" class="col-xs-12 col-sm-12">
+       <blockquote><p tal:content="viewdata/hinweis"/></blockquote>
+      </div>
 
+      <div tal:condition="viewdata/hinweis" class="col-xs-12 col-sm-12">
         <div tal:condition="not:viewdata/inputfields" class="form-group">
           <textarea tal:condition="not:viewdata/inputfields"  tal:attributes="name viewdata/fieldname" class="form-control" 
             placeholder="Bitte schreibe hier eine Antwort auf die Frage" required></textarea>
         </div>
+      </div>
 
+      <div class="col-xs-12 col-sm-12">
         <div tal:condition="viewdata/inputfields" class="form-group-lg">
           <div class="row" style="margin-bottom:3px" tal:repeat="inputfield viewdata/inputfields">
 
@@ -75,23 +92,27 @@
           </div>
 
           <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
-              
-              <span tal:replace="inputfield/label"/>
-            </label>
+          <div class="row">
+              <div class="col-xs-2 col-sm-1 col-md-1">
+                <input type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
+              </div>
+              <div class="col-xs-10 col-sm-11 col-md-11">
+                <span tal:content="inputfield/label"/>
+              </div>
           </div> <-- /chekboxfield -->
           </div>
 
           </div>
         </div> <!-- /form-group -->
+      </div>
 
+      <div class="col-xs-12 col-sm-12">
         <div style="margin-top:20px;margin-bottom:10px;" class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <button class="btn btn-lg btn-primary" type="submit">Absenden</button>
           </div>
         </div>
+      </div>
 
       </form>
 

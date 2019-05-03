@@ -3,7 +3,7 @@
     
     <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-    <div tal:condition="outputs/results">
+    <div class="col-xs-12 col-sm-12 col-md-12" tal:condition="outputs/results">
       <h1 tal:content="viewdata/title"/>
       <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
       <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'">

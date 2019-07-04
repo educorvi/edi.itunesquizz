@@ -20,9 +20,9 @@
       </div>
 
       
-      <div class="col-xs-12 col-sm-12">
+      <div class="col-xs-12 col-sm-7">
         <div tal:condition="python: viewdata.get('illustration')=='bild'">
-           <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
+           <img style="box-shadow: 5px 3px 3px #cccccc; margin-bottom:10px;" class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
         </div>
       </div>
 

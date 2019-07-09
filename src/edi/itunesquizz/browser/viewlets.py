@@ -24,8 +24,11 @@ class BannerViewlet(api.Viewlet):
 
     def available(self):
         registry = getUtility(IRegistry)
-        if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
-           return False
+        try:
+            if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+                return False
+        except:
+            return False
         portal = ploneapi.portal.get()
         if self.context == portal:
             return True
@@ -37,7 +40,11 @@ class BannerViewlet(api.Viewlet):
         topimage = portal + '/++resource++edi.itunesquizz/images/default-top.jpg'
         self.topstyle = background %topimage
         registry = getUtility(IRegistry)
-        topexamples = ploneapi.content.find(UID=registry['edi.itunesquizz.settings.IQuizSettings.topexamples'])
+        topexamples = []
+        try:
+            topexamples = ploneapi.content.find(UID=registry['edi.itunesquizz.settings.IQuizSettings.topexamples'])
+        except:
+            topexamples = []
         objdict = {}
         if topexamples:
             index = random.randint(1,len(topexamples)) - 1
@@ -57,9 +64,13 @@ class LoggedInMembers(api.Viewlet):
 
     def update(self):
         registry = getUtility(IRegistry)
-        if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
-           self.available = False
-           return
+        try:
+            if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+                self.available = False
+                return
+        except:
+            self.available = False
+            return
         self.available = True
         if not ploneapi.user.is_anonymous():
             current = ploneapi.user.get_current()
@@ -76,8 +87,11 @@ class HilfeViewlet(api.Viewlet):
 
     def available(self):
         registry = getUtility(IRegistry)
-        if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
-           return False
+        try:
+            if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+                return False
+        except:
+            return False
         return True
 
     def loggedin(self):

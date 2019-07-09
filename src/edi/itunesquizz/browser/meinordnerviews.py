@@ -1,7 +1,11 @@
 from zope.interface import Interface
 from uvc.api import api
 from plone import api as ploneapi
-from Products.ATContentTypes.interface import IATTopic
+try:
+    from Products.ATContentTypes.interface import IATTopic
+    AT = True
+except:
+    AT = False
 from plone.app.contenttypes.interfaces import ICollection
 from Products.CMFCore.interfaces import IFolderish
 from plone import api as ploneapi
@@ -18,10 +22,11 @@ class MeinOrdnerView(api.Page):
         """ 
         Make catalog query for the folder listing.
         """
-        if IATTopic.providedBy(self.context):
-            q = self.context.buildQuery()
-            pcat = getToolByName(self.context, 'portal_catalog')
-            return pcat.searchResults(q)
+        if AT:
+            if IATTopic.providedBy(self.context):
+                q = self.context.buildQuery()
+                pcat = getToolByName(self.context, 'portal_catalog')
+                return pcat.searchResults(q)
         elif ICollection.providedBy(self.context):
             return self.context.queryCatalog(batch=False)
         elif IFolderish.providedBy(self.context):

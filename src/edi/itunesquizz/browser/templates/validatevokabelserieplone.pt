@@ -1,4 +1,11 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="example.conference">
+
   <head>
 
     <script>
@@ -10,6 +17,9 @@
   </head>
 
   <body onload="delete_cookie()">
+
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
 
     <div tal:define="viewdata view/update; outputs viewdata/outputs" class="row">
       <h4 tal:content="viewdata/aufforderung"/>
@@ -89,11 +99,8 @@
       </div>
     </div> <!-- /container -->
 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+    </tal:main-macro>
+  </metal:main>
 
   </body>
 </html>

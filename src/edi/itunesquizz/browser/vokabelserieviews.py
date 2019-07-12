@@ -242,8 +242,7 @@ class VokabelserieFinal(BrowserView):
         retdict['outputs'] = results
         return retdict
             
-class ValidateVokabelseriePlone(api.Page):
-    api.context(IVokabelserie)
+class ValidateVokabelseriePlone(BrowserView):
 
     def cookiesetter(self, retdict):
         sdm = self.context.session_data_manager

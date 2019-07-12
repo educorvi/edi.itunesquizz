@@ -4,14 +4,12 @@ from edi.itunesquizz.arbeitsblatt import IArbeitsblatt
 from edi.itunesquizz.browser.security import checkOwner
 from Products.Five import BrowserView
 
-
 def sizeof_fmt(num, suffix='Byte'):
     for unit in ['','k','M','G','T','P','E','Z']:
         if abs(num) < 1024.0:
             return "%3.2f %s%s" % (num, unit, suffix)
         num /= 1024.0
     return "%.2f %s%s" % (num, 'Y', suffix)
-
 
 class ArbeitsblattITunes(BrowserView):
 
@@ -99,8 +97,7 @@ class ArbeitsblattPlone(BrowserView):
         return retdict
 
 
-class ValidateArbeitsblatt(api.View):
-    api.context(IArbeitsblatt)
+class ValidateArbeitsblatt(BrowserView):
 
     def cookiesetter(self, retdict):
         sdm = self.context.session_data_manager

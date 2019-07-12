@@ -1,20 +1,15 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.experiment import IExperiment
 from edi.itunesquizz.experiment import aufgabenart, ergebnisart
 from edi.itunesquizz.browser.security import checkOwner
-
-api.templatedir('templates')
-
+from Products.Five import BrowserView
 
 def myfloat(value):
     value = value.replace(',', '.')
     return float(value)
 
-
-class ExperimentITunes(api.View):
-    api.context(IExperiment)
+class ExperimentITunes(BrowserView):
 
     def formatinputs(self):
         reihen = []
@@ -49,8 +44,7 @@ class ExperimentITunes(api.View):
         return retdict
 
 
-class ExperimentPlone(api.Page):
-    api.context(IExperiment)
+class ExperimentPlone(BrowserView):
 
     def formatinputs(self):
         reihen = []

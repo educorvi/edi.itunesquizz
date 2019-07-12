@@ -227,8 +227,7 @@ class ValidateVokabelserie(BrowserView):
         cookie = self.cookiesetter(retdict)
         return retdict
 
-class VokabelserieFinal(api.View):
-    api.context(IVokabelserie)
+class VokabelserieFinal(BrowserView):
 
     def update(self):
         sdm = self.context.session_data_manager

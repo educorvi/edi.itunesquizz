@@ -299,8 +299,7 @@ class ValidateVokabelseriePlone(BrowserView):
             cookie = self.cookiesetter(retdict)
         return retdict
 
-class VokabelserieView(api.Page):
-    api.context(IVokabelserie)
+class VokabelserieView(BrowserView):
 
     def editpanel(self):
         if not ploneapi.user.is_anonymous():

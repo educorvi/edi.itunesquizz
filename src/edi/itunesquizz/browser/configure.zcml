@@ -7,6 +7,7 @@
 
   <include package="five.grok" />
   <grok:grok package="." />
+  <include package="Products.CMFCore" file="permissions.zcml" />
 
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:jbot
@@ -31,6 +32,54 @@
     class=".startseiteviews.StartseiteView"
     template="templates/startseiteview.pt"
     permission="zope2.View"
+    />
+
+
+  <browser:page
+    name="vokabelserieitunes"
+    for="edi.itunesquizz.vokabelserie.IVokabelserie"
+    class=".vokabelserieviews.VokabelserieITunes"
+    template="templates/vokabelserieitunes.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="checkstartseite"
+    for="*"
+    class=".vokabelserieviews.Check"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="vokabelserieplone"
+    for="edi.itunesquizz.vokabelserie.IVokabelserie"
+    class=".vokabelserieviews.VokabelseriePlone"
+    template="templates/vokabelserieplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validatevokabelserie"
+    for="edi.itunesquizz.vokabelserie.IVokabelserie"
+    class=".vokabelserieviews.ValidateVokabelserie"
+    template="templates/validatevokabelserie.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="vokabelseriefinal"
+    for="edi.itunesquizz.vokabelserie.IVokabelserie"
+    class=".vokabelserieviews.VokabelserieFinal"
+    template="templates/vokabelseriefinal.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page     
+    name="vokabelseriefinal"
+    for="edi.itunesquizz.vokabelserie.IVokabelserie"
+    class=".vokabelserieviews.VokabelserieView"
+    template="templates/vokabelserieview.pt"
+    permission="cmf.ModifyPortalContent"
     />
 
 </configure>

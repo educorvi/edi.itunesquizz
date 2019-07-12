@@ -1,5 +1,4 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.vokabelserie import IVokabelserie
 from edi.itunesquizz.browser.security import checkOwner
@@ -85,10 +84,9 @@ class VokabelserieITunes(BrowserView):
         return retdict
 
 
-class CheckStartSeite(api.View):
-    api.context(IVokabelserie)
+class CheckStartSeite(BrowserView):
 
-    def render(self):
+    def __call__(self):
         sdm = self.context.session_data_manager
         session = sdm.getSessionData(create=True)
         start = session.get("startseite", 1)
@@ -97,8 +95,7 @@ class CheckStartSeite(api.View):
         return self.request.response.redirect(url)
 
 
-class VokabelseriePlone(api.Page):
-    api.context(IVokabelserie)
+class VokabelseriePlone(BrowserView):
 
     def update(self):
         retdict = {}

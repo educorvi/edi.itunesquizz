@@ -1,5 +1,4 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility

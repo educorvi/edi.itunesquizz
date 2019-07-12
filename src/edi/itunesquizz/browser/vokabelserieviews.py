@@ -3,6 +3,7 @@ from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.vokabelserie import IVokabelserie
 from edi.itunesquizz.browser.security import checkOwner
+from Products.Five import BrowserView
 
 api.templatedir('templates')
 
@@ -14,8 +15,7 @@ def sizeof_fmt(num, suffix='Byte'):
     return "%.2f %s%s" % (num, 'Y', suffix)
 
 
-class VokabelserieITunes(api.View):
-    api.context(IVokabelserie)
+class VokabelserieITunes(BrowserView):
 
     def wizard(self):
         sdm = self.context.session_data_manager

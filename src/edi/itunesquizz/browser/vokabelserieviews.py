@@ -4,8 +4,6 @@ from edi.itunesquizz.vokabelserie import IVokabelserie
 from edi.itunesquizz.browser.security import checkOwner
 from Products.Five import BrowserView
 
-api.templatedir('templates')
-
 def sizeof_fmt(num, suffix='Byte'):
     for unit in ['','k','M','G','T','P','E','Z']:
         if abs(num) < 1024.0:

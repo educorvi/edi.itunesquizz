@@ -9,8 +9,7 @@ try:
     from edi.course.persistance import getResultsForQuiz
 except:
     getResultsForQuiz = None
-
-api.templatedir('templates')
+from Products.Five import BrowserView
 
 def sizeof_fmt(num, suffix='Byte'):
     for unit in ['','k','M','G','T','P','E','Z']:

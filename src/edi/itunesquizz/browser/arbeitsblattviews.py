@@ -1,10 +1,9 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.arbeitsblatt import IArbeitsblatt
 from edi.itunesquizz.browser.security import checkOwner
+from Products.Five import BrowserView
 
-api.templatedir('templates')
 
 def sizeof_fmt(num, suffix='Byte'):
     for unit in ['','k','M','G','T','P','E','Z']:
@@ -14,8 +13,7 @@ def sizeof_fmt(num, suffix='Byte'):
     return "%.2f %s%s" % (num, 'Y', suffix)
 
 
-class ArbeitsblattITunes(api.View):
-    api.context(IArbeitsblatt)
+class ArbeitsblattITunes(BrowserView):
 
     def update(self):
         retdict = {}

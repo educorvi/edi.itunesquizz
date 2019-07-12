@@ -212,8 +212,7 @@ class ValidateArbeitsblattPlone(BrowserView):
             cookie = self.cookiesetter(retdict)
         return retdict
 
-class ArbeitsblattView(api.Page):
-    api.context(IArbeitsblatt)
+class ArbeitsblattView(BrowserView):
 
     def editpanel(self):
         if not ploneapi.user.is_anonymous():
@@ -249,5 +248,4 @@ class ArbeitsblattView(api.Page):
             self.datei['contentType'] = self.context.datei.contentType
             self.datei['size'] = sizeof_fmt(self.context.datei.size)
             self.datei['filename'] = self.context.datei.filename
-
 

@@ -67,8 +67,48 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    name="arbeitsblattituns"
+    for="edi.itunesquizz.arbeitsblatt.IArbeitsblatt"
+    class=".arbeitsblattviews.ArbeitsblattItunes"
+    template="templates/arbeitsblattitunes.pt"
+    permission="zope2.View"
+    />
 
   <browser:page
+    name="arbeitsblattplone"
+    for="edi.itunesquizz.arbeitsblatt.IArbeitsblatt"
+    class=".arbeitsblattviews.ArbeitsblattPlone"
+    template="templates/arbeitsblattplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validatearbeitsblatt"
+    for="edi.itunesquizz.arbeitsblatt.IArbeitsblatt"
+    class=".arbeitsblattviews.ValidateArbeitsblatt"
+    template="templates/validatearbeitsblatt.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validatearbeitsblattplone"
+    for="edi.itunesquizz.arbeitsblatt.IArbeitsblatt"
+    class=".arbeitsblattviews.ValidateArbeitsblattPlone"
+    template="templates/validatearbeitsblattplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="arbeitsblattview"
+    for="edi.itunesquizz.arbeitsblatt.IArbeitsblatt"
+    class=".arbeitsblattviews.ArbeitsblattView"
+    template="templates/arbeitsblattview.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+
+  <browser:pagec
     name="vokabelserieitunes"
     for="edi.itunesquizz.vokabelserie.IVokabelserie"
     class=".vokabelserieviews.VokabelserieITunes"

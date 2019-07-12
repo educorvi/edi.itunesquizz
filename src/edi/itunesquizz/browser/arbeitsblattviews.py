@@ -56,8 +56,7 @@ class ArbeitsblattITunes(BrowserView):
         return retdict
 
 
-class ArbeitsblattPlone(api.Page):
-    api.context(IArbeitsblatt)
+class ArbeitsblattPlone(BrowserView):
 
     def update(self):
         retdict = {}

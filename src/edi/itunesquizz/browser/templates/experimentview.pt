@@ -1,105 +1,121 @@
-<div style="margin-left:3px;margin-right:3px" class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title" tal:content="context/title">Panel title</h2>
-    </div>
-    <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
-      <div class="row">
-        <div class="col-xs-6 col-sm-6">
-          <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="edi.itunesquizz">
+  <body>
+
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title" tal:content="context/title">Panel title</h2>
         </div>
-        <div class="col-xs-6 col-sm-6">
-          <h4 style="text-align:right;margin-right:5px">
-            <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
-          </h4>
+        <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6">
+              <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
+            </div>
+            <div class="col-xs-6 col-sm-6">
+              <h4 style="text-align:right;margin-right:5px">
+                <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
+              </h4>
+            </div>
+          </div>
         </div>
-    </div>
-  </div>
-  <hr>
-</div>
-
-<div style="margin-left:3px;margin-right:3px" class="row">
-
-  <div class="row">
-    <div class="col-xs-8 col-sm-8">
-      <ul>
-        <li>Art Experiments: <span tal:replace="view/aufgabenart"/></li>
-        <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
-      </ul>
-    </div>
-    <div class="col-xs-4 col-sm-4"></div>
-  </div>
-
-  <div tal:condition="context/image" class="row">
-    <div class="col-xs-12 col-sm-8">
-      <h3>Versuchsaufbau</h3>
-      <p class="documentDescription" tal:content="context/aufgabe"/>
-    </div>
-    <div class="col-xs-12 col-sm-4">
-      <div style="margin-top:20px"
-           tal:define="image nocall:context/image"
-           tal:condition="nocall:image">
-        <img tal:replace="structure context/@@images/image/mini" />
+        <hr>
       </div>
     </div>
-  </div>
 
-  <div tal:condition="not: context/image" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Versuchsaufbau</h3>
-      <p class="documentDescription" tal:content="context/aufgabe"/>
+    <div class="row">
+      <div class="col-xs-8 col-sm-8">
+        <ul>
+          <li>Art Experiments: <span tal:replace="view/aufgabenart"/></li>
+          <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
+        </ul>
+      </div>
+      <div class="col-xs-4 col-sm-4"></div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Versuchsreihen</h3>
-
-      <table tal:condition="view/versuchsreihen" class="listing">
-        <thead>
-          <th>Versuchsreihe</th>
-          <th>Ergebniserwartung</th>
-          <th>Ergebnis</th>
-        <thead>
-        <tbody>
-          <tr tal:repeat="reihe view/versuchsreihen">
-            <td tal:content="reihe/antwort"/>
-            <td tal:content="reihe/erwartung"/>
-            <td><span tal:content="reihe/ergebnis"/> <span tal:content="reihe/einheit"/></td>
-          </tr>
-        </tbody>
-      </table>
+    <div tal:condition="context/image" class="row">
+      <div class="col-xs-12 col-sm-8">
+        <h3>Versuchsaufbau</h3>
+        <p class="documentDescription" tal:content="context/aufgabe"/>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div style="margin-top:20px"
+           tal:define="image nocall:context/image"
+           tal:condition="nocall:image">
+          <img tal:replace="structure context/@@images/image/mini" />
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div tal:condition="context/fazit" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <strong>Die Schüler sollen ein selbständiges Fazit aus dem Experiment ableiten.</strong>
+    <div tal:condition="not: context/image" class="row">
+      <div class="col-xs-12 col-sm-12">
+        <h3>Versuchsaufbau</h3>
+        <p class="documentDescription" tal:content="context/aufgabe"/>
+      </div>
     </div>
-  </div>
 
-  <div tal:condition="context/erklaerung" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Erklärung/Lernempfehlung</h3>
-      <p tal:content="context/erklaerung"/>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
+        <h3>Versuchsreihen</h3>
+        <table tal:condition="view/versuchsreihen" class="listing">
+          <thead>
+            <th>Versuchsreihe</th>
+            <th>Ergebniserwartung</th>
+            <th>Ergebnis</th>
+          <thead>
+          <tbody>
+            <tr tal:repeat="reihe view/versuchsreihen">
+              <td tal:content="reihe/antwort"/>
+              <td tal:content="reihe/erwartung"/>
+              <td><span tal:content="reihe/ergebnis"/> <span tal:content="reihe/einheit"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <h3>Link für iTunes U</h3>
-  <div class="form-group">
-    <label for="myInput">Bitte kopiere diesen Link und füge Ihn als Aufgabe Deinem iTunesU Kurs hinzu.</label>
-    <input style="margin-bottom:10px;" type="text" tal:attributes="value view/ituneslink" id="myInput" readonly>
-    <button onclick="myFunction()">Link kopieren</button>
-    <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
-  </div>
+    <div tal:condition="context/fazit" class="row">
+      <div class="col-xs-12 col-sm-12">
+        <strong>Die Schüler sollen ein selbständiges Fazit aus dem Experiment ableiten.</strong>
+      </div>
+    </div>
 
-  <script>
-    function myFunction() {
-      var copyText = document.getElementById("myInput");
-      copyText.select();
-      document.execCommand("copy");
-      alert("Link kopiert: " + copyText.value);
-    }
-  </script>
+    <div tal:condition="context/erklaerung" class="row">
+      <div class="col-xs-12 col-sm-12">
+        <h3>Erklärung/Lernempfehlung</h3>
+        <p tal:content="context/erklaerung"/>
+      </div>
+    </div>
+   
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <h3>Link für iTunes U</h3>
+        <div class="form-group">
+          <label for="myInput">Bitte kopiere diesen Link und füge Ihn als Aufgabe Deinem iTunesU Kurs hinzu.</label>
+          <input style="margin-bottom:10px;" type="text" tal:attributes="value view/ituneslink" id="myInput" readonly>
+          <button onclick="myFunction()">Link kopieren</button>
+          <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <script>
+      function myFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        document.execCommand("copy");
+        alert("Link kopiert: " + copyText.value);
+      }
+    </script>
+    </tal:main-macro>
+  </metal:main>
+  </body>
+</html>

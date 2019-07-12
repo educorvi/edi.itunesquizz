@@ -79,8 +79,7 @@ class ExperimentPlone(BrowserView):
         return retdict
 
 
-class ValidateExperiment(api.View):
-    api.context(IExperiment)
+class ValidateExperiment(BrowserView):
 
     def formatoutputs(self, formkeys, test):
         resultdict = {}
@@ -156,8 +155,7 @@ class ValidateExperiment(api.View):
         return retdict
 
 
-class ValidateExperimentPlone(api.Page):
-    api.context(IExperiment)
+class ValidateExperimentPlone(BrowserView):
 
     def formatoutputs(self, formkeys, test):
         resultdict = {}
@@ -233,8 +231,7 @@ class ValidateExperimentPlone(api.Page):
         return retdict
 
 
-class ExperimentView(api.Page):
-    api.context(IExperiment)
+class ExperimentView(BrowserView):
 
     def editpanel(self):
         if not ploneapi.user.is_anonymous():

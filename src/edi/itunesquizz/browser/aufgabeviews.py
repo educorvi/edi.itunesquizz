@@ -1,5 +1,4 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.aufgabe import IAufgabe
 from edi.itunesquizz.aufgabe import aufgabenart
@@ -25,8 +24,7 @@ def backcolor(bewertung):
               'falsch':'background-color:#FFE4E1'}
     return colors.get(bewertung)
 
-class AufgabeITunes(api.View):
-    api.context(IAufgabe)
+class AufgabeITunes(BrowserView):
 
     def formatinputs(self):
         options = []
@@ -80,8 +78,7 @@ class AufgabeITunes(api.View):
         return retdict
 
 
-class AufgabePlone(api.Page):
-    api.context(IAufgabe)
+class AufgabePlone(BrowserView):
 
     def formatinputs(self):
         options = []

@@ -155,8 +155,7 @@ class ValidateArbeitsblatt(BrowserView):
         return retdict
 
             
-class ValidateArbeitsblattPlone(api.Page):
-    api.context(IArbeitsblatt)
+class ValidateArbeitsblattPlone(BrowserView):
 
     def cookiesetter(self, retdict):
         sdm = self.context.session_data_manager

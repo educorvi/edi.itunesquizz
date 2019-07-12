@@ -20,18 +20,51 @@
       directory="static" />
 
   <browser:page
-    name="aufgabeitunes"
-    for="*"
-    class=".aufgabeviews.AufgabeITunes"
-    permission="zope2.View"
-    />
-
-  <browser:page
     name="quiz-startseite"
     for="*"
     class=".startseiteviews.StartseiteView"
     template="templates/startseiteview.pt"
     permission="zope2.View"
+    />
+
+  <browser:page
+    name="aufgabeitunes"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.AufgabeItunes"
+    template="templates/aufgabeitunes.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="aufgabeplone"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.AufgabePlone"
+    template="templates/aufgabeplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validateaufgabe"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.ValidateAufgabe"
+    template="templates/validateaufgabe.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validateaufgabeplone"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.ValidateAufgabePlone"
+    template="templates/validateaufgabeplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="aufgabeview"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.AufgabeView"
+    template="templates/aufgabeview.pt"
+    permission="cmf.ModifyPortalContent"
     />
 
 
@@ -75,11 +108,14 @@
     />
 
   <browser:page     
-    name="vokabelseriefinal"
+    name="vokabelserieview"
     for="edi.itunesquizz.vokabelserie.IVokabelserie"
     class=".vokabelserieviews.VokabelserieView"
     template="templates/vokabelserieview.pt"
     permission="cmf.ModifyPortalContent"
     />
+
+
+
 
 </configure>

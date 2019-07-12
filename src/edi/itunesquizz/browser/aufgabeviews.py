@@ -231,8 +231,7 @@ class ValidateAufgabe(BrowserView):
         return retdict
 
 
-class ValidateAufgabePlone(api.Page):
-    api.context(IAufgabe)
+class ValidateAufgabePlone(BrowserView):
 
     def formatoutputs(self, test):
         resultdict = {}
@@ -346,8 +345,7 @@ class ValidateAufgabePlone(api.Page):
         return retdict
 
 
-class AufgabeView(api.Page):
-    api.context(IAufgabe)
+class AufgabeView(BrowserView):
 
     def editpanel(self):
         if not ploneapi.user.is_anonymous():

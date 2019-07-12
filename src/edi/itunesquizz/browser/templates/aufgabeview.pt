@@ -1,163 +1,191 @@
-<div style="margin-left:3px;margin-right:3px" class="row">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="edi.itunesquizz">
 
-  <div tal:replace="structure provider:plone.abovecontenttitle" />
+  <body>
 
-  <div tal:condition="view/isquizsite" class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title" tal:content="context/title">Panel title</h2>
-    </div>
-    <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
       <div class="row">
-        <div class="col-xs-6 col-sm-6">
-          <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
+        <div class="col-xs-12 col-md-12">
+          <div tal:replace="structure provider:plone.abovecontenttitle" />
         </div>
-        <div class="col-xs-6 col-sm-6">
-          <h4 style="text-align:right;margin-right:5px">
-            <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
-          </h4>
-        </div>
-    </div>
-  <hr>
-  </div>
-</div>
-
-<div style="margin-left:3px;margin-right:3px" class="row">
-
-  <div class="row">
-    <div class="col-xs-8 col-sm-8">
-      <ul>
-        <li>Art der Aufgabenstellung: <span tal:replace="view/aufgabenart"/></li>
-        <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
-      </ul>
-    </div>
-    <div class="col-xs-4 col-sm-4"></div>
-  </div>
-
-  <div tal:condition="context/image" class="row">
-    <div class="col-xs-6 col-sm-8">
-      <h3>Frage bzw. Aufgabe</h3>
-      <p class="documentDescription" tal:content="context/aufgabe"/>
-    </div>
-    <div class="col-xs-6 col-sm-4">
-      <div style="margin-top:20px"
-           tal:define="image nocall:context/image"
-           tal:condition="nocall:image">
-        <img tal:replace="structure context/@@images/image/mini" />
       </div>
-    </div>
-  </div>
 
-  <div tal:condition="not: context/image" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Frage bzw. Aufgabe</h3>
-      <p class="documentDescription" tal:content="context/aufgabe"/>
-    </div>
-  </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <div tal:condition="view/isquizsite" class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title" tal:content="context/title">Panel title</h2>
+            </div>
+            <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                  <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                  <h4 style="text-align:right;margin-right:5px">
+                    <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
+                  </h4>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div tal:define="datei view/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
-    <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
-       <video muted src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
-           Dein Browser kann dieses Video nicht wiedergeben.<br/>
-           Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
-       </video>
-    </div>
-    <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
-       <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
-           Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
-           Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
-       </audio>
-    </div>
-    <div class="col-xs-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
-       <a href="" tal:attributes="href datei/url"><span class="glyphicon glyphicon-download"/>
-                                                  <span tal:content="datei/filename"/>
-                                                  (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
-       </a>
-    </div>
-  </div>
+      <div style="margin-left:3px;margin-right:3px" class="row">
+        <div class="col-xs-8 col-sm-8">
+          <ul>
+            <li>Art der Aufgabenstellung: <span tal:replace="view/aufgabenart"/></li>
+            <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
+          </ul>
+        </div>
+        <div class="col-xs-4 col-sm-4"></div>
+      </div>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Antwortoptionen</h3>
-      <p tal:condition="not:view/antworten" class="documentDescription">Für diese Aufgabenstellung wurden keine Antwortoptionen angegeben. 
-         Der Schüler wird diese Frage bzw. Aufgabenstellung in Form eines Textes beantworten.</p>
+      <div tal:condition="context/image" class="row">
+        <div class="col-xs-6 col-sm-8">
+          <h3>Frage bzw. Aufgabe</h3>
+          <p class="documentDescription" tal:content="context/aufgabe"/>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+          <div style="margin-top:20px"
+               tal:define="image nocall:context/image"
+               tal:condition="nocall:image">
+            <img tal:replace="structure context/@@images/image/mini" />
+          </div>
+        </div>
+      </div>
 
-      <table tal:condition="view/antworten" class="listing">
-        <thead>
-          <th>Antwortoption</th>
-          <th tal:condition="view/images">Bild</th>
-          <th>Bewertung</th>
-        <thead>
-        <tbody>
-          <tr tal:repeat="option view/antworten">
-            <td tal:content="option/antwort"/>
-            <td tal:condition="view/images"><img tal:attributes="src option/image;title option/antwort"></td>
-            <td tal:content="option/bewertung"/>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <div tal:condition="not: context/image" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Frage bzw. Aufgabe</h3>
+          <p class="documentDescription" tal:content="context/aufgabe"/>
+        </div>
+      </div>
 
-  <div tal:condition="context/hinweis" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Lösungshinweis</h3>
-      <p tal:content="context/hinweis"/>
-    </div>
-  </div>
+      <div tal:define="datei view/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
+        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
+          <video muted src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
+             Dein Browser kann dieses Video nicht wiedergeben.<br/>
+             Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+          </video>
+        </div>
+        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
+           <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
+             Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
+             Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
+           </audio>
+        </div>
+        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+           <a href="" tal:attributes="href datei/url">
+             <span class="glyphicon glyphicon-download"/>
+             <span tal:content="datei/filename"/>
+             (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
+           </a>
+        </div>
+      </div>
 
-  <div tal:condition="context/erklaerung" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Erklärung/Lernempfehlung</h3>
-      <p tal:content="context/erklaerung"/>
-    </div>
-  </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Antwortoptionen</h3>
+          <p tal:condition="not:view/antworten" class="documentDescription">Für diese Aufgabenstellung wurden keine Antwortoptionen angegeben. 
+            Der Schüler wird diese Frage bzw. Aufgabenstellung in Form eines Textes beantworten.</p>
 
-  <div tal:condition="context/solutionimage" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Lösungsbild</h3>
-    </div>
-    <div class="col-xs-8 col-sm-6">
-      <img class="img-responsive" tal:attributes="src view/solutionimage" />
-    </div>
-  </div>
+          <table tal:condition="view/antworten" class="listing">
+            <thead>
+              <th>Antwortoption</th>
+              <th tal:condition="view/images">Bild</th>
+              <th>Bewertung</th>
+            <thead>
+            <tbody>
+              <tr tal:repeat="option view/antworten">
+                <td tal:content="option/antwort"/>
+                <td tal:condition="view/images"><img tal:attributes="src option/image;title option/antwort"></td>
+                <td tal:content="option/bewertung"/>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-  <div tal:condition="context/solutionvideo" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Lösungsvideo</h3>
-    </div>
-    <div style="width:100%;" class="embed-responsive embed-responsive-4by3 col-xs-8 col-sm-6">
-      <span tal:replace="structure view/solutionvideo"/>
-    </div>
-  </div>
+      <div tal:condition="context/hinweis" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Lösungshinweis</h3>
+          <p tal:content="context/hinweis"/>
+        </div>
+      </div>
 
-  <div tal:condition="context/bonus" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3>Bonusbild</h3>
-      <p>Dieses Bild wird zusammen mit dem Barcode eingeblendet.</p>
-    </div>
-    <div class="col-xs-8 col-sm-6">
-      <img class="img-responsive" width="100%" tal:attributes="src view/bonus" />
-    </div>
-  </div>
+      <div tal:condition="context/erklaerung" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Erklärung/Lernempfehlung</h3>
+          <p tal:content="context/erklaerung"/>
+        </div>
+      </div>
 
+      <div tal:condition="context/solutionimage" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Lösungsbild</h3>
+        </div>
+        <div class="col-xs-8 col-sm-6">
+          <img class="img-responsive" tal:attributes="src view/solutionimage" />
+        </div>
+      </div>
 
-  <h3>Link für iTunes U</h3>
-  <div class="form-group">
-    <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
-    <input style="margin-bottom:10px;" type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
-    <button onclick="myFunction()">Link kopieren</button>
-    <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
-  </div>
+      <div tal:condition="context/solutionvideo" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Lösungsvideo</h3>
+        </div>
+        <div style="width:100%;" class="embed-responsive embed-responsive-4by3 col-xs-8 col-sm-6">
+          <span tal:replace="structure view/solutionvideo"/>
+        </div>
+      </div>
 
-  <div tal:replace="structure provider:plone.belowcontentbody" />
+      <div tal:condition="context/bonus" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Bonusbild</h3>
+          <p>Dieses Bild wird zusammen mit dem Barcode eingeblendet.</p>
+        </div>
+        <div class="col-xs-8 col-sm-6">
+          <img class="img-responsive" width="100%" tal:attributes="src view/bonus" />
+        </div>
+      </div>
 
-  <script>
-    function myFunction() {
-      var copyText = document.getElementById("myInput");
-      copyText.select();
-      document.execCommand("copy");
-      alert("Link kopiert: " + copyText.value);
-    }
-  </script>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <h3>Link für iTunes U</h3>
+          <div class="form-group">
+            <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
+            <input style="margin-bottom:10px;" type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
+            <button onclick="myFunction()">Link kopieren</button>
+            <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
+          </div>
+        </div>
+      </div>
 
-</div>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <div tal:replace="structure provider:plone.belowcontentbody" />
+        </div>
+      </div>
+
+      <script>
+        function myFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        document.execCommand("copy");
+        alert("Link kopiert: " + copyText.value);
+        }
+      </script>
+
+    </tal:main-macro>
+  </metal:main>
+  </body>
+</html>

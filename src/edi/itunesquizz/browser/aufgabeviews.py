@@ -151,8 +151,7 @@ class AufgabePlone(BrowserView):
         return retdict
 
 
-class ValidateAufgabe(api.View):
-    api.context(IAufgabe)
+class ValidateAufgabe(BrowserView):
 
     def formatoutputs(self, test):
         resultdict = {}

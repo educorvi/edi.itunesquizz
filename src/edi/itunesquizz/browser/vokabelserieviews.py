@@ -138,8 +138,7 @@ class VokabelseriePlone(BrowserView):
         return retdict
 
 
-class ValidateVokabelserie(api.View):
-    api.context(IVokabelserie)
+class ValidateVokabelserie(BrowserView):
 
     def wizard(self, current):
         sdm = self.context.session_data_manager

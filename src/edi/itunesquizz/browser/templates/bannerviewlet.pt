@@ -1,4 +1,4 @@
-<div tal:define="viewdata viewlet/objdict; available viewlet/available" tal:condition="available" class="row">
+<div tal:define="viewdata viewlet/objdict; available viewlet/available" tal:condition="available">
   <div tal:attributes="style viewlet/topstyle" class="col-xs-12">
 
     <div tal:condition="not: viewdata" class="row">

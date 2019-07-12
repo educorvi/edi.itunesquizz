@@ -83,7 +83,7 @@ class LoggedInMembers(api.Viewlet):
 
 class HilfeViewlet(api.Viewlet):
     api.context(Interface)
-    api.viewletmanager(IPortalTop)
+    api.viewletmanager(IAboveContentTitle)
 
     def available(self):
         registry = getUtility(IRegistry)
@@ -145,7 +145,7 @@ class HilfeViewlet(api.Viewlet):
         return False
 
     def update(self):
-       self.hilfe = self.checkhilfe()
-       self.logoutlink = ploneapi.portal.get().absolute_url() + '/logout'
-       self.loginlink = ploneapi.portal.get().absolute_url() + '/login'
-       self.reglink = ploneapi.portal.get().absolute_url() + '/register'
+        self.hilfe = self.checkhilfe()
+        self.logoutlink = ploneapi.portal.get().absolute_url() + '/logout'
+        self.loginlink = ploneapi.portal.get().absolute_url() + '/login'
+        self.reglink = ploneapi.portal.get().absolute_url() + '/register'

@@ -1,84 +1,119 @@
-<div class="row">
-<div class="col-xs-1 col-sm-1"></div>
-<div class="col-xs-10 col-sm-10"><h2>In 4  Schritten zur neuen Aufgabe:</h2></div>
-<div class="col-xs-1 col-sm-1"></div>
-</div>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="example.conference">
+<body>
 
-<div class="row">
-  <div class="col-xs-1 col-sm-1"></div>
-  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/user-3.png"> Registrieren oder Anmelden</h3></div>
-  <div class="col-xs-1 col-sm-1"></div>
-</div>
-<div class="row">
-  <div class="col-xs-1 col-sm-1"></div>
-  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/folder.png"> Aufgabenordner anlegen</h3></div>
-  <div class="col-xs-1 col-sm-1"></div>
-</div>
-<div class="row">
-  <div class="col-xs-1 col-sm-1"></div>
-  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/compose.png"> Aufgabe anlegen</h3></div>
-  <div class="col-xs-1 col-sm-1"></div>
-</div>
-<div class="row">
-  <div class="col-xs-1 col-sm-1"></div>
-  <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" tal:attributes="src string:${view/statics}/images/link.png"> Link teilen</h3></div>
-  <div class="col-xs-1 col-sm-1"></div>
-</div>
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
 
-<div tal:condition="view/examples" class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><hr></div>
-</div>
+      <div tal:define="data view/update">
 
-<div tal:condition="view/examples" class="row">
-  <div class="col-xs-1 col-sm-1"></div>
-  <div class="col-xs-10 col-sm-10">
-    <h2 style="margin-left:5px" class="panel-title">Beispiele für unsere Aufgabentypen</h2>
-    <ul>
-      <li><strong>Übungen</strong> bieten Wissenstests in Form von Multiple-Choice oder Freitext.</li>
-      <li><strong>Experimente</strong> erlauben den Vergleich von Messergebnissen aus verschiedenen Versuchsreihen.</li>
-      <li><strong>Arbeitsblätter</strong> kombinieren Text, Übungen und Experimente zu komplexen Aufgabenstellungen.</li>
-    </ul>
-  </div>
-  <div class="col-xs-1 col-sm-1"></div>
-</div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div tal:replace="structure provider:plone.abovecontenttitle" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-1 col-sm-1"></div>
+          <div class="col-xs-10 col-sm-10"><h2>In 4  Schritten zur neuen Aufgabe:</h2></div>
+          <div class="col-xs-1 col-sm-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-1 col-sm-1"></div>
+          <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" 
+               tal:attributes="src string:${view/statics}/images/user-3.png"> Registrieren oder Anmelden</h3></div>
+          <div class="col-xs-1 col-sm-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-1 col-sm-1"></div>
+          <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" 
+               tal:attributes="src string:${view/statics}/images/folder.png"> Aufgabenordner anlegen</h3></div>
+          <div class="col-xs-1 col-sm-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-1 col-sm-1"></div>
+          <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" 
+               tal:attributes="src string:${view/statics}/images/compose.png"> Aufgabe anlegen</h3></div>
+          <div class="col-xs-1 col-sm-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-1 col-sm-1"></div>
+          <div class="col-xs-10 col-sm-10"><h3><img style="width:36px;height:36px;margin-right:20px" 
+               tal:attributes="src string:${view/statics}/images/link.png"> Link teilen</h3></div>
+          <div class="col-xs-1 col-sm-1"></div>
+        </div>
+
+        <div tal:condition="view/examples" class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><hr></div>
+        </div>
+
+        <div tal:condition="view/examples" class="row">
+          <div class="col-xs-1 col-sm-1"></div>
+          <div class="col-xs-10 col-sm-10">
+            <h2 style="margin-left:5px" class="panel-title">Beispiele für unsere Aufgabentypen</h2>
+            <ul>
+              <li><strong>Übungen</strong> bieten Wissenstests in Form von Multiple-Choice oder Freitext.</li>
+              <li><strong>Experimente</strong> erlauben den Vergleich von Messergebnissen aus verschiedenen Versuchsreihen.</li>
+              <li><strong>Arbeitsblätter</strong> kombinieren Text, Übungen und Experimente zu komplexen Aufgabenstellungen.</li>
+            </ul>
+          </div>
+          <div class="col-xs-1 col-sm-1"></div>
+        </div>
 
 
-<div class="row" tal:define="examples view/examples" tal:condition="examples">
-<div class="col-xs-1 col-sm-1"></div>
-<div tal:condition="examples/aufgabe" class="col-xs-5 col-sm-3">
-  <div class="panel panel-default" tal:define="aufgabe examples/aufgabe">
-    <div class="panel-heading">
-      <h3 class="panel-title">Übung</h3>
-    </div>
-    <div class="panel-body">
-      <a href="" target="_blank" tal:attributes="href aufgabe/url"><img style="max-width:100%" tal:attributes="src aufgabe/img"></a>
-    </div>
-    <div class="panel-footer" tal:content="aufgabe/title"></div>
-  </div>
-</div>
+        <div class="row" tal:define="examples view/examples" tal:condition="examples">
+          <div class="col-xs-1 col-sm-1"></div>
 
-<div tal:condition="examples/expermiment" class="col-xs-5 col-sm-3">
-  <div class="panel panel-default" tal:define="experiment examples/experiment">
-    <div class="panel-heading">
-      <h3 class="panel-title">Experiment</h3>
-    </div>
-    <div class="panel-body">
-      <a href="" target="_blank" tal:attributes="href experiment/url"><img style="max-width:100%" tal:attributes="src experiment/img"></a>
-    </div>
-    <div class="panel-footer" tal:content="experiment/title"></div>
-  </div>
-</div>
+          <div tal:condition="examples/aufgabe" class="col-xs-5 col-sm-3">
+            <div class="panel panel-default" tal:define="aufgabe examples/aufgabe">
+              <div class="panel-heading">
+                <h3 class="panel-title">Übung</h3>
+              </div>
+              <div class="panel-body">
+                <a href="" target="_blank" tal:attributes="href aufgabe/url"><img style="max-width:100%" tal:attributes="src aufgabe/img"></a>
+              </div>
+              <div class="panel-footer" tal:content="aufgabe/title"></div>
+            </div>
+          </div>
 
-<div tal:condition="examples/arbeitsblatt" class="col-xs-5 col-sm-3">
-  <div class="panel panel-default" tal:define="arbeitsblatt examples/arbeitsblatt">
-    <div class="panel-heading">
-      <h3 class="panel-title">Arbeitsblatt</h3>
-    </div>
-    <div class="panel-body">
-      <a href="" target="_blank" tal:attributes="href arbeitsblatt/url"><img style="max-width:100%" tal:attributes="src arbeitsblatt/img"></a>
-    </div>
-    <div class="panel-footer" tal:content="arbeitsblatt/title"></div>
-  </div>
-</div>
+          <div tal:condition="examples/expermiment" class="col-xs-5 col-sm-3">
+            <div class="panel panel-default" tal:define="experiment examples/experiment">
+              <div class="panel-heading">
+                <h3 class="panel-title">Experiment</h3>
+              </div>
+              <div class="panel-body">
+                <a href="" target="_blank" tal:attributes="href experiment/url"><img style="max-width:100%" tal:attributes="src experiment/img"></a>
+              </div>
+              <div class="panel-footer" tal:content="experiment/title"></div>
+            </div>
+          </div>
 
-</div>
+          <div tal:condition="examples/arbeitsblatt" class="col-xs-5 col-sm-3">
+            <div class="panel panel-default" tal:define="arbeitsblatt examples/arbeitsblatt">
+              <div class="panel-heading">
+                <h3 class="panel-title">Arbeitsblatt</h3>
+              </div>
+              <div class="panel-body">
+                <a href="" target="_blank" tal:attributes="href arbeitsblatt/url"><img style="max-width:100%" 
+                   tal:attributes="src arbeitsblatt/img"></a>
+              </div>
+              <div class="panel-footer" tal:content="arbeitsblatt/title"></div>
+            </div>
+          </div>
+        </div>
+     </div>
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

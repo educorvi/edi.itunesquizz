@@ -4,12 +4,12 @@ from plone import api as ploneapi
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+from Products.Five import BrowserView
 
 api.templatedir('templates')
 
-class StartseiteView(api.Page):
-    api.context(Interface)
-
+class StartseiteView(BrowserView):
+ 
     def getexamples(self):
         registry = getUtility(IRegistry)
         portalexamples = registry['edi.itunesquizz.settings.IQuizSettings.examples']

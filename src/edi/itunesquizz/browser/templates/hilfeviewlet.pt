@@ -1,18 +1,15 @@
-<div tal:condition="viewlet/available" class="row">
+<div tal:condition="viewlet/available">
   <div class="col-xs-12 col-md-12">
     <div style="text-align:right">
       <a tal:condition="viewlet/checkhilfe" href="#modal1" class="pat-plone-modal"
          data-pat-plone-modal="width: 400" style="font-size:16px;margin-right:20px;font-weight:400">
          <span class="glyphicon glyphicon-question-sign"/> Hilfe</a>
-      <a tal:condition="viewlet/loggedin" tal:attributes="href viewlet/logoutlink" 
-          style="font-size:16px;font-weight:400">
-          <span class="glyphicon glyphicon-log-out"/> Abmelden</a>
-      <a tal:condition="not: viewlet/loggedin" tal:attributes="href viewlet/reglink"
-          style="font-size:16px;margin-right:20px;font-weight:400">
-          <span class="glyphicon glyphicon-user"/> Neu Registrieren</a>
-      <a tal:condition="not: viewlet/loggedin" tal:attributes="href viewlet/loginlink"
-          style="font-size:16px;font-weight:400">
-          <span class="glyphicon glyphicon-log-in"/> Anmelden</a>
+      <a tal:condition="viewlet/loggedin" tal:attributes="href viewlet/logoutlink"> 
+          <span class="glyphicon glyphicon-log-out"></span> Abmelden</a>
+      <a tal:condition="not: viewlet/loggedin" tal:attributes="href viewlet/reglink">
+          <span class="glyphicon glyphicon-user"></span> Neu Registrieren</a>
+      <a tal:condition="not: viewlet/loggedin" tal:attributes="href viewlet/loginlink">
+          <span class="glyphicon glyphicon-log-in"></span> Anmelden</a>
     </div>
   </div>
   <div id="modal1" style="display: none">

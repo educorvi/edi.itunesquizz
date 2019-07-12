@@ -1,12 +1,9 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from pymongo import MongoClient
+from Products.Five import BrowserView
 
-api.templatedir('templates')
-
-class iTunesView(api.View):
-    api.context(Interface)
+class iTunesView(BrowserView):
 
     def update(self):
         portal = ploneapi.portal.get().absolute_url()
@@ -29,7 +26,7 @@ class iTunesView(api.View):
         else:
             print 'return to error-site'
 
-class ITunes_Aufgabe_Validation(api.View):
+class ITunes_Aufgabe_Validation(BrowserView):
     api.context(Interface)
 
     def update(self):
@@ -41,16 +38,14 @@ class ITunes_Aufgabe_Validation(api.View):
         return data
 
 class ITunes_Experiment_Validation(ITunes_Aufgabe_Validation):
-    api.context(Interface)
+    """Validation Klass"""
 
 class ITunes_Arbeitsblatt_Validation(ITunes_Aufgabe_Validation):
-    api.context(Interface)
+    """Validation Klass"""
 
+class CookieSetter(BrowserView):
 
-class CookieSetter(api.View):
-    api.context(Interface)
-
-    def render(self):
+    def __call__(self):
         sdm = self.context.session_data_manager
         session = sdm.getSessionData(create=True)
         session.set("usermail", self.request.form.get('email'))

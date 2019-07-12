@@ -194,4 +194,45 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    name="itunesview"
+    for="*"
+    class=".itunesview.iTunesView"
+    template="templates/itunesview.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="itunes_aufgabe_validation"
+    for="*"
+    class=".itunesview.ITunes_Aufgabe_Validation
+    template="templates/itunes_aufgabe_validation.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="itunes_experiment_validation"
+    for="*"
+    class=".itunesview.ITunes_Experiment_Validation"
+    template="templates/itunes_experiment_validation.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="itunes_arbeitsblatt_validation"
+    for="*"
+    class=".itunesview.ITunes_Arbeitsblatt_Validation"
+    template="templates/itunes_arbeitsblatt_validation.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="cookiesetter"
+    for="*"  
+    class=".itunesview.CookieSetter"
+    permission="zope2.View"
+    />
+
+
+
 </configure>

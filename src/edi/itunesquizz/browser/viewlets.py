@@ -14,13 +14,13 @@ class BannerViewlet(ViewletBase):
         registry = getUtility(IRegistry)
         try:
             if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
-                return False
+                return ''
         except:
-            return False
+            return ''
         portal = ploneapi.portal.get()
         if self.context == portal:
-            return True
-        return False
+            return super(BannerViewlet, self).render()
+        return ''
 
     def update(self):
         portal = ploneapi.portal.get().absolute_url()
@@ -48,16 +48,13 @@ class BannerViewlet(ViewletBase):
 
 class LoggedInMembers(ViewletBase):
 
-    def update(self):
+    def checker(self):
         registry = getUtility(IRegistry)
         try:
             if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
-                self.available = False
-                return
+                return False
         except:
-            self.available = False
-            return
-        self.available = True
+            return False
         if not ploneapi.user.is_anonymous():
             current = ploneapi.user.get_current()
             editroles = [u'Manager', u'Site Administrator']
@@ -65,18 +62,16 @@ class LoggedInMembers(ViewletBase):
             roles = pm.getAuthenticatedMember().getRolesInContext(self.context)
             match = [x for x in editroles if x in roles]
             if match:
-                self.available = False
-
-class HilfeViewlet(ViewletBase):
+                return False
+        return True
 
     def render(self):
-        registry = getUtility(IRegistry)
-        try:
-            if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
-                return False
-        except:
-            return False
-        return True
+        if not self.checker():
+            return ''
+        return super(LoggedInMembers, self).render()
+
+
+class HilfeViewlet(ViewletBase):
 
     def loggedin(self):
        if not ploneapi.user.is_anonymous():
@@ -130,6 +125,16 @@ class HilfeViewlet(ViewletBase):
 
     def update(self):
         self.hilfe = self.checkhilfe()
+        self.login = self.loggedin()
         self.logoutlink = ploneapi.portal.get().absolute_url() + '/logout'
         self.loginlink = ploneapi.portal.get().absolute_url() + '/login'
         self.reglink = ploneapi.portal.get().absolute_url() + '/register'
+
+    def render(self):
+        registry = getUtility(IRegistry)
+        try:
+            if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
+                return ''
+        except:
+            return ''
+        return super(HilfeViewlet, self).render()

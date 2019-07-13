@@ -1,14 +1,14 @@
-<div tal:define="update view/update">
+<div>
   <div class="col-xs-12 col-md-12">
     <div style="text-align:right">
       <a tal:condition="view/checkhilfe" href="#modal1" class="pat-plone-modal"
          data-pat-plone-modal="width: 400" style="font-size:16px;margin-right:20px;font-weight:400">
          <span class="glyphicon glyphicon-question-sign"/> Hilfe</a>
-      <a tal:condition="view/loggedin" tal:attributes="href view/logoutlink"> 
+      <a tal:condition="view/login" tal:attributes="href view/logoutlink"> 
           <span class="glyphicon glyphicon-log-out"></span> Abmelden</a>
-      <a tal:condition="not: view/loggedin" tal:attributes="href view/reglink">
+      <a tal:condition="not: view/login" tal:attributes="href view/reglink">
           <span class="glyphicon glyphicon-user"></span> Neu Registrieren</a>
-      <a tal:condition="not: view/loggedin" tal:attributes="href view/loginlink">
+      <a tal:condition="not: view/login" tal:attributes="href view/loginlink">
           <span class="glyphicon glyphicon-log-in"></span> Anmelden</a>
     </div>
   </div>

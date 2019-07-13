@@ -328,9 +328,11 @@
 
   <browser:viewlet
     name="ediquiz.bannerviewlet"
+    for="*"
     manager="plone.app.layout.viewlets.interfaces.IAboveContent"
     template="templates/bannerviewlet.pt"
     layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
+    class=".viewlets.BannerViewlet"
     permission="zope2.View"
     />
 
@@ -339,14 +341,17 @@
     manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
     template="templates/loggedinmembers.pt"
     layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
+    class=".viewlets.LoggedInMembers"
     permission="zope2.View"
     />
 
   <browser:viewlet
     name="ediquiz.hilfeviewlet"
+    for="*"
     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     template="templates/hilfeviewlet.pt"
     layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
+    class=".viewlets.HilfeViewlet"
     permission="zope2.View"
     />
 

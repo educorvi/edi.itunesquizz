@@ -14,12 +14,7 @@ class MeinOrdnerView(BrowserView):
         """ 
         Make catalog query for the folder listing.
         """
-        if AT:
-            if IATTopic.providedBy(self.context):
-                q = self.context.buildQuery()
-                pcat = getToolByName(self.context, 'portal_catalog')
-                return pcat.searchResults(q)
-        elif ICollection.providedBy(self.context):
+        if ICollection.providedBy(self.context):
             return self.context.queryCatalog(batch=False)
         elif IFolderish.providedBy(self.context):
             return self.context.getFolderContents(batch=False)

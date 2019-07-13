@@ -203,6 +203,15 @@
     />
 
   <browser:page
+    name="meinordnerview"
+    for="*"
+    class=".meinordnerviews.MeinordnerView"
+    template="templates/meinordnerview.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+
+  <browser:page
     name="itunesview"
     for="*"
     class=".itunesview.iTunesView"

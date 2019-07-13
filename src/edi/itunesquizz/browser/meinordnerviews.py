@@ -1,21 +1,13 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
-try:
-    from Products.ATContentTypes.interface import IATTopic
-    AT = True
-except:
-    AT = False
 from plone.app.contenttypes.interfaces import ICollection
 from Products.CMFCore.interfaces import IFolderish
 from plone import api as ploneapi
 from edi.itunesquizz.leermeldungen import startseite
 from edi.itunesquizz.browser.security import checkOwner
+from Products.Five import BrowserView
 
-api.templatedir('templates')
-
-class MeinOrdnerView(api.Page):
-    api.context(Interface)
+class MeinOrdnerView(BrowserView):
 
     @property
     def query(self):

@@ -195,6 +195,14 @@
     />
 
   <browser:page
+    name="kursordnerview"
+    for="edi.itunesquizz.kursordner.IKursordner"
+    class=".kursordnerviews.KursordnerView"
+    template="templates/kursordnerview.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
     name="itunesview"
     for="*"
     class=".itunesview.iTunesView"

@@ -1,164 +1,192 @@
-<div class="row">
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 style="margin-left:5px" class="panel-title" tal:content="context/description">Panel title</h2>
-  </div>
-  <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
-    <div class="row">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="edi.itunesquizz">
+  <body>
 
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
 
-  <div class="col-xs-2 col-sm-1">
-
-    <div style="margin-left:5px" class="btn-group">
-      <button class="button-field context dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-plus">
-      </button>
-      <ul style="width:200px" class="dropdown-menu">
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabeltest'">Vokabeltest</a></li>
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabelserie'">Vokabelserie</a></li>
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
-        <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
-      </ul>
-    </div>
-
-  </div>
-  <div class="col-xs-3 col-sm-3"><h4><a href="#" tal:attributes="href view/meinordner">
-                                     <span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4></div>
-  <div class="col-xs-3 col-sm-3"></div>
-  <div class="col-xs-4 col-sm-5">
-    <h4 style="text-align:right;margin-right:5px">
-      <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
-    </h4>
-  </div>
-
-  </div>
-</div>
-<hr>
-</div>
-
-<div tal:condition="view/inhalte" class="row">
-
-  <div tal:condition="view/uebungen" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style="margin-top:1px">
-        <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/compose.png"> 
-        <span style="margin-left:10px">Übungen</span>
-      </h3>
-    </div>
-    <div tal:repeat="uebung view/uebungen">
-      <div class="col-xs-2 col-sm-1">
-        <a tal:attributes="href string:${uebung/url}/delete_confirmation" title="Übung löschen">
-          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-        </a>
-      </div>
-      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href uebung/url" tal:content="uebung/title"></a></h4></div>
-    </div>
-    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
-  </div>
-
-  <div tal:condition="view/experimente" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style="margin-top:1px">
-        <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/idea.png"> 
-          <span style="margin-left:10px">Experimente</span>
-      </h3>
-    </div>
-    <div tal:repeat="experiment view/experimente">
-      <div class="col-xs-2 col-sm-1">
-        <a tal:attributes="href string:${experiment/url}/delete_confirmation" title="Experiment löschen">
-          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-        </a>
-      </div>
-      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href experiment/url" tal:content="experiment/title"></a></h4></div>
-    </div>
-    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
-  </div>
-
-  <div tal:condition="view/vokabeltests" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style="margin-top:1px">
-        <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/chat.png">
-          <span style="margin-left:10px">Vokabeltests</span>
-      </h3>
-    </div>
-    <div tal:repeat="vokabeltest view/vokabeltests">
-      <div class="col-xs-2 col-sm-1">
-        <a tal:attributes="href string:${vokabeltest/url}/delete_confirmation" title="Vokabeltest löschen">
-          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-        </a>
-      </div>
-      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href vokabeltest/url" tal:content="vokabeltest/title"></a></h4></div>
-    </div>
-    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
-  </div>
-
-  <div tal:condition="view/vokabelserien" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style="margin-top:1px">
-        <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/vokabelserie.png">
-          <span style="margin-left:10px">Vokabelserien</span>
-      </h3>
-    </div>
-    <div tal:repeat="vokabelserie view/vokabelserien">
-      <div class="col-xs-2 col-sm-1">
-        <a tal:attributes="href string:${vokabelserie/url}/delete_confirmation" title="Vokabelserie löschen">
-          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-        </a>
-      </div>
-      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href vokabelserie/url" tal:content="vokabelserie/title"></a></h4></div>
-    </div>
-    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
-  </div>
-
-  <div tal:condition="view/arbeitsblaetter" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style="margin-top:1px">
-        <img style="width:34px;height:34px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/list-1.png"> 
-          <span style="margin-left:10px">Arbeitsblätter</span>
-      </h3>
-    </div>
-    <div tal:repeat="arbeitsblatt view/arbeitsblaetter">
-      <div class="col-xs-2 col-sm-1">
-        <a tal:attributes="href string:${arbeitsblatt/url}/delete_confirmation" title="Arbeitsblatt löschen">
-          <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
-        </a>
-      </div>
-      <div class="col-xs-10 col-sm-11"><h4 style="margin-top:1px"><a tal:attributes="href arbeitsblatt/url" tal:content="arbeitsblatt/title"></a></h4></div>
-    </div>
-    <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
-  </div>
-
-  <div tal:condition="view/bilder" class="row">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style="margin-top:1px">
-        <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/photos.png"> 
-          <span style="margin-left:10px">Bilder</span>
-      </h3>
-    </div>
-  </div>
-
-  <div class="row">
-    <div tal:repeat="meinbild view/bilder" class="col-xs-6 col-sm-3">
-      <div class="row">
-        <div class="col-xs-10 col-sm-10">
-          <a style="padding-left:20px" tal:attributes="href string:${meinbild/url}/view">
-            <img tal:attributes="src meinbild/image" style="max-width:90%">
-          </a>
+      <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 style="margin-left:5px" class="panel-title" tal:content="context/description">Panel title</h2>
+          </div>
+          <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+            <div class="row">
+              <div class="col-xs-2 col-sm-1">
+                <div style="margin-left:5px" class="btn-group">
+                  <button class="button-field context dropdown-toggle" type="button" data-toggle="dropdown" 
+                    aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-plus"/>
+                  </button>
+                  <ul style="width:200px" class="dropdown-menu">
+                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
+                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
+                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabeltest'">Vokabeltest</a></li>
+                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabelserie'">Vokabelserie</a></li>
+                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
+                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xs-3 col-sm-3">
+                <h4><a href="#" tal:attributes="href view/meinordner">
+                      <span class="glyphicon glyphicon-chevron-left"/> Zurück</a>
+                </h4>
+              </div>
+              <div class="col-xs-3 col-sm-3"></div>
+              <div class="col-xs-4 col-sm-5">
+                <h4 style="text-align:right;margin-right:5px">
+                  <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+          <hr>
         </div>
       </div>
-    </div>
-  </div>
 
-</div>
+      <div tal:condition="view/inhalte" class="container">
+        <div tal:condition="view/uebungen" class="row">
+          <div class="col-xs-12 col-sm-12">
+            <h3 style="margin-top:1px">
+              <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/compose.png"> 
+              <span style="margin-left:10px">Übungen</span>
+            </h3>
+          </div>
+          <span tal:repeat="uebung view/uebungen">
+            <div class="col-xs-2 col-sm-1">
+              <a tal:attributes="href string:${uebung/url}/delete_confirmation" title="Übung löschen">
+                <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+              </a>
+            </div>
+            <div class="col-xs-10 col-sm-11">
+              <h4 style="margin-top:1px">
+                <a tal:attributes="href uebung/url" tal:content="uebung/title"></a>
+              </h4>
+            </div>
+          </span>
+          <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+        </div>
 
-<div tal:condition="not:view/inhalte" class="row">
- <div class="col-xs-2 col-sm-1"></div>
- <div class="col-xs-9 col-sm-9">
+        <div tal:condition="view/experimente" class="row">
+          <div class="col-xs-12 col-sm-12">
+            <h3 style="margin-top:1px">
+              <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/idea.png"> 
+              <span style="margin-left:10px">Experimente</span>
+            </h3>
+          </div>
+          <span tal:repeat="experiment view/experimente">
+            <div class="col-xs-2 col-sm-1">
+              <a tal:attributes="href string:${experiment/url}/delete_confirmation" title="Experiment löschen">
+                <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+              </a>
+            </div>
+            <div class="col-xs-10 col-sm-11">
+              <h4 style="margin-top:1px">
+                <a tal:attributes="href experiment/url" tal:content="experiment/title"></a>
+              </h4>
+            </div>
+          </span>
+          <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+        </div>
 
-   <span tal:replace="structure view/leermeldung"/>
+        <div tal:condition="view/vokabeltests" class="row">
+          <div class="col-xs-12 col-sm-12">
+            <h3 style="margin-top:1px">
+              <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/chat.png">
+              <span style="margin-left:10px">Vokabeltests</span>
+            </h3>
+          </div>
+          <span tal:repeat="vokabeltest view/vokabeltests">
+            <div class="col-xs-2 col-sm-1">
+              <a tal:attributes="href string:${vokabeltest/url}/delete_confirmation" title="Vokabeltest löschen">
+                <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+              </a>
+            </div>
+            <div class="col-xs-10 col-sm-11">
+              <h4 style="margin-top:1px"><a tal:attributes="href vokabeltest/url" tal:content="vokabeltest/title"></a></h4>
+            </div>
+          </span>
+          <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+        </div>
 
- </div>
- <div class="col-xs-1 col-sm-2"></div>
-</div>
+        <div tal:condition="view/vokabelserien" class="row">
+          <div class="col-xs-12 col-sm-12">
+            <h3 style="margin-top:1px">
+              <img style="width:36px;height:36px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/vokabelserie.png">
+              <span style="margin-left:10px">Vokabelserien</span>
+            </h3>
+          </div>
+          <span tal:repeat="vokabelserie view/vokabelserien">
+            <div class="col-xs-2 col-sm-1">
+              <a tal:attributes="href string:${vokabelserie/url}/delete_confirmation" title="Vokabelserie löschen">
+                <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+              </a>
+            </div>
+            <div class="col-xs-10 col-sm-11">
+              <h4 style="margin-top:1px"><a tal:attributes="href vokabelserie/url" tal:content="vokabelserie/title"></a></h4>
+            </div>
+          </span>
+          <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+        </div>
+
+        <div tal:condition="view/arbeitsblaetter" class="row">
+          <div class="col-xs-12 col-sm-12">
+            <h3 style="margin-top:1px">
+              <img style="width:34px;height:34px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/list-1.png"> 
+              <span style="margin-left:10px">Arbeitsblätter</span>
+            </h3>
+          </div>
+          <span tal:repeat="arbeitsblatt view/arbeitsblaetter">
+            <div class="col-xs-2 col-sm-1">
+              <a tal:attributes="href string:${arbeitsblatt/url}/delete_confirmation" title="Arbeitsblatt löschen">
+                <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
+              </a>
+            </div>
+            <div class="col-xs-10 col-sm-11">
+              <h4 style="margin-top:1px"><a tal:attributes="href arbeitsblatt/url" tal:content="arbeitsblatt/title"></a></h4>
+            </div>
+          </span>
+          <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+        </div>
+
+        <div tal:condition="view/bilder" class="row">
+          <div class="col-xs-12 col-sm-12">
+            <h3 style="margin-top:1px">
+              <img style="width:32px;height:32px;margin-left:20px;" tal:attributes="src string:${view/statics}/images/photos.png"> 
+              <span style="margin-left:10px">Bilder</span>
+            </h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div tal:repeat="meinbild view/bilder" class="col-xs-6 col-sm-3">
+            <div class="row">
+              <div class="col-xs-10 col-sm-10">
+                <a style="padding-left:20px" tal:attributes="href string:${meinbild/url}/view">
+                  <img tal:attributes="src meinbild/image" style="max-width:90%">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!--Container-->
+
+      <div tal:condition="not:view/inhalte" class="row">
+        <div class="col-xs-2 col-sm-1"></div>
+        <div class="col-xs-9 col-sm-9">
+          <span tal:replace="structure view/leermeldung"/>
+        </div>
+        <div class="col-xs-1 col-sm-2"></div>
+      </div>
+
+    </tal:main-macro>
+  </metal:main>
+  </body>
+</html>

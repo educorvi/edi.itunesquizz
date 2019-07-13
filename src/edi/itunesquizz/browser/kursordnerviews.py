@@ -1,33 +1,21 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
-try:
-    AT = True
-    from Products.ATContentTypes.interface import IATTopic
-except:
-    AT = False
 from plone.app.contenttypes.interfaces import ICollection
 from Products.CMFCore.interfaces import IFolderish
 from plone import api as ploneapi
 from edi.itunesquizz.leermeldungen import aufgabenordner
 from edi.itunesquizz.browser.security import checkOwner
+from Products.Five import BrowserView
 
-api.templatedir('templates')
 
-class KursordnerView(api.Page):
-    api.context(Interface)
+class KursordnerView(BrowserView):
 
     @property
     def query(self):
         """ 
         Make catalog query for the folder listing.
         """
-        if AT:
-            if IATTopic.providedBy(self.context):
-                q = self.context.buildQuery()
-                pcat = getToolByName(self.context, 'portal_catalog')
-                return pcat.searchResults(q)
-        elif ICollection.providedBy(self.context):
+        if ICollection.providedBy(self.context):
             return self.context.queryCatalog(batch=False)
         elif IFolderish.providedBy(self.context):
             return self.context.getFolderContents(batch=False)

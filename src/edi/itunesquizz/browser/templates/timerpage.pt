@@ -1,17 +1,35 @@
-<div class="row">
-  <div class="col-md-4">
-  <h1>Bitte übersetzen Sie:</h1>
-  <h2>twice<h2>
-  <form>
-    <div class="form-group"> 
-    <label for="solution">Lösung: </label>
-    <input type="text" class="form-control" id="solution" name="solution"> 
-    </div>
-    <button type="submit" class="btn btn-primary">Absenden</button>
-  </form>
-  <progress value="0" max="14" style="height:30px" id="progressBar"></progress>
-  </div>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="edi.itunesquizz"
+      tal:define="update view/update">
+  <body>
 
-  <script tal:replace="structure view/timersnippet"/>
-  <script tal:replace="structure view/delaysnippet"/>
-</div>
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+      <div class="row">
+        <div class="col-md-4">
+          <h1>Bitte übersetzen Sie:</h1>
+          <h2>twice<h2>
+          <form>
+            <div class="form-group"> 
+              <label for="solution">Lösung: </label>
+              <input type="text" class="form-control" id="solution" name="solution"> 
+            </div>
+            <button type="submit" class="btn btn-primary">Absenden</button>
+          </form>
+          <progress value="0" max="14" style="height:30px" id="progressBar"></progress>
+        </div>
+
+        <script tal:replace="structure view/timersnippet"/>
+        <script tal:replace="structure view/delaysnippet"/>
+      </div>
+
+    </tal:main-macro>
+  </metal:main>
+  </body>
+</html>

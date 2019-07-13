@@ -1,10 +1,7 @@
 from zope.interface import Interface
-from uvc.api import api
+from Products.Five import BrowserView
 
-api.templatedir('templates')
-
-class TimerPage(api.Page):
-    api.context(Interface)
+class TimerPage(BrowserView):
 
     def update(self):
         self.timersnippet = """\
@@ -37,10 +34,8 @@ class TimerPage(api.Page):
           </script>"""
 
 
-class DelayPage(api.Page):
-    api.context(Interface)
+class DelayPage(BrowserView):
 
-
-    def render(self):
+    def __call__(self):
         return '<h1>Hey, eingeschlafen??</h1>'
 

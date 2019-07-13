@@ -272,5 +272,19 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="timerpage"
+    for="*"
+    class=".timerview.TimerPage"
+    template="templates/timerpage.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="delaypage"
+    for="*"
+    class=".timerview.DelayPage"
+    permission="zope2.View"
+    />
 
 </configure>

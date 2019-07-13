@@ -264,5 +264,13 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="securitypage"
+    for="*"
+    class=".security.SecurityPage"
+    template="templates/securitypage.pt"
+    permission="zope2.View"
+    />
+
 
 </configure>

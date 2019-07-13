@@ -250,6 +250,19 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="qrimage"
+    for="*"
+    class=".qrviews.QRImage"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="qrdownload"
+    for="*"
+    class=".qrviews.QRDownload"
+    permission="zope2.View"
+    />
 
 
 </configure>

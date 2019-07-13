@@ -5,14 +5,13 @@ import requests
 from PIL import Image
 from zope.interface import Interface
 from cStringIO import StringIO
-from uvc.api import api
 from plone import api as ploneapi
 from pymongo import MongoClient
+from Products.Five import BrowserView
 
-class QRImage(api.View):
-    api.context(Interface)
+class QRImage(BrowserView):
 
-    def render(self):
+    def __call__(self):
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -69,10 +68,9 @@ class QRImage(api.View):
         return output.getvalue()
 
 
-class QRDownload(api.View):
-    api.context(Interface)
+class QRDownload(BrowserView):
 
-    def render(self):
+    def __call__(self):
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_H,

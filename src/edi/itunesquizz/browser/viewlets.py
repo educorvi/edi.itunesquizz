@@ -1,28 +1,16 @@
 import random
-from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from Products.CMFCore.utils import getToolByName
 from edi.itunesquizz import hilfen
 from edi.itunesquizz.kursordner import IKursordner
-from plone.app.layout.viewlets.interfaces import IAboveContent
-try:
-    from plone.app.layout.viewlets.interfaces import IGlobalStatusMessage
-except:
-    from plone.app.layout.viewlets.interfaces import IAboveContent as IGlobalStatusMessage
-from plone.app.layout.viewlets.interfaces import IAboveContentTitle
-from plone.app.layout.viewlets.interfaces import IPortalFooter
-from plone.app.layout.viewlets.interfaces import IPortalTop
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+from plone.app.layout.viewlets import common as base
 
-api.templatedir('templates')
 
-class BannerViewlet(api.Viewlet):
-    api.context(Interface)
-    api.viewletmanager(IAboveContent)
+class BannerViewlet(base.Viewlet):
 
-    def available(self):
+    def render(self):
         registry = getUtility(IRegistry)
         try:
             if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:
@@ -58,9 +46,7 @@ class BannerViewlet(api.Viewlet):
         self.objdict = objdict
 
 
-class LoggedInMembers(api.Viewlet):
-    api.context(Interface)
-    api.viewletmanager(IPortalFooter)
+class LoggedInMembers(base.Viewlet):
 
     def update(self):
         registry = getUtility(IRegistry)
@@ -81,11 +67,9 @@ class LoggedInMembers(api.Viewlet):
             if match:
                 self.available = False
 
-class HilfeViewlet(api.Viewlet):
-    api.context(Interface)
-    api.viewletmanager(IAboveContentTitle)
+class HilfeViewlet(base.Viewlet):
 
-    def available(self):
+    def render(self):
         registry = getUtility(IRegistry)
         try:
             if not registry['edi.itunesquizz.settings.IQuizSettings.isquizsite']:

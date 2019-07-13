@@ -1,4 +1,4 @@
-<div class="row" tal:condition="viewlet/available">
+<div>
         <script type="text/javascript">
         $(document).ready(function() {
           $('div#edit-zone').hide();

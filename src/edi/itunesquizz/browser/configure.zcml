@@ -287,4 +287,28 @@
     permission="zope2.View"
     />
 
+  <browser:viewlet
+    name="ediquiz.bannerviewlet"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+    template="templates/bannerviewlet.pt"
+    layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
+    permission="zope2.View"
+    />
+
+  <browser:viewlet
+    name="ediquiz.loggedinmembers"
+    manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+    template="templates/loggedinmembers.pt"
+    layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
+    permission="zope2.View"
+    />
+
+  <browser:viewlet
+    name="ediquiz.hilfeviewlet"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+    template="templates/hilfeviewlet.pt"
+    layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
+    permission="zope2.View"
+    />
+
 </configure>

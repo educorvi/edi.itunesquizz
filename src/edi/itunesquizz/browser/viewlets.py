@@ -5,10 +5,10 @@ from edi.itunesquizz import hilfen
 from edi.itunesquizz.kursordner import IKursordner
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-from plone.app.layout.viewlets import common as base
+from plone.app.layout.viewlets import ViewletBase
 
 
-class BannerViewlet(base.Viewlet):
+class BannerViewlet(ViewletBase):
 
     def render(self):
         registry = getUtility(IRegistry)
@@ -46,7 +46,7 @@ class BannerViewlet(base.Viewlet):
         self.objdict = objdict
 
 
-class LoggedInMembers(base.Viewlet):
+class LoggedInMembers(ViewletBase):
 
     def update(self):
         registry = getUtility(IRegistry)
@@ -67,7 +67,7 @@ class LoggedInMembers(base.Viewlet):
             if match:
                 self.available = False
 
-class HilfeViewlet(base.Viewlet):
+class HilfeViewlet(ViewletBase):
 
     def render(self):
         registry = getUtility(IRegistry)

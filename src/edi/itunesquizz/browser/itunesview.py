@@ -27,7 +27,6 @@ class iTunesView(BrowserView):
             print 'return to error-site'
 
 class ITunes_Aufgabe_Validation(BrowserView):
-    api.context(Interface)
 
     def update(self):
         dbid = self.request.get('id')

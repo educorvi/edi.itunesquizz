@@ -15,4 +15,4 @@ def checkOwner(context, request):
     return False
 
 class SecurityPage(BrowserView):
-    """Security Page""""
+    """Security Page"""

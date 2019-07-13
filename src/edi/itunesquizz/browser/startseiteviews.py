@@ -5,8 +5,6 @@ from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from Products.Five import BrowserView
 
-api.templatedir('templates')
-
 class StartseiteView(BrowserView):
  
     def getexamples(self):

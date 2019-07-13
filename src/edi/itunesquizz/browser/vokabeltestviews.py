@@ -57,7 +57,7 @@ class VokabeltestITunes(BrowserView):
         return retdict
 
 
-class VokabeltestPlone(Browser):
+class VokabeltestPlone(BrowserView):
 
     def update(self):
         retdict = {}

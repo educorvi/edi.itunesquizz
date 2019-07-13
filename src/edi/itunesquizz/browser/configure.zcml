@@ -30,7 +30,7 @@
   <browser:page
     name="aufgabeitunes"
     for="edi.itunesquizz.aufgabe.IAufgabe"
-    class=".aufgabeviews.AufgabeItunes"
+    class=".aufgabeviews.AufgabeITunes"
     template="templates/aufgabeitunes.pt"
     permission="zope2.View"
     />
@@ -70,7 +70,7 @@
   <browser:page
     name="arbeitsblattituns"
     for="edi.itunesquizz.arbeitsblatt.IArbeitsblatt"
-    class=".arbeitsblattviews.ArbeitsblattItunes"
+    class=".arbeitsblattviews.ArbeitsblattITunes"
     template="templates/arbeitsblattitunes.pt"
     permission="zope2.View"
     />
@@ -110,7 +110,7 @@
   <browser:page
     name="experimentitunes"
     for="edi.itunesquizz.experiment.IExperiment"
-    class=".experimentviews.ExperimentItunes"
+    class=".experimentviews.ExperimentITunes"
     template="templates/experimentitunes.pt"
     permission="zope2.View"
     />
@@ -150,7 +150,7 @@
   <browser:page
     name="vokabeltestitunes"
     for="edi.itunesquizz.vokabeltest.IVokabeltest"
-    class=".vokabeltestviews.VokabeltestItunes"
+    class=".vokabeltestviews.VokabeltestITunes"
     template="templates/vokabeltestitunes.pt"
     permission="zope2.View"
     />
@@ -180,14 +180,14 @@
     />
 
   <browser:page
-    name="validatevokabeltestview"
+    name="vokabeltestview"
     for="edi.itunesquizz.vokabeltest.IVokabeltest"
     class=".vokabeltestviews.VokabeltestView"
-    template="templates/validatevokabeltestview.pt"
-    permission="zope2.View"
+    template="templates/vokabeltestview.pt"
+    permission="cmf.ModifyPortalContent"
     />
 
-  <browser:pagec
+  <browser:page
     name="vokabelserieitunes"
     for="edi.itunesquizz.vokabelserie.IVokabelserie"
     class=".vokabelserieviews.VokabelserieITunes"
@@ -198,7 +198,7 @@
   <browser:page
     name="checkstartseite"
     for="*"
-    class=".vokabelserieviews.Check"
+    class=".vokabelserieviews.CheckStartSeite"
     permission="zope2.View"
     />
 
@@ -245,7 +245,7 @@
   <browser:page
     name="meinordnerview"
     for="*"
-    class=".meinordnerviews.MeinordnerView"
+    class=".meinordnerviews.MeinOrdnerView"
     template="templates/meinordnerview.pt"
     permission="cmf.ModifyPortalContent"
     />
@@ -261,7 +261,7 @@
   <browser:page
     name="itunes_aufgabe_validation"
     for="*"
-    class=".itunesview.ITunes_Aufgabe_Validation
+    class=".itunesview.ITunes_Aufgabe_Validation"
     template="templates/itunes_aufgabe_validation.pt"
     permission="zope2.View"
     />

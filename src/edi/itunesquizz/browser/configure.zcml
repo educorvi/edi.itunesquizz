@@ -147,6 +147,46 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    name="vokabeltestitunes"
+    for="edi.itunesquizz.vokabeltest.IVokabeltest"
+    class=".vokabeltestviews.VokabeltestItunes"
+    template="templates/vokabeltestitunes.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="vokabeltestplone"
+    for="edi.itunesquizz.vokabeltest.IVokabeltest"
+    class=".vokabeltestviews.VokabeltestPlone"
+    template="templates/vokabeltestplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validatevokabeltest"
+    for="edi.itunesquizz.vokabeltest.IVokabeltest"
+    class=".vokabeltestviews.ValidateVokabeltest"
+    template="templates/validatevokabeltest.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validatevokabeltestplone"
+    for="edi.itunesquizz.vokabeltest.IVokabeltest"
+    class=".vokabeltestviews.ValidateVokabeltestPlone"
+    template="templates/validatevokabeltestplone.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validatevokabeltestview"
+    for="edi.itunesquizz.vokabeltest.IVokabeltest"
+    class=".vokabeltestviews.VokabeltestView"
+    template="templates/validatevokabeltestview.pt"
+    permission="zope2.View"
+    />
+
   <browser:pagec
     name="vokabelserieitunes"
     for="edi.itunesquizz.vokabelserie.IVokabelserie"
@@ -209,7 +249,6 @@
     template="templates/meinordnerview.pt"
     permission="cmf.ModifyPortalContent"
     />
-
 
   <browser:page
     name="itunesview"

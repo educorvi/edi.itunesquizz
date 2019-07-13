@@ -1,11 +1,9 @@
 from zope.interface import Interface
-from uvc.api import api
 from plone import api as ploneapi
 from edi.itunesquizz.vokabeltest import IVokabeltest
 from edi.itunesquizz.vokabeltest import aufgabenart
 from edi.itunesquizz.browser.security import checkOwner
-
-api.templatedir('templates')
+from Products.Five import BrowserView
 
 def sizeof_fmt(num, suffix='Byte'):
     for unit in ['','k','M','G','T','P','E','Z']:
@@ -15,8 +13,7 @@ def sizeof_fmt(num, suffix='Byte'):
     return "%.2f %s%s" % (num, 'Y', suffix)
 
 
-class VokabeltestITunes(api.View):
-    api.context(IVokabeltest)
+class VokabeltestITunes(BrowserView):
 
     def update(self):
         retdict = {}
@@ -60,8 +57,7 @@ class VokabeltestITunes(api.View):
         return retdict
 
 
-class VokabeltestPlone(api.Page):
-    api.context(IVokabeltest)
+class VokabeltestPlone(Browser):
 
     def update(self):
         retdict = {}
@@ -105,8 +101,7 @@ class VokabeltestPlone(api.Page):
         return retdict
 
 
-class ValidateVokabeltest(api.View):
-    api.context(IVokabeltest)
+class ValidateVokabeltest(BrowserView):
 
     def formatoutputs(self, test):
         resultdict = {}
@@ -172,8 +167,8 @@ class ValidateVokabeltest(api.View):
             cookie = self.cookiesetter(retdict)
         return retdict
 
-class ValidateVokabeltestPlone(api.Page):
-    api.context(IVokabeltest)
+
+class ValidateVokabeltestPlone(BrowserView):
 
     def formatoutputs(self, test):
         resultdict = {}
@@ -223,8 +218,7 @@ class ValidateVokabeltestPlone(api.Page):
         return retdict
 
 
-class VokabeltestView(api.Page):
-    api.context(IVokabeltest)
+class VokabeltestView(BrowserView):
 
     def editpanel(self):
         if not ploneapi.user.is_anonymous():

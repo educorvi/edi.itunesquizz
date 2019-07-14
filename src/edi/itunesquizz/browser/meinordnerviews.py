@@ -29,6 +29,12 @@ class MeinOrdnerView(BrowserView):
                 return True
         return False
 
+
+    def statics(self):
+        portal = ploneapi.portal.get().absolute_url()
+        return portal + '/++resource++edi.itunesquizz'
+
+
     def update(self):
         if not checkOwner(self.context, self.request):
             self.request.response.redirect(self.context.absolute_url() + '/@@securitypage')

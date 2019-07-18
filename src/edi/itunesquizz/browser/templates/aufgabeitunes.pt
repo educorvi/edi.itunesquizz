@@ -80,17 +80,14 @@
           <div tal:condition="inputfield/image" class="col-xs-5 col-sm-3 col-md-3">
             <div tal:define="image nocall:inputfield/image"
                tal:condition="nocall:image">
-            <img class="img-rounded img-responsive" tal:attributes="src inputfield/image" />
+            <img class="rounded img-fluid" tal:attributes="src inputfield/image" />
             </div>
           </div>
 
           <div tal:condition="inputfield/image" class="col-xs-7 col-sm-9 col-md-9">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
-              
-              <span tal:replace="inputfield/label"/>
-            </label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" tal:attributes="id viewdata/fieldname; name viewdata/fieldname; value inputfield/value">
+            <label class="form-check-label" tal:attributes="for viewdata/fieldname" tal:content="inputfield/label"/>
           </div> <-- /chekboxfield -->
           </div>
 

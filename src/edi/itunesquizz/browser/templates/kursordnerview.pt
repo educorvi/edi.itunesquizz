@@ -19,18 +19,18 @@
           <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
             <div class="row">
               <div class="col-xs-2 col-sm-1">
-                <div style="margin-left:5px" class="btn-group">
-                  <button class="button-field context dropdown-toggle" type="button" data-toggle="dropdown" 
+                <div class="btn-group">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" 
                     aria-haspopup="true" aria-expanded="false">
                     <span class="glyphicon glyphicon-plus"/>
                   </button>
                   <ul style="width:200px" class="dropdown-menu">
-                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
-                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
-                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabeltest'">Vokabeltest</a></li>
-                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabelserie'">Vokabelserie</a></li>
-                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
-                    <li><a href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
+                    <li><a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Aufgabe'">Übung</a></li>
+                    <li><a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Experiment'">Experiment</a></li>
+                    <li><a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabeltest'">Vokabeltest</a></li>
+                    <li><a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Vokabelserie'">Vokabelserie</a></li>
+                    <li><a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Arbeitsblatt'">Arbeitsblatt</a></li>
+                    <li><a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Image'">Bild</a></li>
                   </ul>
                 </div>
               </div>
@@ -59,7 +59,8 @@
               <span style="margin-left:10px">Übungen</span>
             </h3>
           </div>
-          <span tal:repeat="uebung view/uebungen">
+        </div>
+        <div class="row" tal:condition="view/uebungen" tal:repeat="uebung view/uebungen">
             <div class="col-xs-2 col-sm-1">
               <a tal:attributes="href string:${uebung/url}/delete_confirmation" title="Übung löschen">
                 <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
@@ -70,8 +71,11 @@
                 <a tal:attributes="href uebung/url" tal:content="uebung/title"></a>
               </h4>
             </div>
-          </span>
-          <div class="col-xs-12 col-sm-12"><hr style="margin-right:10px; margin-left:10px;"></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <hr>
+          </div>
         </div>
 
         <div tal:condition="view/experimente" class="row">

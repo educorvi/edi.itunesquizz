@@ -10,6 +10,7 @@
 
   <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
+    <div class="container" tal:define="update view/update">
 
       <div class="row">
         <div class="col-xs-12 col-md-12">
@@ -99,7 +100,7 @@
           <p tal:condition="not:view/antworten" class="documentDescription">Für diese Aufgabenstellung wurden keine Antwortoptionen angegeben. 
             Der Schüler wird diese Frage bzw. Aufgabenstellung in Form eines Textes beantworten.</p>
 
-          <table tal:condition="view/antworten" class="listing">
+          <table tal:condition="view/antworten" class="table table-striped">
             <thead>
               <th>Antwortoption</th>
               <th tal:condition="view/images">Bild</th>
@@ -163,10 +164,10 @@
           <h3>Link für iTunes U</h3>
           <div class="form-group">
             <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
-            <input style="margin-bottom:10px;" type="text" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
-            <button onclick="myFunction()">Link kopieren</button>
-            <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
+            <input type="text" class="form-control" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
           </div>
+          <button class="btn btn-primary" onclick="myFunction()">Link kopieren</button>
+          <a href="" target="_blank" tal:attributes="href view/ituneslink" class="button-field context">Link testen</a>
         </div>
       </div>
 
@@ -185,6 +186,7 @@
         }
       </script>
 
+    </div>
     </tal:main-macro>
   </metal:main>
   </body>

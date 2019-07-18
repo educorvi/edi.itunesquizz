@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="de">
+<html lang="de"
+      tal:define="update view/update">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${view/statics}/css/bootstrap.min.css" rel="stylesheet">
 
     <title>iTunes U View</title>
   </head>
@@ -32,9 +33,9 @@
 
     </div> <!-- /container -->
 
-    <script src="" tal:attributes="src string:${viewdata/statics}/js/jquery-3.3.1.slim.min.js"></script>
-    <script src="" tal:attributes="src string:${viewdata/statics}/js/popper.min.js"></script>
-    <script src="" tal:attributes="src string:${viewdata/statics}/js/bootstrap.min.js"></script>
+    <script src="" tal:attributes="src string:${view/statics}/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="" tal:attributes="src string:${view/statics}/js/popper.min.js"></script>
+    <script src="" tal:attributes="src string:${view/statics}/js/bootstrap.min.js"></script>
 
   </body>
 </html>

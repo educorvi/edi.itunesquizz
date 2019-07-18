@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="de" tal:define="viewdata view/update">
+<html lang="de" tal:define="viewdata view/update; statics python:viewdata.get('statics')">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link href="" tal:attributes="href string:${viewdata/statics}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" tal:define="viewdata view/update" tal:attributes="href string:${statics}/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Titel der Seite -->
     <title tal:content="context/title">Titel der Seite</title>
@@ -29,6 +29,12 @@
         <div tal:condition="python: viewdata.get('illustration')=='bild'">
            <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
         </div>
+
+        <!--<div class="row">
+          <div class="col-xs-12">
+            <iframe src="https://player.vimeo.com/video/337028915" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+          </div>
+        </div>-->
 
         <div class="row" tal:condition="python: viewdata.get('illustration')=='film'">
           <div class="embed-responsive embed-responsive-4by3">

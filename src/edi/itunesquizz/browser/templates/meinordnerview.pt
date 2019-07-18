@@ -4,39 +4,42 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="edi.itunesquizz"
-      tal:define="update view/update">
+      i18n:domain="nva.testbootstrap">
+
   <body>
 
-  <metal:main fill-slot="main">
-    <tal:main-macro metal:define-macro="main">
+    <metal:main fill-slot="main">
+      <tal:main-macro metal:define-macro="main">
 
-      <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">Kursaufgaben von <span tal:replace="context/title"/></h2>
-          </div>
-          <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
-            <div class="row">
-              <div class="col-xs-6 col-sm-6">
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownContentMenu" 
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-plus">
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownContentMenu">
-                    <a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Kursordner'">Aufgabenordner</a>
+      <div class="container" tal:define="update view/update">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h2 class="panel-title">Kursaufgaben von <span tal:replace="context/title"/></h2>
+              </div>
+              <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6">
+                    <div class="btn-group">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" 
+                        aria-expanded="false">
+                        <span class="glyphicon glyphicon-plus">
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" tal:attributes="href python:context.absolute_url()+'/++add++Kursordner'">Aufgabenordner</a>
+                      </div>
+                    </div>
                   </div>
+                  <div class="col-xs-6 col-sm-6"></div>
                 </div>
               </div>
-              <div class="col-xs-6 col-sm-6"></div>
+              <hr>
             </div>
           </div>
-          <hr>
         </div>
-      </div>
 
-      <div tal:condition="view/inhalte" class="container">
         <div tal:condition="view/kursordner" class="row">
           <div class="col-xs-12 col-sm-12">
             <h3 style="margin-top:1px">
@@ -45,12 +48,12 @@
             </h3>
           </div>
         </div>
-        <div class="row" style="margin-top:5px;" tal:repeat="ordner view/kursordner">
+        <div class="row" tal:condition="view/kursordner" tal:repeat="ordner view/kursordner">
           <div style="padding-top:5px;" class="col-xs-2 col-sm-1">
             <a tal:attributes="href string:${ordner/url}/delete_confirmation" title="Ordner löschen">
               <span style="font-size:130%;color:red;margin-left:24px" class="glyphicon glyphicon-minus-sign"/>
             </a>
-           </div>
+          </div>
           <div tal:condition="ordner/image" class="col-xs-2 col-sm-1">
             <img class="img-responsive" tal:attributes="src ordner/image">
           </div>
@@ -65,17 +68,15 @@
             </h4>
           </div>
         </div>
-      </div>
 
-      <div tal:condition="not:view/inhalte" class="row">
-        <div class="col-xs-2 col-sm-1"></div>
-        <div class="col-xs-9 col-sm-9">
-          <span tal:replace="structure view/leermeldung"/>
-
+        <div tal:condition="not:view/kursordner" class="row">
+          <div class="col-xs-2 col-sm-1"></div>
+          <div class="col-xs-9 col-sm-9">
+            <span tal:replace="structure view/leermeldung"/>
+          </div>
+          <div class="col-xs-1 col-sm-2"></div>
         </div>
-        <div class="col-xs-1 col-sm-2"></div>
       </div>
-
     </tal:main-macro>
   </metal:main>
   </body>

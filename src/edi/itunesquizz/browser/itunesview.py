@@ -9,6 +9,7 @@ class iTunesView(BrowserView):
         portal = ploneapi.portal.get().absolute_url()
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.webcode = self.request.get('code')
+        self.setterurl = ''
         if self.webcode:
             brains = ploneapi.content.find(Webcode=self.webcode)
             obj = brains[0].getObject()
@@ -22,7 +23,7 @@ class iTunesView(BrowserView):
                 viewextension = u'/@@vokabeltestitunes'
             elif obj.portal_type == 'Vokabelserie':
                 viewextension = u'/@@vokabelserieitunes'
-            return self.redirect(obj.absolute_url() + viewextension)
+            return self.request.response.redirect(obj.absolute_url() + viewextension)
         else:
             print 'return to error-site'
 

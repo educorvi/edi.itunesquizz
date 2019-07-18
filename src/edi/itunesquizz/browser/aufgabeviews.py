@@ -43,6 +43,8 @@ class AufgabeITunes(BrowserView):
     def update(self):
         retdict = {}
         portal = ploneapi.portal.get().absolute_url()
+        self.statics= portal + '/++resource++edi.itunesquizz'
+        portal = ploneapi.portal.get().absolute_url()
         retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabe'
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         retdict['title'] = self.context.title

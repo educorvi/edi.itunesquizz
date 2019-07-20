@@ -12,6 +12,13 @@
       <tal:main-macro metal:define-macro="main">
 
       <div class="container" tal:define="update view/update">
+
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <div tal:replace="structure provider:plone.abovecontenttitle" />
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-xs-12 col-sm-12">
 

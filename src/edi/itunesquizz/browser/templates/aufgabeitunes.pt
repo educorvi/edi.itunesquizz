@@ -11,14 +11,27 @@
     <!-- Titel der Seite -->
     <title tal:content="context/title">Titel der Seite</title>
 
+    <script>
+      function checkFirstVisit() {
+        if(document.cookie.indexOf('mycookie')==-1) {
+          // cookie doesn't exist, create it now
+          document.cookie = 'mycookie=1';
+        }
+        else {
+         // not first visit, so alert
+         alert('Das ist nicht gestattet!');
+        }
+      }
+    </script>
+
   </head>
 
-  <body>
+  <body onload="checkFirstVisit()">
 
     <div class="mt-2 container">
 
       <div class="row">
-        <div class="col-xs-12 col-sm-12">
+        <div class="col-12 col-md-12">
           <h5 tal:content="viewdata/title"/>
           <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
           <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
@@ -28,13 +41,13 @@
       </div>
 
       <div tal:condition="python: viewdata.get('illustration')=='bild'" class="mt-3 row">
-        <div class="col-xs-12 col-sm-12">
+        <div class="col-12 col-md-12">
           <img class="rounded img-fluid" tal:attributes="src viewdata/bild" />
         </div>
       </div>
 
       <div class="mt-3 row" tal:condition="python: viewdata.get('illustration')=='film'">
-        <div class="col-xs-12 col-sm-12">    
+        <div class="col-12 col-md-12">    
           <div class="embed-responsive embed-responsive-16by9">
             <span tal:replace="structure viewdata/film"/>
           </div>
@@ -42,7 +55,7 @@
       </div>
 
       <div tal:define="datei viewdata/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
-        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
+        <div class="col-12 col-md-12" tal:condition="python: filetype == 'video/mp4'">
           <div class="embed-responsive embed-responsive-16by9">
             <video class="embed-responsive-item" src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
               Dein Browser kann dieses Video nicht wiedergeben.<br/>
@@ -50,13 +63,13 @@
             </video>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
+        <div class="col-12 col-md-12" tal:condition="python: filetype == 'audio/mpeg'">
           <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
             Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
             Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
           </audio>
         </div>
-        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+        <div class="col-12 col-md-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
           <a href="" tal:attributes="href datei/url"><span class="glyphicon glyphicon-download"/>
                                                     <span tal:content="datei/filename"/>
                                                     (<span tal:content="filetype"/> - <span tal:content="datei/size"/>)
@@ -65,7 +78,7 @@
       </div>
 
       <div tal:condition="viewdata/hinweis" class="mt-3 row">
-       <div class="col-xs-12 col-sm-12">
+       <div class="col-12 col-md-12">
          <h4>Lösungshinweis</h4>
          <span tal:replace="structure viewdata/hinweis"/>
        </div>
@@ -81,21 +94,21 @@
         <div tal:condition="viewdata/inputfields" class="form-group-lg">
           <div class="row" style="margin-bottom:3px" tal:repeat="inputfield viewdata/inputfields">
 
-          <div tal:condition="inputfield/image" class="col-xs-5 col-sm-3 col-md-3">
+          <div tal:condition="inputfield/image" class="col-5 col-sm-3 col-md-3">
             <div tal:define="image nocall:inputfield/image"
                tal:condition="nocall:image">
             <img class="rounded img-fluid" tal:attributes="src inputfield/image" />
             </div>
           </div>
 
-          <div tal:condition="inputfield/image" class="col-xs-7 col-sm-9 col-md-9">
+          <div tal:condition="inputfield/image" class="col-7 col-sm-9 col-md-9">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" tal:attributes="id viewdata/fieldname; name viewdata/fieldname; value inputfield/value">
             <label class="form-check-label" tal:attributes="for viewdata/fieldname" tal:content="inputfield/label"/>
           </div> <!-- /chekboxfield -->
           </div>
 
-          <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
+          <div tal:condition="not: inputfield/image" class="col-12 col-sm-12 col-md-12">
           <div class="checkbox">
             <label>
               <input type="checkbox" tal:attributes="name viewdata/fieldname; value inputfield/value">
@@ -108,13 +121,24 @@
           </div>
         </div> <!-- /form-group -->
 
-        <div class="mb-2 mt-2 row">
-          <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="row mt-2">
+          <div class="col-12 col-sm-12 col-md-12">
+            <progress tal:condition="python:viewdata.get('bedenkzeit') > 0" value="0" max="14"
+                      tal:attributes="max python:str(viewdata.get('bedenkzeit')-1)" 
+                        style="height:40px;width:100%;color:#cccccc;" id="progressBar"></progress>
+          </div>
+        </div>
+
+        <div class="row mb-2 mt-2">
+          <div class="col-12 col-sm-12 col-md-12">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Absenden</button>
           </div>
         </div>
 
       </form>
+
+      <span tal:condition="python:viewdata.get('bedenkzeit') > 0" tal:replace="structure view/timersnippet"/>
+      <span tal:condition="python:viewdata.get('bedenkzeit') > 0" tal:replace="structure view/delaysnippet"/>
 
     </div> <!-- /container -->
 

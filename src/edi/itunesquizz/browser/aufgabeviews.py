@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.interface import Interface
 from plone import api as ploneapi
 from edi.itunesquizz.aufgabe import IAufgabe
@@ -10,6 +11,23 @@ try:
 except:
     getResultsForQuiz = None
 from Products.Five import BrowserView
+
+timersnippet = """\
+<script>
+  var timeleft = %s;
+  var downloadTimer = setInterval(function(){
+  document.getElementById("progressBar").value = %s - timeleft;
+  timeleft -= 1;
+  if(timeleft <= 0)
+  clearInterval(downloadTimer);
+  }, 1000);
+</script>"""
+
+delaysnippet = """\
+<script>
+  setTimeout("location.href = '%s/%s';",%s);
+</script>"""
+
 
 def sizeof_fmt(num, suffix='Byte'):
     for unit in ['','k','M','G','T','P','E','Z']:
@@ -39,13 +57,24 @@ class AufgabeITunes(BrowserView):
                     option['label'] = i.get('antwort')
                     options.append(option)
         return options
+
+    def set_bedenkzeit(self):
+        self.timersnippet = timersnippet %(self.context.bedenkzeit, self.context.bedenkzeit)
+        self.delaysnippet = delaysnippet %(self.context.absolute_url(), '@@validateaufgabe?timer=fin', self.context.bedenkzeit * 1000)
+
+    def check_edicourse(self):
+        return
+
+    def get_validationurl(self):
+        return self.context.absolute_url() + '/@@validateaufgabe'
                
     def update(self):
+        self.check_edicourse()
         retdict = {}
         portal = ploneapi.portal.get().absolute_url()
         self.statics= portal + '/++resource++edi.itunesquizz'
         portal = ploneapi.portal.get().absolute_url()
-        retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabe'
+        retdict['validationurl'] = self.get_validationurl()
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
@@ -73,83 +102,31 @@ class AufgabeITunes(BrowserView):
         if self.context.video:
             illustration = 'film'
             retdict['film'] = self.context.video
+        retdict['bedenkzeit'] = self.context.bedenkzeit
+        if self.context.bedenkzeit > 0:
+            self.set_bedenkzeit()
         retdict['illustration'] = illustration
         retdict['fieldname'] = self.context.id
         retdict['inputfields'] = self.formatinputs()
         return retdict
 
 
-class AufgabePlone(BrowserView):
+class AufgabePlone(AufgabeITunes):
 
-    def formatinputs(self):
-        options = []
-        if self.context.antworten:
-            for i in self.context.antworten:
-                option = {}
-                if i.get('antwort'):
-                    option['image'] = ''
-                    if i.get('image'):
-                        imgobj = ploneapi.content.get(UID = i.get('image'))
-                        option['image'] = '%s/@@images/image/preview' % imgobj.absolute_url()
-                    option['value'] = 'option_%s' %self.context.antworten.index(i)
-                    option['label'] = i.get('antwort')
-                    options.append(option)
-        return options
+    def set_bedenkzeit(self):
+        self.timersnippet = timersnippet %(self.context.bedenkzeit, self.context.bedenkzeit)
+        self.delaysnippet = delaysnippet %(self.context.absolute_url(), '@@validateaufgabeplone?timer=fin', self.context.bedenkzeit * 1000)
 
-    def update(self):
+    def check_edicourse(self):
         registry = getUtility(IRegistry)
         if registry['edi.itunesquizz.settings.IQuizSettings.iscoursesite'] and getResultsForQuiz:
             retdict = getResultsForQuiz(self.context)
             if retdict:
                 returl = self.context.absolute_url() + '/@@validateaufgabeplone'
-                return self.response.redirect(returl)
-        retdict = {}
-        portal = ploneapi.portal.get().absolute_url()
-        retdict['validationurl'] = self.context.absolute_url() + '/@@validateaufgabeplone'
-        retdict['statics'] = portal + '/++resource++edi.itunesquizz'
-        retdict['title'] = self.context.title
-        retdict['aufgabe'] = self.context.aufgabe
-        retdict['punkte'] = self.context.punkte
-        if self.context.hinweis:
-            retdict['hinweis'] = self.context.hinweis.output
-        else:
-            retdict['hinweis'] = ''
-        retdict['bild'] = ''
-        retdict['datei'] = {}
-        if self.context.datei:
-            datei = {}
-            datei['url'] = "%s/@@filedownload" % self.context.absolute_url()
-            datei['contentType'] = self.context.datei.contentType
-            datei['size'] = sizeof_fmt(self.context.datei.size)
-            datei['filename'] = self.context.datei.filename
-            retdict['datei'] = datei
-        illustration = ''
-        if self.context.image:
-            illustration = 'bild'
-            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
-        if self.context.video:
-            illustration = 'film'
-            retdict['film'] = self.context.absolute_url()
-        retdict['bedenkzeit'] = self.context.bedenkzeit
-        if self.context.bedenkzeit > 0:
-            self.timersnippet = """\
-              <script>
-                var timeleft = %s;
-                var downloadTimer = setInterval(function(){
-                document.getElementById("progressBar").value = %s - timeleft;
-                timeleft -= 1;
-                if(timeleft <= 0)
-                clearInterval(downloadTimer);
-                }, 1000);
-              </script>""" %(self.context.bedenkzeit, self.context.bedenkzeit)
-            self.delaysnippet = """\
-              <script>
-                setTimeout("location.href = '%s/@@validateaufgabeplone';",%s);
-              </script>""" %(self.context.absolute_url(), self.context.bedenkzeit * 1000)
-        retdict['illustration'] = illustration
-        retdict['fieldname'] = self.context.id
-        retdict['inputfields'] = self.formatinputs()
-        return retdict
+                self.request.response.redirect(returl)
+
+    def get_validationurl(self):
+        return self.context.absolute_url() + '/@@validateaufgabeplone'
 
 
 class ValidateAufgabe(BrowserView):
@@ -169,19 +146,19 @@ class ValidateAufgabe(BrowserView):
                 resultoption = 'option_%s' %self.context.antworten.index(i)
                 if not test:
                     myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
-                    myresult['checkbox-img'] = 'glyphicons-basic-154-square-empty.svg'
+                    myresult['checkbox-img'] = 'glyphicons-halflings-59-square-empty.svg'
                     result = False
                     again = True
                 else:
                     if resultoption in test:
                         myresult['checkbox'] = 'glyphicon glyphicon-check'
-                        myresult['checkbox-img'] = 'glyphicons-basic-153-square-checkbox.svg'
+                        myresult['checkbox-img'] = 'glyphicons-halflings-76-square-checkbox.svg'
                         if i.get('bewertung') == u'falsch':
                             result = False
                             again = True
                     else:
                         myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
-                        myresult['checkbox-img'] = 'glyphicons-basic-154-square-empty.svg'
+                        myresult['checkbox-img'] = 'glyphicons-halflings-59-square-empty.svg'
                         if i.get('bewertung') == u'richtig':
                             result = False
                             again = True
@@ -223,7 +200,7 @@ class ValidateAufgabe(BrowserView):
     def update(self):
         retdict = {}
         questionurl = self.context.absolute_url() + '/@@aufgabeitunes'
-        if not self.request.form.get(self.context.id):
+        if not self.request.form.get(self.context.id) and not self.request.get('timer') == 'fin':
             self.request.response.redirect(questionurl)
         portal = ploneapi.portal.get().absolute_url()
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
@@ -398,6 +375,9 @@ class AufgabeView(BrowserView):
         self.bonus = ''
         if self.context.bonus:
             self.bonus = "%s/@@images/bonus" %self.context.absolute_url()
+        self.bedenkzeit = ''
+        if self.context.bedenkzeit > 0:
+            self.bedenkzeit = u"Für diese Aufgabe wurde eine Bedenkzeit von %s Sekunden eingestellt." %self.context.bedenkzeit
         if self.context.antworten:
             for i in self.context.antworten:
                 entry = {}

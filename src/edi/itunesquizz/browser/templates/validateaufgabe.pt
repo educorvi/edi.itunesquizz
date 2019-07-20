@@ -10,47 +10,57 @@
 
     <!-- Titel der Seite -->
     <title tal:content="context/title">Titel der Seite</title>
+
+    <script>
+      function delete_cookie() {
+      document.cookie = 'mycookie' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
+    </script>
+
   </head>
 
-  <body>
+  <body onload="delete_cookie()">
 
     <div tal:condition="outputs/results" class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
+      <div class="row mt-3">
+        <div class="col-12 col-md-12">
           <h5 tal:content="viewdata/title"/>
           <h3 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h3>
         </div>
       </div>
-      <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'" class="row">
+      <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'" class="row mb-3">
          <div tal:repeat="outputfield outputs/results" class="col-xs-12 col-md-12">
            <div class="row">
-             <div class="col-xs-3 col-sm-2 col-md-1">
-               <img class="img-fluid" tal:attributes="src string:${viewdata/statics}/glyphicons/${outputfield/checkbox-img}">
+             <div class="col-2 col-md-1">
+               <img class="img-fluid" tal:attributes="src string:${viewdata/statics}/halflings/${outputfield/checkbox-img}">
              </div>
-             <div class="col-xs-9 col-sm-10 col-md-11">
-               <p tal:content="outputfield/label"></p>
+             <div class="col-10 col-md-11">
+               <p class="pt-1" tal:content="outputfield/label"></p>
              </div>
            </div>
          </div>
       </div>
 
       <div class="row" tal:condition="python: outputs.get('result') == 'text'">
-        <div class="col-xs-12 col-sm-12"><p tal:content="structure outputs/results"/></div>
+        <div class="col-12 col-md-12"><p tal:content="structure outputs/results"/></div>
       </div>
 
       <div tal:condition="python: viewdata.get('art') == 'selbsttest' and outputs.get('result')" class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-        <div class="col-xs-10 col-sm-10 col-md-10">
-          <img src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png"> 
-            <strong style="color:#298A08">Prima, das war richtig!</strong>
+        <div class="col-1 col-md-1"> </div>
+        <div class="col-10 col-md-10">
+          <div class="alert alert-success" role="alert">
+            <img src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
+            Prima das war richtig
+          </div>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+        <div class="col-1 col-md-1"> </div>
       </div>
 
-      <div tal:condition="python: viewdata.get('art') == 'benotet'" class="row">
-        <div class="col-xs-10 col-sm-6 col-md-6">
+      <div tal:condition="python: viewdata.get('art') == 'benotet'" class="row mb-3">
+        <div class="col-10 col-md-5">
          <a href="" tal:attributes="href python:context.absolute_url() + '/qrimage'">
           <img src="" alt=""
+                      class="img-fluid"
                       width="100%"
                       height="100%"
                       tal:attributes="src python:context.absolute_url() + '/qrimage'" />
@@ -60,33 +70,35 @@
       </div>
 
       <div tal:condition="python: viewdata.get('art') == 'selbsttest' and not outputs.get('result')" class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-        <div class="col-xs-10 col-sm-10 col-md-10">
-          <img src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png"> 
-            <strong style="color:#ff0000;">Hm... das war leider falsch!!</strong>
+        <div class="col-1 col-md-1"> </div>
+        <div class="col-10 col-md-10">
+          <div class="alert alert-danger" role="alert">
+            <img src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
+            Hm.. das war leider falsch!
+          </div>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+        <div class="col-1 col-md-1"> </div>
       </div>
 
       <div tal:condition="python:viewdata.get('block-erklaerung')" class="mt-3 row">
-        <div class="col-xs-12 col-sm-12">
+        <div class="col-12 col-sm-12">
           <h4>Erklärung/Lerntipp</h4>
         </div>
-        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('erklaerung')" class="col-xs-12 col-sm-12">
+        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('erklaerung')" class="col-12 col-md-12">
           <p><span tal:replace="structure viewdata/erklaerung"/></p>
         </div>
-        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='bild'" class="col-xs-12 col-sm-12">
+        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='bild'" class="col-12 col-md-12">
           <img class="rounded img-fluid" tal:attributes="src viewdata/bild" />
         </div>
-        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='film'" class="col-xs-12 col-sm-12">
+        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='film'" class="col-12 col-md-12">
           <div class="embed-responsive embed-responsive-16by9">
             <span tal:replace="structure viewdata/film"/>
           </div>
         </div>
       </div>
 
-      <div class="mt-3 row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="mt-3 mb-3 row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
+        <div class="col-12 col-md-12">
           <form tal:condition="outputs/again" class="form-horizontal" tal:attributes="action viewdata/questionurl"> 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Nochmal versuchen</button>
           </form>

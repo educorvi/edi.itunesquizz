@@ -12,6 +12,13 @@
     <tal:main-macro metal:define-macro="main">
 
       <div class="container">
+
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <div tal:replace="structure provider:plone.abovecontenttitle" />
+          </div>
+        </div>
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h2 style="margin-left:5px" class="panel-title" tal:content="context/description">Panel title</h2>

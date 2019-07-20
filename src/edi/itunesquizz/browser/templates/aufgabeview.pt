@@ -13,23 +13,23 @@
     <div class="container" tal:define="update view/update">
 
       <div class="row">
-        <div class="col-xs-12 col-md-12">
+        <div class="col-12 col-md-12">
           <div tal:replace="structure provider:plone.abovecontenttitle" />
         </div>
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-12">
+        <div class="col-12 col-md-12">
           <div tal:condition="view/isquizsite" class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title" tal:content="context/title">Panel title</h2>
             </div>
             <div tal:condition="view/editpanel" style="margin-top:30px; margin-bottom:-10px" class="panel-body">
               <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-6 col-sm-6">
                   <h4><a href="#" tal:attributes="href view/kursordner"><span class="glyphicon glyphicon-chevron-left"/> Zurück</a></h4>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-6 col-sm-6">
                   <h4 style="text-align:right;margin-right:5px">
                     <a href="#" tal:attributes="href python:context.absolute_url()+'/edit'"><span class="glyphicon glyphicon-pencil"/> Bearbeiten</a>
                   </h4>
@@ -42,21 +42,20 @@
       </div>
 
       <div style="margin-left:3px;margin-right:3px" class="row">
-        <div class="col-xs-8 col-sm-8">
+        <div class="col-8 col-sm-8">
           <ul>
             <li>Art der Aufgabenstellung: <span tal:replace="view/aufgabenart"/></li>
             <li>Erreichbare Punktzahl: <span tal:replace="context/punkte"/></li>
           </ul>
         </div>
-        <div class="col-xs-4 col-sm-4"></div>
+        <div class="col-4 col-sm-4"></div>
       </div>
 
       <div tal:condition="context/image" class="row">
-        <div class="col-xs-6 col-sm-8">
-          <h3>Frage bzw. Aufgabe</h3>
-          <p class="documentDescription" tal:content="context/aufgabe"/>
+        <div class="col-6 col-sm-8">
+          <h4 tal:content="context/aufgabe">Frage bzw. Aufgabe</h4>
         </div>
-        <div class="col-xs-6 col-sm-4">
+        <div class="col-6 col-sm-4">
           <div style="margin-top:20px"
                tal:define="image nocall:context/image"
                tal:condition="nocall:image">
@@ -66,35 +65,34 @@
       </div>
 
       <div tal:condition="not: context/image" class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Frage bzw. Aufgabe</h3>
-          <p class="documentDescription" tal:content="context/aufgabe"/>
+        <div class="col-12 col-sm-12">
+          <h4 tal:content="context/aufgabe">Frage bzw. Aufgabe</h4>
         </div>
       </div>
 
       <div tal:condition="context/video" class="row">
-        <div class="col-xs-12 col-sm-12">
+        <div class="col-12 col-sm-12">
           <h3>Video zur Frage bzw. Aufgabe</h3>
         </div>
-        <div style="width:100%;" class="embed-responsive embed-responsive-4by3 col-xs-8 col-sm-6">
+        <div style="width:100%;" class="embed-responsive embed-responsive-16by9 col-8 col-sm-6">
           <span tal:replace="structure view/video"/>
         </div>
       </div>
 
       <div tal:define="datei view/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
-        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
+        <div class="col-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
           <video muted src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
              Dein Browser kann dieses Video nicht wiedergeben.<br/>
              Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
           </video>
         </div>
-        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
+        <div class="col-12 col-sm-12" tal:condition="python: filetype == 'audio/mpeg'">
            <audio src="" tal:attributes="src datei/url;type datei/contentType" controls>
              Dein Browser kann diese Tonaufnahme nicht wiedergeben.<br/>
              Du kannst die Datei unter <a href="#" tal:attributes="href datei/url" tal:content="datei/filename"></a> herunterladen.
            </audio>
         </div>
-        <div class="col-xs-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
+        <div class="col-12 col-sm-12" tal:condition="python: filetype != 'video/mp4' and filetype != 'audio/mpeg'">
            <a href="" tal:attributes="href datei/url">
              <span class="glyphicon glyphicon-download"/>
              <span tal:content="datei/filename"/>
@@ -103,9 +101,11 @@
         </div>
       </div>
 
+      <p tal:condition="view/bedenkzeit"><strong tal:content="view/bedenkzeit"/></p>
+
       <div class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Antwortoptionen</h3>
+        <div class="col-12 col-sm-12">
+          <h4>Antwortoptionen</h4>
           <p tal:condition="not:view/antworten" class="documentDescription">Für diese Aufgabenstellung wurden keine Antwortoptionen angegeben. 
             Der Schüler wird diese Frage bzw. Aufgabenstellung in Form eines Textes beantworten.</p>
 
@@ -127,50 +127,50 @@
       </div>
 
       <div tal:condition="context/hinweis" class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Lösungshinweis</h3>
+        <div class="col-12 col-sm-12">
+          <h4>Lösungshinweis</h4>
           <p tal:content="structure context/hinweis/output"/>
         </div>
       </div>
 
       <div tal:condition="context/erklaerung" class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Erklärung/Lernempfehlung</h3>
+        <div class="col-12 col-sm-12">
+          <h4>Erklärung/Lernempfehlung</h4>
           <p tal:content="structure context/erklaerung/output"/>
         </div>
       </div>
 
       <div tal:condition="context/solutionimage" class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Lösungsbild</h3>
+        <div class="col-12 col-sm-12">
+          <h4>Lösungsbild</h4>
         </div>
-        <div class="col-xs-8 col-sm-6">
+        <div class="col-8 col-sm-6">
           <img class="rounded img-fluid" tal:attributes="src view/solutionimage" />
         </div>
       </div>
 
       <div tal:condition="context/solutionvideo" class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Lösungsvideo</h3>
+        <div class="col-12 col-sm-12">
+          <h4>Lösungsvideo</h4>
         </div>
-        <div style="width:100%;" class="embed-responsive embed-responsive-16by9 col-xs-8 col-sm-6">
+        <div style="width:100%;" class="embed-responsive embed-responsive-16by9 col-8 col-sm-6">
           <span tal:replace="structure view/solutionvideo"/>
         </div>
       </div>
 
       <div tal:condition="context/bonus" class="row">
-        <div class="col-xs-12 col-sm-12">
-          <h3>Bonusbild</h3>
+        <div class="col-12 col-sm-12">
+          <h4>Bonusbild</h4>
           <p>Dieses Bild wird zusammen mit dem Barcode eingeblendet.</p>
         </div>
-        <div class="col-xs-8 col-sm-6">
+        <div class="col-8 col-sm-6">
           <img class="img-responsive" width="100%" tal:attributes="src view/bonus" />
         </div>
       </div>
 
       <div class="mt-3 mb-3 row">
-        <div class="col-xs-12 col-md-12">
-          <h3>Link für Deinen Kurs (z.B. iTunesU)</h3>
+        <div class="col-12 col-md-12">
+          <h4>Link für Deinen Kurs (z.B. iTunesU)</h4>
           <div class="form-group">
             <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
             <input type="text" class="form-control" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>
@@ -181,7 +181,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-12">
+        <div class="col-12 col-md-12">
           <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>
       </div>

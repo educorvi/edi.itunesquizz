@@ -28,6 +28,13 @@
     />
 
   <browser:page
+    name="filedownload"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".filedownload.FileDownload"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="aufgabeitunes"
     for="edi.itunesquizz.aufgabe.IAufgabe"
     class=".aufgabeviews.AufgabeITunes"

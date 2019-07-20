@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de" tal:define="viewdata view/update; outputs viewdata/outputs">
+<html lang="de" tal:define="viewdata view/update; outputs python:viewdata.get('outputs')">
 
   <head>
     <meta charset="utf-8">
@@ -19,7 +19,6 @@
       <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
       <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'">
          <p tal:repeat="outputfield outputs/results">
-           <!--<span class="" style="" tal:attributes="class outputfield/class; style outputfield/style"></span>-->
            <span class="" tal:attributes="class outputfield/checkbox"></span>
            <span tal:content="outputfield/label"></span>
          </p>
@@ -59,28 +58,24 @@
         <div class="col-xs-1 col-sm-1 col-md-1"> </div>
       </div>
 
-      <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('erklaerung')" class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+      <div tal:condition="python:viewdata.get('block-erklaerung')" class="mt-3 row">
+        <div class="col-xs-12 col-sm-12">
           <h4>Erklärung/Lerntipp</h4>
-          <p><span tal:replace="viewdata/erklaerung"/></p>
         </div>
-      </div>
-
-      <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='bild'">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-         <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
+        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('erklaerung')" class="col-xs-12 col-sm-12">
+          <p><span tal:replace="structure viewdata/erklaerung"/></p>
         </div>
-      </div>
-
-      <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='film'">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='bild'" class="col-xs-12 col-sm-12">
+          <img class="rounded img-fluid" tal:attributes="src viewdata/bild" />
+        </div>
+        <div tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='film'" class="col-xs-12 col-sm-12">
           <div class="embed-responsive embed-responsive-16by9">
             <span tal:replace="structure viewdata/film"/>
           </div>
         </div>
       </div>
 
-      <div style="margin-top:20px" class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
+      <div class="mt-3 row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
         <div class="col-xs-12 col-sm-12 col-md-12">
           <form tal:condition="outputs/again" class="form-horizontal" tal:attributes="action viewdata/questionurl"> 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Nochmal versuchen</button>

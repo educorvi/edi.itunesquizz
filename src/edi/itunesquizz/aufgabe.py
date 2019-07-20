@@ -138,13 +138,13 @@ class IAufgabe(model.Schema):
     hinweis = RichText(title=u"Lösungshinweis",
                        required=False,
                        description=u"Erscheint unterhalb der Frage- oder Aufgabenstellung bzw. des Bildes.")
-    erklaerung = RichText(title=u"Erklärung/Lernempfehlung",
+    erklaerung = RichText(title=u"Text als Erklärung/Lerntipp",
                           required=False,
                           description=u"Der Text wird bei fehlerhaften Lösungen zusammen mit dem Ergebnis eingeblendet.")
-    solutionimage = NamedBlobImage(title=u"Bild zur Erklärung der Lösung", 
+    solutionimage = NamedBlobImage(title=u"Bild als Erklärung/Lerntipp", 
                                    description=u"Das Bild wird zusammen mit dem Ergebnis eingeblendet.",
                                    required=False)
-    solutionvideo = schema.Text(title=u"Video zur Erklärung der Lösung (alternativ zum Bild).",
+    solutionvideo = schema.Text(title=u"Alternativ: Video als Erklärung/Lerntipp",
                         description=u"Füge hier den Einbettungscode des Videos ein, der von der Video-Plattform bereitgestellt wird.",
                         required=False,)
     bonus = NamedBlobImage(title=u"Bonusbild zum QR-Code", description=u"Bei benoteten Aufgaben wird Dein Bild mit dem Barcode kombiniert\

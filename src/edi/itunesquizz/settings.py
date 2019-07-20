@@ -51,7 +51,15 @@ class IQuizSettings(Interface):
 
     true_emoji = schema.Choice(title=u"Emoji für erfolgreich gelöste Aufgaben.", vocabulary='quiz.emojis',required=False)
 
+    true_comment = schema.TextLine(title=u"Kommentar für erfolgreich gelöste Aufgaben.",
+                                   default=u"Prima, das war richtig!",
+                                   required=True)
+
     false_emoji = schema.Choice(title=u"Emoji für fehlerhaft gelöste Aufgaben.", vocabulary='quiz.emojis', required=False)
+
+    false_comment = schema.TextLine(title=u"Kommentar für fehlerhaft gelöste Aufgaben.",
+                                   default=u"Hm..., das war leider falsch!",
+                                   required=True)
 
     topexamples = schema.List(title=u"Beispiele für die Bühne",
                               description=u"Wähle hier die Beispiele für die Bühne auf der Startseite aus.",

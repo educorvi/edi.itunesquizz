@@ -5,131 +5,162 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="edi.itunesquizz">
-<body>
 
-<metal:main fill-slot="main">
-    <tal:main-macro metal:define-macro="main">
+  <head>
+    <script>
+      function delete_cookie() {
+      document.cookie = 'mycookie' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
+    </script>
+  </head>
 
-    <div class="row" tal:define="viewdata view/update; outputs viewdata/outputs">
-    
-    <div tal:replace="structure provider:plone.abovecontenttitle" />
+  <body onload="delete_cookie()">
 
-    <div class="col-xs-12 col-sm-12 col-md-12" tal:condition="outputs/results">
-      <h1 tal:content="viewdata/title"/>
-      <h4 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h4>
-      <div class="resultlist" tal:condition="python: outputs.get('result') != 'text'">
-         <p tal:condition="python: viewdata.get('art') == 'benotet' and not outputs.get('result')" 
-            tal:repeat="outputfield outputs/results" tal:attributes="style outputfield/bewertung">
-           <span class="" tal:attributes="class outputfield/checkbox"></span>
-           <span tal:content="outputfield/label"></span>
-         </p>
-         <p tal:condition="python: viewdata.get('art') == 'selbsttest' or outputs.get('result')" 
-            tal:repeat="outputfield outputs/results">
-           <span class="" tal:attributes="class outputfield/checkbox"></span>
-           <span tal:content="outputfield/label"></span>
-         </p>
-      </div>
+    <metal:main fill-slot="main">
+      <tal:main-macro metal:define-macro="main">
 
-      <div class="row" tal:condition="python: outputs.get('result') == 'text'">
-        <div class="col-xs-12 col-sm-12"><p tal:content="structure outputs/results"/></div>
-      </div>
+        <div class="container" tal:define="viewdata view/update; outputs viewdata/outputs">
 
-      <div tal:condition="python: viewdata.get('art') == 'selbsttest' and outputs.get('result')" class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-        <div class="col-xs-10 col-sm-10 col-md-10">
-          <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('true_emoji')" 
-               src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
-          <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')" 
-               src="" tal:attributes="src viewdata/true_emoji">
-          <strong style="color:#298A08;font-size:150%">Prima, das war richtig!</strong>
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-      </div>
-
-      <div tal:condition="python: viewdata.get('art') == 'benotet' and not viewdata.get('qrcode') and outputs.get('result')" class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-        <div class="col-xs-10 col-sm-10 col-md-10">
-          <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('true_emoji')"
-               src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
-          <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')"
-               src="" tal:attributes="src viewdata/true_emoji">
-          <strong style="color:#298A08;font-size:150%">Prima, das war richtig!</strong>
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-      </div>
-
-      <div tal:condition="python: viewdata.get('art') == 'benotet' and viewdata.get('qrcode')" class="row">
-        <div class="col-xs-10 col-sm-6 col-md-6">
-         <a href="" tal:attributes="href python:context.absolute_url() + '/qrimage'">
-          <img src="" alt=""
-                      width="100%"
-                      height="100%"
-                      tal:attributes="src python:context.absolute_url() + '/qrimage'" />
-          <span>Speichere Deine Lösung  als Bild und teile diese mit Deinem Lehrer.</span>
-         </a>
-        </div>
-      </div>
-
-      <div tal:condition="python: viewdata.get('art') == 'selbsttest' and not outputs.get('result')" class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-        <div class="col-xs-10 col-sm-10 col-md-10">
-          <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('false_emoji')"
-               src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
-          <img tal:condition="python: viewdata.get('emoji') and viewdata.get('false_emoji')"
-               src="" tal:attributes="src viewdata/false_emoji">
-          <strong style="color:#ff0000;font-size:120%">Hm... das war leider falsch!!</strong>
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-      </div>
-
-      <div tal:condition="python: viewdata.get('art') == 'benotet' and not viewdata.get('qrcode') and not outputs.get('result')" class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-        <div class="col-xs-10 col-sm-10 col-md-10">
-          <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('false_emoji')"
-               src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
-          <img tal:condition="python: viewdata.get('emoji') and viewdata.get('false_emoji')"
-               src="" tal:attributes="src viewdata/false_emoji">
-          <strong style="color:#ff0000;font-size:120%">Hm... das war leider falsch!!</strong>
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1"> </div>
-      </div>
-
-      <div tal:condition="python: not outputs.get('result') and viewdata.get('erklaerung')" class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          <h4>Erklärung/Lerntipp</h4>
-          <p><span tal:replace="structure viewdata/erklaerung"/></p>
-        </div>
-      </div>
-
-      <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='bild'">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-         <img class="img-rounded img-responsive" tal:attributes="src viewdata/bild" />
-        </div>
-      </div>
-
-      <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='film'">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          <div class="embed-responsive embed-responsive-16by9">
-            <span tal:replace="structure viewdata/film"/>
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <div tal:replace="structure provider:plone.abovecontenttitle" />
+            </div>
           </div>
+       
+          <div class="row" tal:condition="outputs/results">
+            <div class="col-12 col-md-12">
+              <h5 tal:content="viewdata/title"/>
+              <h3 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h3>
+            </div>
+          </div>
+      
+          <div class="row" tal:condition="python: outputs.get('result') != 'text'">
+            <div class="col-12 col-md-12">
+              <p tal:condition="python: viewdata.get('art') == 'benotet' and not outputs.get('result')" 
+                tal:repeat="outputfield outputs/results" tal:attributes="style outputfield/bewertung">
+                <span class="" tal:attributes="class outputfield/checkbox"></span>
+                <span tal:content="outputfield/label"></span>
+              </p>
+              <p tal:condition="python: viewdata.get('art') == 'selbsttest' or outputs.get('result')" 
+                tal:repeat="outputfield outputs/results">
+                <span class="" tal:attributes="class outputfield/checkbox"></span>
+                <span tal:content="outputfield/label"></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="row" tal:condition="python: outputs.get('result') == 'text'">
+            <div class="col-12 col-md-12">
+              <p tal:content="structure outputs/results"/>
+            </div>
+          </div>
+
+          <div tal:condition="python: viewdata.get('art') == 'selbsttest' and outputs.get('result')" class="row">
+            <div class="col-1 col-md-1"> </div>
+            <div class="col-10 col-md-10">
+              <div class="alert alert-success" role="alert">
+                <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('true_emoji')" 
+                  src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
+                <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')" 
+                  src="" tal:attributes="src viewdata/true_emoji">
+                Prima, das war richtig!
+              </div>
+            </div>
+            <div class="col-1 col-md-1"> </div>
+          </div>
+
+          <div tal:condition="python: viewdata.get('art') == 'benotet' and not viewdata.get('qrcode') and outputs.get('result')" class="row">
+            <div class="col-1 col-sm-1 col-md-1"> </div>
+            <div class="col-10 col-md-10">
+              <div class="alert alert-success" role="alert">
+                <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('true_emoji')"
+                  src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
+                <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')"
+                  src="" tal:attributes="src viewdata/true_emoji">
+                Prima, das war richtig!
+              </div>
+            </div>
+            <div class="col-1 col-md-1"> </div>
+          </div>
+
+          <div tal:condition="python: viewdata.get('art') == 'benotet' and viewdata.get('qrcode')" class="row">
+            <div class="col-10 col-md-5">
+              <a href="" tal:attributes="href python:context.absolute_url() + '/qrimage'">
+                <img src="" alt=""
+                     width="100%"
+                     height="100%"
+                     tal:attributes="src python:context.absolute_url() + '/qrimage'" />
+                <span>Speichere Deine Lösung  als Bild und teile diese mit Deinem Lehrer.</span>
+              </a>
+            </div>
+          </div>
+
+          <div tal:condition="python: viewdata.get('art') == 'selbsttest' and not outputs.get('result')" class="row">
+            <div class="col-1 col-md-1"> </div>
+            <div class="col-10 col-md-10">
+              <div class="alert alert-danger" role="alert">
+                <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('false_emoji')"
+                  src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
+                <img tal:condition="python: viewdata.get('emoji') and viewdata.get('false_emoji')"
+                 src="" tal:attributes="src viewdata/false_emoji">
+                Hm... das war leider falsch!
+              </div>
+            </div>
+            <div class="col-1 col-md-1"> </div>
+          </div>
+
+          <div tal:condition="python: viewdata.get('art') == 'benotet' and not viewdata.get('qrcode') and not outputs.get('result')" class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+              <div class="alert alert-danger" role="alert">
+                <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('false_emoji')"
+                  src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
+                <img tal:condition="python: viewdata.get('emoji') and viewdata.get('false_emoji')"
+                  src="" tal:attributes="src viewdata/false_emoji">
+                Hm... das war leider falsch!
+              </div>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1"> </div>
+          </div>
+
+          <div tal:condition="python: not outputs.get('result') and viewdata.get('erklaerung')" class="row">
+            <div class="col-12 col-md-12">
+              <h4>Erklärung/Lerntipp</h4>
+              <p><span tal:replace="structure viewdata/erklaerung"/></p>
+            </div>
+          </div>
+
+          <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='bild'">
+            <div class="col-12 col-md-12">
+              <img class="rounded img-fluid" tal:attributes="src viewdata/bild" />
+            </div>
+          </div>
+
+          <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest' and viewdata.get('illustration')=='film'">
+            <div class="col-12 col-md-12">
+              <div class="embed-responsive embed-responsive-16by9">
+                <span tal:replace="structure viewdata/film"/>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;margin-bottom:10px" class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
+            <div class="col-12 col-sm-12 col-md-12">
+              <form tal:condition="outputs/again" class="form-horizontal" tal:attributes="action viewdata/questionurl"> 
+                <button class="btn btn-lg btn-primary" type="submit">Nochmal versuchen</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <div tal:replace="structure provider:plone.belowcontentbody" />
+            </div>
+          </div>
+
         </div>
-      </div>
 
-      <div style="margin-top:20px;margin-bottom:10px" class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          <form tal:condition="outputs/again" class="form-horizontal" tal:attributes="action viewdata/questionurl"> 
-            <button class="btn btn-lg btn-primary" type="submit">Nochmal versuchen</button>
-          </form>
-        </div>
-      </div>
-    </div> 
-
-    <div tal:replace="structure provider:plone.belowcontentbody" />
-
-    </div>
-
-    </tal:main-macro>
-</metal:main>
-
-</body>
+      </tal:main-macro>
+    </metal:main>
+  </body>
 </html>

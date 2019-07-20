@@ -89,8 +89,8 @@ class AufgabePlone(BrowserView):
                 if i.get('antwort'):
                     option['image'] = ''
                     if i.get('image'):
-                        parenturl = self.context.aq_parent.absolute_url()
-                        option['image'] = '%s/%s/@@images/image' %(parenturl, i.get('image').id)
+                        imgobj = ploneapi.content.get(UID = i.get('image'))
+                        option['image'] = '%s/@@images/image/preview' % imgobj.absolute_url()
                     option['value'] = 'option_%s' %self.context.antworten.index(i)
                     option['label'] = i.get('antwort')
                     options.append(option)

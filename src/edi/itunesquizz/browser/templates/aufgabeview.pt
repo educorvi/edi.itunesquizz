@@ -72,6 +72,15 @@
         </div>
       </div>
 
+      <div tal:condition="context/video" class="row">
+        <div class="col-xs-12 col-sm-12">
+          <h3>Video zur Frage bzw. Aufgabe</h3>
+        </div>
+        <div style="width:100%;" class="embed-responsive embed-responsive-4by3 col-xs-8 col-sm-6">
+          <span tal:replace="structure view/video"/>
+        </div>
+      </div>
+
       <div tal:define="datei view/datei;filetype python:datei.get('contentType')" tal:condition="datei" class="row">
         <div class="col-xs-12 col-sm-12" tal:condition="python: filetype == 'video/mp4'">
           <video muted src="" tal:attributes="src datei/url" type="video/mp4" controls width="70%">
@@ -120,14 +129,14 @@
       <div tal:condition="context/hinweis" class="row">
         <div class="col-xs-12 col-sm-12">
           <h3>Lösungshinweis</h3>
-          <p tal:content="context/hinweis"/>
+          <p tal:content="structure context/hinweis/output"/>
         </div>
       </div>
 
       <div tal:condition="context/erklaerung" class="row">
         <div class="col-xs-12 col-sm-12">
           <h3>Erklärung/Lernempfehlung</h3>
-          <p tal:content="context/erklaerung"/>
+          <p tal:content="structure context/erklaerung/output"/>
         </div>
       </div>
 
@@ -136,7 +145,7 @@
           <h3>Lösungsbild</h3>
         </div>
         <div class="col-xs-8 col-sm-6">
-          <img class="img-responsive" tal:attributes="src view/solutionimage" />
+          <img class="rounded img-fluid" tal:attributes="src view/solutionimage" />
         </div>
       </div>
 
@@ -144,7 +153,7 @@
         <div class="col-xs-12 col-sm-12">
           <h3>Lösungsvideo</h3>
         </div>
-        <div style="width:100%;" class="embed-responsive embed-responsive-4by3 col-xs-8 col-sm-6">
+        <div style="width:100%;" class="embed-responsive embed-responsive-16by9 col-xs-8 col-sm-6">
           <span tal:replace="structure view/solutionvideo"/>
         </div>
       </div>
@@ -159,9 +168,9 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="mt-3 mb-3 row">
         <div class="col-xs-12 col-md-12">
-          <h3>Link für iTunes U</h3>
+          <h3>Link für Deinen Kurs (z.B. iTunesU)</h3>
           <div class="form-group">
             <label for="myInput">Bitte kopiere diesen Link und füge Ihn zu Deiner iTunes U Aufgabe hinzu.</label>
             <input type="text" class="form-control" value="Mein Beispiel" tal:attributes="value view/ituneslink" id="myInput" readonly>

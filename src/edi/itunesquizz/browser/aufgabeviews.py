@@ -58,7 +58,7 @@ class AufgabeITunes(BrowserView):
         retdict['datei'] = {}
         if self.context.datei:
             datei = {}
-            datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            datei['url'] = "%s/@@filedownload" % self.context.absolute_url()
             if self.context.datei.contentType.startswith('audio'):
                 datei['contentType'] = 'audio/mpeg'
             else:
@@ -69,10 +69,10 @@ class AufgabeITunes(BrowserView):
         illustration = ''
         if self.context.image:
             illustration = 'bild'
-            retdict['bild'] = '%s/@@images/image' % self.context.absolute_url()
+            retdict['bild'] = '%s/@@images/image/large' % self.context.absolute_url()
         if self.context.video:
             illustration = 'film'
-            retdict['film'] = self.context.absolute_url()
+            retdict['film'] = self.context.video
         retdict['illustration'] = illustration
         retdict['fieldname'] = self.context.id
         retdict['inputfields'] = self.formatinputs()
@@ -118,7 +118,7 @@ class AufgabePlone(BrowserView):
         retdict['datei'] = {}
         if self.context.datei:
             datei = {}
-            datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            datei['url'] = "%s/@@filedownload" % self.context.absolute_url()
             datei['contentType'] = self.context.datei.contentType
             datei['size'] = sizeof_fmt(self.context.datei.size)
             datei['filename'] = self.context.datei.filename
@@ -192,18 +192,21 @@ class ValidateAufgabe(BrowserView):
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['art'] = self.context.art
+        retdict['erklaerung'] = ''
         if self.context.erklaerung:
             retdict['erklaerung'] = self.context.erklaerung.output
-        else:
-            retdict['erklaerung'] = ''
         retdict['illustration'] = ''
         if self.context.solutionimage:
             retdict['illustration'] = 'bild'
         if self.context.solutionvideo:
             retdict['illustration'] = 'film'
+        retdict['block-erklaerung'] = False
+        if self.context.art == 'selbsttest':
+            if retdict['erklaerung'] or retdict['illustration']:
+                retdict['block-erklaerung'] = True
         retdict['bild'] = ''
         if self.context.solutionimage:
-            retdict['bild'] = "%s/@@images/solutionimage" %self.context.absolute_url()
+            retdict['bild'] = "%s/@@images/solutionimage/large" %self.context.absolute_url()
         retdict['film'] = ''
         if self.context.solutionvideo:
             retdict['film'] = self.context.solutionvideo
@@ -218,7 +221,7 @@ class ValidateAufgabe(BrowserView):
         retdict = {}
         questionurl = self.context.absolute_url() + '/@@aufgabeitunes'
         if not self.request.form.get(self.context.id):
-            return self.response.redirect(questionurl)
+            self.request.response.redirect(questionurl)
         portal = ploneapi.portal.get().absolute_url()
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         retdict['questionurl'] = questionurl
@@ -368,11 +371,14 @@ class AufgabeView(BrowserView):
         self.statics = portal + '/++resource++edi.itunesquizz'
         self.datei = {}
         if self.context.datei:
-            self.datei['url'] = "%s/@@download/datei/%s" %(self.context.absolute_url(), self.context.datei.filename)
+            self.datei['url'] = "%s/@@filedownload" % self.context.absolute_url()
             self.datei['contentType'] = self.context.datei.contentType
             self.datei['size'] = sizeof_fmt(self.context.datei.size)
             self.datei['filename'] = self.context.datei.filename
         self.aufgabenart = aufgabenart.getTerm(self.context.art).title
+        self.video = ''
+        if self.context.video:
+            self.video = self.context.video
         self.images = False
         if hasattr(self.context, 'webcode'):
             if self.context.webcode:

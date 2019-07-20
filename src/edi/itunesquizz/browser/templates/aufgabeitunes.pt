@@ -19,11 +19,11 @@
 
       <div class="row">
         <div class="col-xs-12 col-sm-12">
-          <h4 tal:content="viewdata/title"/>
+          <h5 tal:content="viewdata/title"/>
           <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
           <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst <span tal:replace="context/punkte"/> Punkte
              mit der richtigen Antwort.</strong></p>
-          <h2 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h2>
+          <h3 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h3>
         </div>
       </div>
 
@@ -92,7 +92,7 @@
           <div class="form-check">
             <input class="form-check-input" type="checkbox" tal:attributes="id viewdata/fieldname; name viewdata/fieldname; value inputfield/value">
             <label class="form-check-label" tal:attributes="for viewdata/fieldname" tal:content="inputfield/label"/>
-          </div> <-- /chekboxfield -->
+          </div> <!-- /chekboxfield -->
           </div>
 
           <div tal:condition="not: inputfield/image" class="col-xs-12 col-sm-12 col-md-12">
@@ -102,7 +102,7 @@
               
               <span tal:replace="inputfield/label"/>
             </label>
-          </div> <-- /chekboxfield -->
+          </div> <!-- /chekboxfield -->
           </div>
 
           </div>

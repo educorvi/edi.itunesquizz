@@ -169,16 +169,19 @@ class ValidateAufgabe(BrowserView):
                 resultoption = 'option_%s' %self.context.antworten.index(i)
                 if not test:
                     myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
+                    myresult['checkbox-img'] = 'glyphicons-basic-154-square-empty.svg'
                     result = False
                     again = True
                 else:
                     if resultoption in test:
                         myresult['checkbox'] = 'glyphicon glyphicon-check'
+                        myresult['checkbox-img'] = 'glyphicons-basic-153-square-checkbox.svg'
                         if i.get('bewertung') == u'falsch':
                             result = False
                             again = True
                     else:
                         myresult['checkbox'] = 'glyphicon glyphicon-unchecked'
+                        myresult['checkbox-img'] = 'glyphicons-basic-154-square-empty.svg'
                         if i.get('bewertung') == u'richtig':
                             result = False
                             again = True

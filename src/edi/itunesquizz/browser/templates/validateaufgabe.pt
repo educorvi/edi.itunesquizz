@@ -49,8 +49,11 @@
         <div class="col-1 col-md-1"> </div>
         <div class="col-10 col-md-10">
           <div class="alert alert-success" role="alert">
-            <img src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
-            Prima das war richtig
+            <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('true_emoji')"
+              src="" tal:attributes="src string:${viewdata/statics}/images/richtig.png">
+            <img tal:condition="python: viewdata.get('emoji') and viewdata.get('true_emoji')"
+              src="" tal:attributes="src viewdata/true_emoji">
+            <span tal:replace="python: viewdata.get('true_comment')"/>
           </div>
         </div>
         <div class="col-1 col-md-1"> </div>
@@ -73,8 +76,11 @@
         <div class="col-1 col-md-1"> </div>
         <div class="col-10 col-md-10">
           <div class="alert alert-danger" role="alert">
-            <img src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
-            Hm.. das war leider falsch!
+            <img tal:condition="python: viewdata.get('emoji') and not viewdata.get('false_emoji')"
+              src="" tal:attributes="src string:${viewdata/statics}/images/falsch.png">
+            <img tal:condition="python: viewdata.get('emoji') and viewdata.get('false_emoji')"
+              src="" tal:attributes="src viewdata/false_emoji">
+            <span tal:replace="python: viewdata.get('false_comment')"/>
           </div>
         </div>
         <div class="col-1 col-md-1"> </div>

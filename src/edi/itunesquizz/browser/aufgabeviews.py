@@ -188,6 +188,17 @@ class ValidateAufgabe(BrowserView):
                pass # Default Emoji
         return override_emojis
 
+    def get_overridecomments(self):
+        registry = getUtility(IRegistry)
+        override_comments = {'true_comment':u'Prima, das war richtig!', 'false_comment':u'Hm..., das war leider falsch!'}
+        override_true = registry['edi.itunesquizz.settings.IQuizSettings.true_comment']
+        if override_true:
+            override_comments['true_comment'] = override_true
+        override_false = registry['edi.itunesquizz.settings.IQuizSettings.false_comment']
+        if override_false:
+            override_comments['false_comment'] = override_false
+        return override_comments
+
     def formataufgabe(self, retdict):
         registry = getUtility(IRegistry)
         retdict['emoji'] = True
@@ -197,6 +208,9 @@ class ValidateAufgabe(BrowserView):
         override_emojis = self.get_overrideemojis()
         retdict['true_emoji'] = override_emojis.get('true_emoji')
         retdict['false_emoji'] = override_emojis.get('false_emoji')
+        comments = self.get_overridecomments()
+        retdict['true_comment'] = comments.get('true_comment')
+        retdict['false_comment'] = comments.get('false_comment')
         retdict['title'] = self.context.title
         retdict['aufgabe'] = self.context.aufgabe
         retdict['art'] = self.context.art

@@ -97,7 +97,7 @@
           <div tal:condition="viewdata/hinweis" class="row">
             <div class="col-12 col-md-12">
               <blockquote class="blockquote">
-                <p class="mb-0" tal:content="viewdata/hinweis"/>
+                <p class="mb-0" tal:replace="structure viewdata/hinweis"/>
               </blockquote>
             </div>
           </div>

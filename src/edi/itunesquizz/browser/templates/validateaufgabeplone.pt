@@ -34,10 +34,16 @@
             </div>
           </div>
       
-          <div class="row" tal:condition="python: outputs.get('result') != 'text'">
+          <div class="mb-5 row" tal:condition="python: outputs.get('result') != 'text'">
             <div class="col-12 col-md-12">
-              <p tal:condition="python: viewdata.get('art') == 'benotet' and not outputs.get('result')" 
-                tal:repeat="outputfield outputs/results" tal:attributes="style outputfield/bewertung">
+              <ul class="list-group">
+              <li tal:condition="python: viewdata.get('art') == 'benotet' and not viewdata.get('qrcode') and not outputs.get('result')" 
+                tal:repeat="outputfield outputs/results" tal:attributes="class outputfield/bewertung">
+                <span class="" tal:attributes="class outputfield/checkbox"></span>
+                <span tal:content="outputfield/label"></span>
+              </li>
+              <p tal:condition="python: viewdata.get('art') == 'benotet' and viewdata.get('qrcode') and not outputs.get('result')" 
+                tal:repeat="outputfield outputs/results">
                 <span class="" tal:attributes="class outputfield/checkbox"></span>
                 <span tal:content="outputfield/label"></span>
               </p>
@@ -144,7 +150,7 @@
             </div>
           </div>
 
-          <div style="margin-top:20px;margin-bottom:10px" class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
+          <div class="row" tal:condition="python: viewdata.get('art') == 'selbsttest'">
             <div class="col-12 col-sm-12 col-md-12">
               <form tal:condition="outputs/again" class="form-horizontal" tal:attributes="action viewdata/questionurl"> 
                 <button class="btn btn-lg btn-primary" type="submit">Nochmal versuchen</button>

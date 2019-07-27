@@ -42,12 +42,12 @@
 
       <div tal:condition="python: viewdata.get('illustration')=='bild'" class="mt-3 row">
         <div class="col-12 col-md-12">
-          <img class="rounded img-fluid" tal:attributes="src viewdata/bild" />
+          <img class="shadow p-3 rounded img-fluid" tal:attributes="src viewdata/bild" />
         </div>
       </div>
 
       <div class="mt-3 row" tal:condition="python: viewdata.get('illustration')=='film'">
-        <div class="col-12 col-md-12">    
+        <div class="shadow p-3 col-12 col-md-12">    
           <div class="embed-responsive embed-responsive-16by9">
             <span tal:replace="structure viewdata/film"/>
           </div>
@@ -92,7 +92,7 @@
         </div>
 
         <div tal:condition="viewdata/inputfields" class="form-group-lg">
-          <div class="row" style="margin-bottom:3px" tal:repeat="inputfield viewdata/inputfields">
+          <div class="row mb-1" tal:repeat="inputfield viewdata/inputfields">
 
           <div tal:condition="inputfield/image" class="col-5 col-sm-3 col-md-3">
             <div tal:define="image nocall:inputfield/image"

@@ -37,8 +37,8 @@ def sizeof_fmt(num, suffix='Byte'):
     return "%.2f %s%s" % (num, 'Y', suffix)
 
 def backcolor(bewertung):
-    colors = {'richtig':'background-color:#99E090',
-              'falsch':'background-color:#FFE4E1'}
+    colors = {'richtig':'list-group-item list-group-item-success',
+              'falsch':'list-group-item list-group-item-danger'}
     return colors.get(bewertung)
 
 class AufgabeITunes(BrowserView):

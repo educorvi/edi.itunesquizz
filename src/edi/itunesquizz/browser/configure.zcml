@@ -1,12 +1,9 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="edi.itunesquizz">
 
-  <include package="five.grok" />
-  <grok:grok package="." />
   <include package="Products.CMFCore" file="permissions.zcml" />
 
   <include package="z3c.jbot" file="meta.zcml" />

@@ -32,6 +32,5 @@ class MessengerView(BrowserView):
             phones = ['491622600497','491623737150']
         for i in phones:
             whatsapp = message % (i, nachricht)
-            print whatsapp
             senden = system(whatsapp)
         return {'telefone':phones, 'nachricht':nachricht}

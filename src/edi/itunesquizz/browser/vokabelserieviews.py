@@ -236,7 +236,6 @@ class VokabelserieFinal(BrowserView):
         retdict['statics'] = portal + '/++resource++edi.itunesquizz'
         retdict['title'] = self.context.title
         retdict['text'] = self.context.textnach.output
-        print len(results)
         retdict['outputs'] = results
         return retdict
             

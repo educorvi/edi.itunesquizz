@@ -4,7 +4,10 @@ import numpy as np
 import requests
 from PIL import Image
 from zope.interface import Interface
-from cStringIO import StringIO
+try:
+    from cStringIO import StringIO
+except:
+    from io import StringIO
 from plone import api as ploneapi
 from pymongo import MongoClient
 from Products.Five import BrowserView

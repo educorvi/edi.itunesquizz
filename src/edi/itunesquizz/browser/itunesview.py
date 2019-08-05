@@ -25,7 +25,7 @@ class iTunesView(BrowserView):
                 viewextension = u'/@@vokabelserieitunes'
             return self.request.response.redirect(obj.absolute_url() + viewextension)
         else:
-            print 'return to error-site'
+            print('return to error-site')
 
 class ITunes_Aufgabe_Validation(BrowserView):
 

@@ -128,7 +128,6 @@ class AufgabePlone(AufgabeITunes):
     def get_validationurl(self):
         return self.context.absolute_url() + '/@@validateaufgabeplone'
 
-
 class ValidateAufgabe(BrowserView):
 
     def formatoutputs(self, test):
@@ -313,6 +312,7 @@ class AufgabeView(BrowserView):
                 self.ituneslink = portal + '/@@itunesview?code=' + self.context.webcode
         else:
             self.ituneslink = self.context.absolute_url() + '/@@aufgabeitunes'
+        self.messagelink = self.context.absolute_url() + '/@@messenger'
         self.antworten = []
         self.solutionimage = ''
         if self.context.solutionimage:

@@ -30,7 +30,6 @@ from zope.interface import directlyProvides
 from z3c.form.browser.radio import RadioWidget
 from plone.supermodel import model
 from plone.indexer import indexer
-from five import grok
 
 wertvalues = SimpleVocabulary(
     [SimpleTerm(value=u'auswahl', token=u'auswahl', title=u'bitte auswählen'),

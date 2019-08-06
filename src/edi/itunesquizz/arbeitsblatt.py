@@ -52,7 +52,7 @@ def possibleArticle(context):
     if homefolder:
         homepath = homefolder.getPhysicalPath()
         portalpath = '/'.join(homepath)
-        brains = ploneapi.content.find(path=portalpath, portal_type=['Aufgabe', 'Experiment'])
+        brains = ploneapi.content.find(context = context.aq_parent, portal_type=['Aufgabe', 'Experiment'])
         for i in brains:
             obj = i.getObject()
             mytype = i.portal_type

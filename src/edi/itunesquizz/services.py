@@ -1,9 +1,13 @@
 from plone.rest import Service
+import ast
+import jsonlib
+from Products.Five import BrowserView
 
-class ValidateAufgabe(Service):
+class ValidateAufgabe(BrowserView):
 
-    def render(self):
+    def __call__(self):
         data = self.request.get('data')
+        data = ast.literal_eval(data)
         result = True
         solution = []
         for i in self.context.antworten:
@@ -15,7 +19,9 @@ class ValidateAufgabe(Service):
                 solution.append(False)
                 if self.context.antworten.index(i) in data:
                     result = False
-        import pdb;pdb.set_trace()
+        self.request.response.setHeader("Content-type", "application/json")     
+        self.request.response.setHeader("Access-Control-Allow-Origin", "*")     
         retdict = {'result':result,
                    'solution':solution}
-        return str(retdict)
+        payload = jsonlib.write(retdict)
+        return payload

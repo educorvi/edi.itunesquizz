@@ -53,6 +53,7 @@ setup(
         'requests',
         'pymongo',
         'python-magic',
+        'plone.rest',
     ],
     extras_require={
         'test': [

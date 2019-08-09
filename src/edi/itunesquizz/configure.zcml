@@ -74,4 +74,13 @@
      allow_methods="GET"
      />
 
+   <plone:service
+     method="GET"
+     accept="application/json"
+     for="edi.itunesquizz.aufgabe.IAufgabe"
+     factory=".services.ValidateAufgabe"
+     name="validate-aufgabe-rest"
+     permission="zope2.View"
+     />
+
 </configure>

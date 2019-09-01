@@ -60,45 +60,11 @@
       permission="cmf.ManagePortal"
       />
 
-   <plone:CORSPolicy
-     for="edi.itunesquizz.aufgabe.IAufgabe"
-     layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
-     allow_origin="*"
-     allow_methods="GET"
-     />
-
-   <plone:CORSPolicy
-     for="edi.itunesquizz.kursordner.IKursordner"
-     layer="edi.itunesquizz.interfaces.IEdiItunesquizzLayer"
-     allow_origin="*"
-     allow_methods="GET"
-     />
-
-   <plone:CORSPolicy
-     allow_origin="*"
-     allow_methods="DELETE,GET,OPTIONS,PATCH,POST,PUT"
-     allow_credentials="true"
-     expose_headers="Content-Length,X-My-Header"
-     allow_headers="Accept,Authorization,Content-Type,X-Custom-Header"
-     max_age="3600"
-     />
-
   <browser:page
     name="validate-aufgabe-rest"
     for="*"
     class=".services.ValidateAufgabe"
     permission="zope2.View"
     />
-
-<!--
-   <plone:service
-     method="GET"
-     accept="application/json"
-     for="edi.itunesquizz.aufgabe.IAufgabe"
-     factory=".services.ValidateAufgabe"
-     name="validate-aufgabe-rest"
-     permission="zope2.View"
-     />
--->
 
 </configure>

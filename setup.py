@@ -54,7 +54,8 @@ setup(
         'pymongo',
         'python-magic',
         'plone.rest',
-        'jsonlib-python3', 
+        'jsonlib',
+        #'jsonlib-python3', 
     ],
     extras_require={
         'test': [

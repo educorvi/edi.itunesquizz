@@ -48,6 +48,21 @@
     />
 
   <browser:page
+    name="aufgabevue"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.AufgabeVue"
+    template="templates/aufgabevue.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="validate"
+    for="edi.itunesquizz.aufgabe.IAufgabe"
+    class=".aufgabeviews.ValidateVue"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="validateaufgabe"
     for="edi.itunesquizz.aufgabe.IAufgabe"
     class=".aufgabeviews.ValidateAufgabe"

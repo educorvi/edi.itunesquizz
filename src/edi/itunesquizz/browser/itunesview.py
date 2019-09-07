@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.interface import Interface
 from plone import api as ploneapi
 from pymongo import MongoClient
@@ -15,6 +16,12 @@ class iTunesView(BrowserView):
             obj = brains[0].getObject()
             if obj.portal_type == 'Aufgabe':
                 viewextension = u'/@@aufgabeitunes'
+                if obj.antworten:
+                    if obj.antworten[0].get('bewertung') == 'reihe':
+                        viewurl = u'/@@aufgabevue'
+                        jsdata = u'/#/%s' % obj.absolute_url().replace(u'/', u'§')
+                        viewextension = viewurl + jsdata
+                        #@@aufgabevue/#/https:§§quiz.educorvi.de§Members§julian--pollinger§testordner§reihenfolge
             elif obj.portal_type == 'Experiment':
                 viewextension = u'/@@experimentitunes'
             elif obj.portal_type == 'Arbeitsblatt':

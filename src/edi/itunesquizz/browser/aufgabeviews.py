@@ -110,7 +110,6 @@ class AufgabeITunes(BrowserView):
         retdict['inputfields'] = self.formatinputs()
         return retdict
 
-
 class AufgabePlone(AufgabeITunes):
 
     def set_bedenkzeit(self):
@@ -127,6 +126,9 @@ class AufgabePlone(AufgabeITunes):
 
     def get_validationurl(self):
         return self.context.absolute_url() + '/@@validateaufgabeplone'
+
+class AufgabeVue(AufgabePlone):
+    """Rendert ein Javascript"""
 
 class ValidateAufgabe(BrowserView):
 
@@ -274,6 +276,11 @@ class ValidateAufgabePlone(ValidateAufgabe):
 
     def get_questionurl(self):
         return self.context.absolute_url() + '/@@aufgabeplone'
+
+class ValidateVue(BrowserView):
+
+    def __call__(self):
+        import pdb;pdb.set_trace()
 
 
 class AufgabeView(BrowserView):

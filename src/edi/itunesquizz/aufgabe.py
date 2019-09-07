@@ -33,7 +33,9 @@ from plone.indexer import indexer
 wertvalues = SimpleVocabulary(
     [SimpleTerm(value=u'auswahl', token=u'auswahl', title=u'bitte auswählen'),
      SimpleTerm(value=u'falsch', token=u'falsch', title=u'falsch'),
-     SimpleTerm(value=u'richtig', token=u'richtig', title=u'richtig')]
+     SimpleTerm(value=u'richtig', token=u'richtig', title=u'richtig'),
+     SimpleTerm(value=u'reihe', token=u'reihe', title=u'Reihenfolge'),
+     SimpleTerm(value=u'position', token=u'position', title=u'Position')]
     )
 
 
@@ -87,6 +89,10 @@ class IAnswerOptions(model.Schema):
     image = schema.Choice(title=u"Bild zur Antwort",
                           source=possibleImages,
                           default=u'educorvi',
+                          required=False)
+    
+    position = schema.List(title=u"Positionsdaten",
+                          value_type=schema.Float(),
                           required=False)
 
     bewertung = schema.Choice(title=u"Bewertung",

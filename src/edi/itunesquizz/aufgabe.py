@@ -20,7 +20,6 @@ from zope.schema.interfaces import IContextSourceBinder
 from plone.namedfile.field import NamedBlobImage
 from plone.namedfile.field import NamedBlobFile
 from z3c.relationfield.schema import RelationChoice
-from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.app.vocabularies.catalog import CatalogSource
 from plone.app.contenttypes.interfaces import IImage
 from plone import api as ploneapi

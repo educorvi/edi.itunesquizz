@@ -45,7 +45,6 @@ setup(
         'setuptools',
         'z3c.jbot',
         'collective.z3cform.datagridfield',
-        'plone.formwidget.contenttree',
         'plone.app.registry',
         'Pillow',
         'qrcode',
@@ -54,8 +53,8 @@ setup(
         'pymongo',
         'python-magic',
         'plone.rest',
-        'jsonlib',
-        #'jsonlib-python3', 
+        #'jsonlib',
+        'jsonlib-python3', 
     ],
     extras_require={
         'test': [

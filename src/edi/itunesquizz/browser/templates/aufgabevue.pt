@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="edi.itunesquizz"
+      tal:define="viewdata view/update; statics viewdata/statics">
+
+  <head>
+    <link href="" tal:attributes="href string:${statics}/assets/css/app.css" rel="preload" as="style">
+    <link href="" tal:attributes="href string:${statics}/assets/css/chunk-vendors.css" rel="preload" as="style">
+    <link href="" tal:attributes="href string:${statics}/assets/js/app.js" rel="preload" as="script">
+    <link href="" tal:attributes="href string:${statics}/assets/js/chunk-vendors.js" rel="preload" as="script">
+    <link href="" tal:attributes="href string:${statics}/assets/css/chunk-vendors.css" rel="stylesheet">
+    <link href="" tal:attributes="href string:${statics}/assets/css/app.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <metal:main fill-slot="main">
+      <tal:main-macro metal:define-macro="main">
+
+        <div class="container" tal:define="viewdata view/update">
+
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <div tal:replace="structure provider:plone.abovecontenttitle" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <h5 tal:content="viewdata/title"/>
+              <p tal:condition="python:context.art=='selbsttest'"><strong>Das ist eine Selbsttestaufgabe.</strong></p>
+              <p tal:condition="python:context.art=='benotet'"><strong>Diese Aufgabe wird benotet. Du bekommst 
+                <span tal:replace="context/punkte"/> Punkte mit der richtigen Antwort.</strong></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <h3 class="form-signin-heading" tal:content="viewdata/aufgabe">Aufgabenstellung</h3>
+            </div>
+          </div>
+
+          <div id="app"></div>
+
+          <script tal:attributes="src string:${statics}/assets/js/chunk-vendors.js"></script>
+          <script tal:attributes="src string:${statics}/assets/js/app.js"></script>
+
+        </div><!--container-->
+
+      </tal:main-macro>
+    </metal:main>
+
+  </body>
+</html>
